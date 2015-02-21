@@ -15,13 +15,15 @@ public abstract class EltName implements Name {
 
 	public abstract boolean isQualified();
 
-	public abstract EltName getQualifier();
+	public abstract EltName qualifier();
 
-	public abstract EltName getSimpleName();
+	public abstract EltSimpleName simpleName();
 
-	public EltName getRootQualifier() {
-		return isQualified() ? getQualifier().getRootQualifier() : getSimpleName();
+	public EltSimpleName rootQualifier() {
+		return isQualified() ? qualifier().rootQualifier() : simpleName();
 	}
+
+	public abstract EltName withoutRoot();
 
 	public boolean isEmpty() {
 		return nameString.isEmpty();

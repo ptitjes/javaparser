@@ -35,10 +35,18 @@ public class JavaAnalyser {
 				return file.isDirectory();
 			}
 		};
+		FileFilter packageSourceFilter = new FileFilter() {
+			@Override
+			public boolean accept(File file) {
+				String name = file.getName();
+				return name.equals("package.java");
+			}
+		};
 		FileFilter javaSourceFilter = new FileFilter() {
 			@Override
 			public boolean accept(File file) {
-				return file.getName().endsWith(".java");
+				String name = file.getName();
+				return name.endsWith(".java") && !name.equals("package.java");
 			}
 		};
 
@@ -50,20 +58,14 @@ public class JavaAnalyser {
 			File current = directories.poll();
 
 			directories.addAll(Arrays.asList(current.listFiles(directoryFilter)));
+			sourceFiles.addAll(Arrays.asList(current.listFiles(packageSourceFilter)));
 			sourceFiles.addAll(Arrays.asList(current.listFiles(javaSourceFilter)));
 		}
 
-		List<CompilationUnit> compilationUnits = new ArrayList<CompilationUnit>();
+		Analysis analysis = new Analysis();
 		for (File sourceFile : sourceFiles) {
-			compilationUnits.add(JavaParser.parse(sourceFile, encoding, considerComments));
+			analysis.addCompilationUnit(JavaParser.parse(sourceFile, encoding, considerComments));
 		}
-
-		return buildModel(compilationUnits);
-	}
-
-	public Analysis buildModel(final List<CompilationUnit> compilationUnits) {
-		Analysis analysis = new Analysis(compilationUnits);
-		analysis.run();
 		return analysis;
 	}
 }

@@ -3,12 +3,12 @@ package com.github.javaparser.model.scope;
 /**
  * @author Didier Villevalois
  */
-class EltQualifiedName extends EltName {
+public class EltQualifiedName extends EltName {
 
 	private final EltName qualifier;
-	private final EltName simple;
+	private final EltSimpleName simple;
 
-	EltQualifiedName(String nameString, EltName qualifier, EltName simple) {
+	EltQualifiedName(String nameString, EltName qualifier, EltSimpleName simple) {
 		super(nameString);
 		this.qualifier = qualifier;
 		this.simple = simple;
@@ -20,12 +20,20 @@ class EltQualifiedName extends EltName {
 	}
 
 	@Override
-	public EltName getQualifier() {
+	public EltName qualifier() {
 		return qualifier;
 	}
 
 	@Override
-	public EltName getSimpleName() {
+	public EltSimpleName simpleName() {
 		return simple;
+	}
+
+	@Override
+	public EltName withoutRoot() {
+		EltName qualifierWithoutRoot = qualifier.withoutRoot();
+		return new EltQualifiedName(
+				qualifierWithoutRoot.toString() + '.' + simple.toString(),
+				qualifierWithoutRoot, simple);
 	}
 }

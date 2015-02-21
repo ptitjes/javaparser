@@ -7,6 +7,13 @@ public abstract class EltNames {
 
 	public static final EltName empty = new EltSimpleName("");
 
+	public static EltSimpleName makeSimple(String name) {
+		if (name.lastIndexOf('.') != -1)
+			throw new IllegalArgumentException("Name is not simple");
+
+		return new EltSimpleName(name);
+	}
+
 	public static EltName make(String name) {
 		if (name.isEmpty()) {
 			return empty;
@@ -18,11 +25,11 @@ public abstract class EltNames {
 
 		return new EltQualifiedName(name,
 				make(name.substring(0, dotIndex)),
-				make(name.substring(dotIndex + 1)));
+				makeSimple(name.substring(dotIndex + 1)));
 	}
 
 	public static EltName make(EltName qualifier, String name) {
 		return new EltQualifiedName(qualifier.toString() + '.' + name,
-				qualifier, make(name));
+				qualifier, makeSimple(name));
 	}
 }

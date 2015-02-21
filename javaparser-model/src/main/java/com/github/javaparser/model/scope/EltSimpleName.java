@@ -3,7 +3,7 @@ package com.github.javaparser.model.scope;
 /**
  * @author Didier Villevalois
  */
-class EltSimpleName extends EltName {
+public class EltSimpleName extends EltName {
 
 	EltSimpleName(String name) {
 		super(name);
@@ -15,12 +15,17 @@ class EltSimpleName extends EltName {
 	}
 
 	@Override
-	public EltName getSimpleName() {
+	public EltSimpleName simpleName() {
 		return this;
 	}
 
 	@Override
-	public EltName getQualifier() {
+	public EltName qualifier() {
 		return null;
+	}
+
+	@Override
+	public EltName withoutRoot() {
+		throw new IllegalArgumentException("Name is not qualified");
 	}
 }

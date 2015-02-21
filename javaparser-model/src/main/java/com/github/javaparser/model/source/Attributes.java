@@ -1,8 +1,9 @@
 package com.github.javaparser.model.source;
 
 import com.github.javaparser.ast.Node;
+import com.github.javaparser.ast.expr.StringLiteralExpr;
 import com.github.javaparser.model.source.base.SrcFile;
-import com.github.javaparser.model.source.element.SrcElem;
+import com.github.javaparser.model.element.Elem;
 import com.github.javaparser.model.scope.Scope;
 
 /**
@@ -35,7 +36,7 @@ public class Attributes {
 		return node;
 	}
 
-	public SrcElem definedElement() {
+	public Elem definedElement() {
 		return null;
 	}
 

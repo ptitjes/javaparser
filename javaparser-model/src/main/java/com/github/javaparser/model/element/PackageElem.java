@@ -26,8 +26,6 @@ public class PackageElem extends Elem implements PackageElement {
 
 	@Override
 	protected void addEnclosedElem(Elem elem) {
-		super.addEnclosedElem(elem);
-
 		EltSimpleName name = elem.getSimpleName();
 		if (name.isEmpty()) return;
 
@@ -36,6 +34,7 @@ public class PackageElem extends Elem implements PackageElement {
 			case INTERFACE:
 			case ANNOTATION_TYPE:
 			case ENUM:
+				enclosed.add(elem);
 				types.put(name, (TypeElem) elem);
 				break;
 		}

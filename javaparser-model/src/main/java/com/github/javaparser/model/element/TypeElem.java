@@ -37,8 +37,6 @@ public class TypeElem extends Elem implements TypeElement {
 
 	@Override
 	protected void addEnclosedElem(Elem elem) {
-		super.addEnclosedElem(elem);
-
 		EltSimpleName name = elem.getSimpleName();
 		if (name.isEmpty()) return;
 
@@ -50,16 +48,19 @@ public class TypeElem extends Elem implements TypeElement {
 			case INTERFACE:
 			case ANNOTATION_TYPE:
 			case ENUM:
+				enclosed.add(elem);
 				types.put(name, (TypeElem) elem);
 				break;
 			case CONSTRUCTOR:
 			case METHOD:
 			case STATIC_INIT:
 			case INSTANCE_INIT:
+				enclosed.add(elem);
 				executables.put(name, (ExecutableElem) elem);
 				break;
 			case FIELD:
 			case ENUM_CONSTANT:
+				enclosed.add(elem);
 				variables.put(name, (VariableElem) elem);
 				break;
 		}

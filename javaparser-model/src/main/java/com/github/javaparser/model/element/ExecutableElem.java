@@ -28,7 +28,6 @@ public class ExecutableElem extends Elem implements ExecutableElement {
 
 	@Override
 	protected void addEnclosedElem(Elem elem) {
-		super.addEnclosedElem(elem);
 		EltSimpleName name = elem.getSimpleName();
 
 		switch (elem.getKind()) {

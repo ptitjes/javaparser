@@ -24,7 +24,7 @@ public abstract class Elem implements Element {
 	private final Set<Modifier> modifiers;
 	private final EltSimpleName simpleName;
 	private final ElementKind kind;
-	private final List<Elem> enclosed = new ArrayList<Elem>();
+	protected final List<Elem> enclosed = new ArrayList<Elem>();
 
 	public Elem(Origin origin, Scope parentScope, Elem enclosing, Set<Modifier> modifiers, EltSimpleName simpleName, ElementKind kind) {
 		this.origin = origin;
@@ -48,7 +48,6 @@ public abstract class Elem implements Element {
 	public abstract Scope scope();
 
 	protected void addEnclosedElem(Elem elem) {
-		enclosed.add(elem);
 	}
 
 	@Override

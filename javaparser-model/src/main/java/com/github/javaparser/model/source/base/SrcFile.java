@@ -8,6 +8,7 @@ import com.github.javaparser.model.element.VariableElem;
 import com.github.javaparser.model.scope.EltName;
 import com.github.javaparser.model.scope.EltSimpleName;
 import com.github.javaparser.model.scope.Scope;
+import com.github.javaparser.model.scope.ScopeException;
 import com.github.javaparser.model.source.Attributes;
 
 import java.util.ArrayList;
@@ -67,8 +68,8 @@ public class SrcFile extends Attributes {
 			if (candidates.size() == 1) {
 				return candidates.get(0);
 			} else if (candidates.size() > 1) {
-				// TODO make custom runtime exception and handle gracefully in phases
-				throw new IllegalStateException();
+				// TODO Be more specific in reported message
+				throw new ScopeException("Ambiguous imports for type '" + name + "'", node());
 			}
 
 			for (ImportDeclaration importDecl : node().getImports()) {
@@ -85,8 +86,8 @@ public class SrcFile extends Attributes {
 			if (candidates.size() == 1) {
 				return candidates.get(0);
 			} else if (candidates.size() > 1) {
-				// TODO make custom runtime exception and handle gracefully in phases
-				throw new IllegalStateException();
+				// TODO Be more specific in reported message
+				throw new ScopeException("Ambiguous imports for type '" + name + "'", node());
 			}
 
 			return null;
@@ -108,8 +109,8 @@ public class SrcFile extends Attributes {
 			if (candidates.size() == 1) {
 				return candidates.get(0);
 			} else if (candidates.size() > 1) {
-				// TODO make custom runtime exception and handle gracefully in phases
-				throw new IllegalStateException();
+				// TODO Be more specific in reported message
+				throw new ScopeException("Ambiguous imports for variable '" + name + "'", node());
 			}
 
 			for (ImportDeclaration importDecl : node().getImports()) {
@@ -126,8 +127,8 @@ public class SrcFile extends Attributes {
 			if (candidates.size() == 1) {
 				return candidates.get(0);
 			} else if (candidates.size() > 1) {
-				// TODO make custom runtime exception and handle gracefully in phases
-				throw new IllegalStateException();
+				// TODO Be more specific in reported message
+				throw new ScopeException("Ambiguous imports for variable '" + name + "'", node());
 			}
 
 			return null;
@@ -149,8 +150,8 @@ public class SrcFile extends Attributes {
 			if (candidates.size() == 1) {
 				return candidates.get(0);
 			} else if (candidates.size() > 1) {
-				// TODO make custom runtime exception and handle gracefully in phases
-				throw new IllegalStateException();
+				// TODO Be more specific in reported message
+				throw new ScopeException("Ambiguous imports for executable '" + name + "'", node());
 			}
 
 			for (ImportDeclaration importDecl : node().getImports()) {
@@ -167,8 +168,8 @@ public class SrcFile extends Attributes {
 			if (candidates.size() == 1) {
 				return candidates.get(0);
 			} else if (candidates.size() > 1) {
-				// TODO make custom runtime exception and handle gracefully in phases
-				throw new IllegalStateException();
+				// TODO Be more specific in reported message
+				throw new ScopeException("Ambiguous imports for executable '" + name + "'", node());
 			}
 
 			return null;

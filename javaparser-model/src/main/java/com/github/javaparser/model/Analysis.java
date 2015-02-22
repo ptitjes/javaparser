@@ -1,6 +1,8 @@
 package com.github.javaparser.model;
 
 import com.github.javaparser.ast.CompilationUnit;
+import com.github.javaparser.model.element.Origin;
+import com.github.javaparser.model.report.Reporter;
 import com.github.javaparser.model.scope.EltName;
 import com.github.javaparser.model.phases.Scaffolding;
 import com.github.javaparser.model.element.PackageElem;
@@ -10,18 +12,25 @@ import com.github.javaparser.model.scope.Scope;
 import javax.lang.model.element.PackageElement;
 import javax.lang.model.util.Elements;
 import javax.lang.model.util.Types;
+import java.io.File;
 import java.util.*;
 
 /**
  * @author Didier Villevalois
  */
-public class Analysis {
+public class Analysis implements Reporter {
 
-	private Scaffolding scaffolding = new Scaffolding(this);
+	private final AnalysisConfiguration configuration;
+	private boolean errors = false;
+	private final Scaffolding scaffolding = new Scaffolding(this);
 
 	private final List<CompilationUnit> compilationUnits = new ArrayList<CompilationUnit>();
 	private final Map<EltName, List<PackageElem>> dependencyPackages = new HashMap<EltName, List<PackageElem>>();
 	private final Map<EltName, PackageElem> sourcePackages = new HashMap<EltName, PackageElem>();
+
+	public Analysis(AnalysisConfiguration configuration) {
+		this.configuration = configuration;
+	}
 
 	public void addCompilationUnit(CompilationUnit cu) {
 		compilationUnits.add(cu);
@@ -103,4 +112,20 @@ public class Analysis {
 			return Collections.singletonList(sourcePackages.get(name));
 		}
 	};
+
+	@Override
+	public void report(File file, Exception exception) {
+		errors = true;
+		configuration.getReporter().report(file, exception);
+	}
+
+	@Override
+	public void report(Severity severity, String message, Origin origin) {
+		if (severity == Severity.ERROR) errors = true;
+		configuration.getReporter().report(severity, message, origin);
+	}
+
+	public boolean hasErrors() {
+		return errors;
+	}
 }

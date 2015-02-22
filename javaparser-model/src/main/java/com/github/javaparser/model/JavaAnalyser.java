@@ -3,6 +3,8 @@ package com.github.javaparser.model;
 import com.github.javaparser.JavaParser;
 import com.github.javaparser.ParseException;
 import com.github.javaparser.ast.CompilationUnit;
+import com.github.javaparser.model.report.NullReporter;
+import com.github.javaparser.model.report.Reporter;
 
 import java.io.File;
 import java.io.FileFilter;
@@ -14,20 +16,19 @@ import java.util.*;
  */
 public class JavaAnalyser {
 
-	public Analysis buildModel(final File sourceDirectory)
-			throws ParseException, IOException {
-		return buildModel(sourceDirectory, null, true);
+	private final AnalysisConfiguration configuration;
+
+	public JavaAnalyser() {
+		this(new AnalysisConfiguration());
 	}
 
-	public Analysis buildModel(final File sourceDirectory, final String encoding)
-			throws ParseException, IOException {
-		return buildModel(sourceDirectory, encoding, true);
+	public JavaAnalyser(AnalysisConfiguration configuration) {
+		this.configuration = configuration;
 	}
 
-	public Analysis buildModel(final File sourceDirectory, final String encoding, boolean considerComments)
-			throws ParseException, IOException {
+	public Analysis buildModel(final File sourceDirectory) {
 		if (!sourceDirectory.exists())
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("No such directory: " + sourceDirectory.getAbsolutePath());
 
 		FileFilter directoryFilter = new FileFilter() {
 			@Override
@@ -62,9 +63,18 @@ public class JavaAnalyser {
 			sourceFiles.addAll(Arrays.asList(current.listFiles(javaSourceFilter)));
 		}
 
-		Analysis analysis = new Analysis();
+		Analysis analysis = new Analysis(configuration);
 		for (File sourceFile : sourceFiles) {
-			analysis.addCompilationUnit(JavaParser.parse(sourceFile, encoding, considerComments));
+			try {
+				CompilationUnit cu = JavaParser.parse(sourceFile,
+						configuration.getEncoding(),
+						configuration.isConsiderComments());
+				analysis.addCompilationUnit(cu);
+			} catch (ParseException e) {
+				analysis.report(sourceFile, e);
+			} catch (IOException e) {
+				analysis.report(sourceFile, e);
+			}
 		}
 		return analysis;
 	}

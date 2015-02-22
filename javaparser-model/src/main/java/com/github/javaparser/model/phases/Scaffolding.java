@@ -7,18 +7,17 @@ import com.github.javaparser.ast.TypeParameter;
 import com.github.javaparser.ast.body.*;
 import com.github.javaparser.ast.visitor.VoidVisitorAdapter;
 import com.github.javaparser.model.Analysis;
+import com.github.javaparser.model.element.*;
 import com.github.javaparser.model.scope.EltName;
 import com.github.javaparser.model.scope.EltNames;
 import com.github.javaparser.model.scope.Scope;
+import com.github.javaparser.model.source.CompilationUnitAttr;
 import com.github.javaparser.model.source.ElementAttr;
 import com.github.javaparser.model.source.SourceOrigin;
-import com.github.javaparser.model.source.CompilationUnitAttr;
-import com.github.javaparser.model.element.*;
 
 import javax.lang.model.element.ElementKind;
 import javax.lang.model.element.Modifier;
 import javax.lang.model.element.NestingKind;
-
 import java.io.File;
 import java.util.EnumSet;
 import java.util.Set;
@@ -76,16 +75,27 @@ public class Scaffolding {
 			return parent instanceof PackageElem ? scope : parent.scope();
 		}
 
+		private EltName makeQualifiedName(Elem parent, String name) {
+			if (name.isEmpty() || parent.getSimpleName().isEmpty())
+				return EltNames.makeSimple(name);
+			else if (parent instanceof PackageElem)
+				return EltNames.make(((PackageElem) parent).getQualifiedName(), name);
+			else if (parent instanceof TypeElem)
+				return EltNames.make(((TypeElem) parent).getQualifiedName(), name);
+			else return EltNames.makeSimple(name);
+		}
+
 		private <E extends Elem> void setAttributes(Node n, E elem) {
 			new ElementAttr<E>(cu, n, elem);
 		}
 
 		@Override
 		public void visit(ClassOrInterfaceDeclaration n, Elem arg) {
+			String name = n.getName();
 			TypeElem elem = new TypeElem(originFor(n), scopeFor(arg), arg,
 					convert(n.getModifiers()),
-					asName(n.getNameExpr()), // Not good - should be pkg name + name or empty name
-					EltNames.makeSimple(n.getName()),
+					makeQualifiedName(arg, name),
+					EltNames.makeSimple(name),
 					n.isInterface() ? ElementKind.INTERFACE : ElementKind.CLASS,
 					nestingKind(arg));
 			setAttributes(n, elem);
@@ -96,10 +106,11 @@ public class Scaffolding {
 
 		@Override
 		public void visit(AnnotationDeclaration n, Elem arg) {
+			String name = n.getName();
 			TypeElem elem = new TypeElem(originFor(n), scopeFor(arg), arg,
 					convert(n.getModifiers()),
-					asName(n.getNameExpr()), // Not good - should be pkg name + name or empty name
-					EltNames.makeSimple(n.getName()),
+					makeQualifiedName(arg, name),
+					EltNames.makeSimple(name),
 					ElementKind.ANNOTATION_TYPE,
 					nestingKind(arg));
 			setAttributes(n, elem);
@@ -109,10 +120,11 @@ public class Scaffolding {
 
 		@Override
 		public void visit(EnumDeclaration n, Elem arg) {
+			String name = n.getName();
 			TypeElem elem = new TypeElem(originFor(n), scopeFor(arg), arg,
 					convert(n.getModifiers()),
-					asName(n.getNameExpr()), // Not good - should be pkg name + name or empty name
-					EltNames.makeSimple(n.getName()),
+					makeQualifiedName(arg, name),
+					EltNames.makeSimple(name),
 					ElementKind.ENUM,
 					nestingKind(arg));
 			setAttributes(n, elem);

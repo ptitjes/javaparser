@@ -48,4 +48,9 @@ public class DeclaredTpe extends TpeMirror implements DeclaredType {
 	public <R, P> R accept(TypeVisitor<R, P> typeVisitor, P p) {
 		return typeVisitor.visitDeclared(this, p);
 	}
+
+	@Override
+	public String toString() {
+		return enclosingType + "." + element.getSimpleName() + "<" + allToString(typeArguments) + ">";
+	}
 }

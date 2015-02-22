@@ -28,4 +28,18 @@ public class NoTpe extends TpeMirror implements NoType {
 	public <R, P> R accept(TypeVisitor<R, P> typeVisitor, P p) {
 		return typeVisitor.visitNoType(this, p);
 	}
+
+	@Override
+	public String toString() {
+		switch (kind) {
+			case NONE:
+				return "_bottom_";
+			case VOID:
+				return "void";
+			case PACKAGE:
+				return "_package_";
+			default:
+				return null;
+		}
+	}
 }

@@ -37,4 +37,10 @@ public class WildcardTpe extends TpeMirror implements WildcardType {
 	public <R, P> R accept(TypeVisitor<R, P> typeVisitor, P p) {
 		return typeVisitor.visitWildcard(this, p);
 	}
+
+	@Override
+	public String toString() {
+		// TODO add bounds
+		return "?";
+	}
 }

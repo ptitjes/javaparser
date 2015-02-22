@@ -33,4 +33,28 @@ public class PrimitiveTpe extends TpeMirror implements PrimitiveType {
 	public <R, P> R accept(TypeVisitor<R, P> typeVisitor, P p) {
 		return typeVisitor.visitPrimitive(this, p);
 	}
+
+	@Override
+	public String toString() {
+		switch (kind) {
+			case BOOLEAN:
+				return "boolean";
+			case BYTE:
+				return "byte";
+			case SHORT:
+				return "short";
+			case INT:
+				return "int";
+			case LONG:
+				return "long";
+			case CHAR:
+				return "char";
+			case FLOAT:
+				return "float";
+			case DOUBLE:
+				return "double";
+			default:
+				return null;
+		}
+	}
 }

@@ -47,4 +47,10 @@ public class TpeVariable extends TpeMirror implements TypeVariable {
 	public <R, P> R accept(TypeVisitor<R, P> typeVisitor, P p) {
 		return typeVisitor.visitTypeVariable(this, p);
 	}
+
+	@Override
+	public String toString() {
+		// TODO add bounds
+		return element.getSimpleName().toString();
+	}
 }

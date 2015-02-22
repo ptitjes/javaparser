@@ -60,4 +60,12 @@ public class ExecutableTpe extends TpeMirror implements ExecutableType {
 	public <R, P> R accept(TypeVisitor<R, P> typeVisitor, P p) {
 		return typeVisitor.visitExecutable(this, p);
 	}
+
+	@Override
+	public String toString() {
+		return "<" + allToString(typeVariables) + ">" +
+				returnType + " " + getReceiverType() + "." +
+				null + "(" + allToString(parameterTypes) +
+				" throws " + allToString(thrownTypes);
+	}
 }

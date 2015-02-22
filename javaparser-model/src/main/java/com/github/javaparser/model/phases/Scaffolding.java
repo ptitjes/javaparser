@@ -12,7 +12,7 @@ import com.github.javaparser.model.scope.EltNames;
 import com.github.javaparser.model.scope.Scope;
 import com.github.javaparser.model.source.ElementAttr;
 import com.github.javaparser.model.source.SourceOrigin;
-import com.github.javaparser.model.source.base.SrcFile;
+import com.github.javaparser.model.source.CompilationUnitAttr;
 import com.github.javaparser.model.element.*;
 
 import javax.lang.model.element.ElementKind;
@@ -49,16 +49,16 @@ public class Scaffolding {
 			analysis.addSourcePackage(packageElem);
 		}
 
-		SrcFile source = new SrcFile(packageElem.scope(), file, cu);
+		CompilationUnitAttr source = new CompilationUnitAttr(packageElem.scope(), file, cu);
 
 		visitAll(new ElemBuilder(source), packageElem, cu.getTypes());
 	}
 
 	class ElemBuilder extends VoidVisitorAdapter<Elem> {
 
-		private final SrcFile source;
+		private final CompilationUnitAttr source;
 
-		public ElemBuilder(SrcFile source) {
+		public ElemBuilder(CompilationUnitAttr source) {
 			this.source = source;
 		}
 

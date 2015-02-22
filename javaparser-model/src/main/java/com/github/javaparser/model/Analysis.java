@@ -59,8 +59,8 @@ public class Analysis {
 		sourcePackages.put(name, packageElem);
 	}
 
-	public List<? extends PackageElement> getElements() {
-		return null;
+	public List<? extends PackageElement> getPackageElements() {
+		return new ArrayList<PackageElement>(sourcePackages.values());
 	}
 
 	public Types getTypeUtils() {

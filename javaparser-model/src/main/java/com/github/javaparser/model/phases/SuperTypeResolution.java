@@ -112,7 +112,11 @@ public class SuperTypeResolution {
 	}
 
 	public TpeMirror resolveType(Type type, TypeElem fromElem) {
-		return type.accept(typeResolver, fromElem);
+		TpeMirror tpeMirror = type.accept(typeResolver, fromElem);
+		if (tpeMirror == null) {
+			throw new ScopeException("Can't find type '" + type + "'", null);
+		}
+		return tpeMirror;
 	}
 
 	private ElementScanner8<Void, Void> scanner = new ElementScanner8<Void, Void>() {

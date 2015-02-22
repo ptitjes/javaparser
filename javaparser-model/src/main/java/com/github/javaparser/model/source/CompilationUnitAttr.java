@@ -1,4 +1,4 @@
-package com.github.javaparser.model.source.base;
+package com.github.javaparser.model.source;
 
 import com.github.javaparser.ast.CompilationUnit;
 import com.github.javaparser.ast.ImportDeclaration;
@@ -9,7 +9,6 @@ import com.github.javaparser.model.scope.EltName;
 import com.github.javaparser.model.scope.EltSimpleName;
 import com.github.javaparser.model.scope.Scope;
 import com.github.javaparser.model.scope.ScopeException;
-import com.github.javaparser.model.source.Attributes;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -20,18 +19,22 @@ import static com.github.javaparser.model.source.utils.SrcNameUtils.asName;
 /**
  * @author Didier Villevalois
  */
-public class SrcFile extends Attributes {
+public class CompilationUnitAttr extends Attributes {
+
+	public static CompilationUnitAttr get(CompilationUnit n) {
+		return (CompilationUnitAttr) Attributes.get(n);
+	}
 
 	private final Scope parentScope;
 	private final File file;
 
-	public SrcFile(Scope parentScope, File file, CompilationUnit cu) {
+	public CompilationUnitAttr(Scope parentScope, File file, CompilationUnit cu) {
 		super(null, cu);
 		this.parentScope = parentScope;
 		this.file = file;
 	}
 
-	public SrcFile source() {
+	public CompilationUnitAttr source() {
 		return this;
 	}
 
@@ -48,6 +51,7 @@ public class SrcFile extends Attributes {
 		return (CompilationUnit) super.node();
 	}
 
+	@Override
 	public Scope scope() {
 		return scope;
 	}
@@ -56,7 +60,7 @@ public class SrcFile extends Attributes {
 	private final Scope scope = new Scope() {
 		@Override
 		public Scope parentScope() {
-			return SrcFile.this.parentScope();
+			return CompilationUnitAttr.this.parentScope();
 		}
 
 		@Override

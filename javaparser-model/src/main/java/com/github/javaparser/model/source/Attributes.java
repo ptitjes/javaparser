@@ -1,8 +1,6 @@
 package com.github.javaparser.model.source;
 
 import com.github.javaparser.ast.Node;
-import com.github.javaparser.ast.expr.StringLiteralExpr;
-import com.github.javaparser.model.source.base.SrcFile;
 import com.github.javaparser.model.element.Elem;
 import com.github.javaparser.model.scope.Scope;
 
@@ -11,7 +9,7 @@ import com.github.javaparser.model.scope.Scope;
  */
 public class Attributes {
 
-	public static Attributes get(Node node) {
+	protected static Attributes get(Node node) {
 		return (Attributes) node.getData();
 	}
 
@@ -19,16 +17,16 @@ public class Attributes {
 		node.setData(data);
 	}
 
-	private final SrcFile source;
+	private final CompilationUnitAttr source;
 	private final Node node;
 
-	public Attributes(SrcFile source, Node node) {
+	public Attributes(CompilationUnitAttr source, Node node) {
 		this.source = source;
 		this.node = node;
 		if (node != null) Attributes.set(node, this);
 	}
 
-	public SrcFile source() {
+	public CompilationUnitAttr source() {
 		return source;
 	}
 
@@ -36,11 +34,11 @@ public class Attributes {
 		return node;
 	}
 
-	public Elem definedElement() {
+	public Elem element() {
 		return null;
 	}
 
-	public Scope definedScope() {
+	public Scope scope() {
 		return null;
 	}
 }

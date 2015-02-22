@@ -3,7 +3,6 @@ package com.github.javaparser.model.source.base;
 import com.github.javaparser.ast.CompilationUnit;
 import com.github.javaparser.ast.ImportDeclaration;
 import com.github.javaparser.model.element.ExecutableElem;
-import com.github.javaparser.model.element.PackageElem;
 import com.github.javaparser.model.element.TypeElem;
 import com.github.javaparser.model.element.VariableElem;
 import com.github.javaparser.model.scope.EltName;

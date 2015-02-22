@@ -2,6 +2,7 @@ package com.github.javaparser.model.scope;
 
 import com.github.javaparser.model.element.ExecutableElem;
 import com.github.javaparser.model.element.TypeElem;
+import com.github.javaparser.model.element.TypeParameterElem;
 import com.github.javaparser.model.element.VariableElem;
 
 import javax.lang.model.element.ExecutableElement;
@@ -15,9 +16,15 @@ public abstract class Scope {
 
 	public abstract Scope parentScope();
 
-	public Scope rootScope() {
-		if (parentScope() == null) return this;
-		else return parentScope().rootScope();
+	// TODO Add visibility discrimination
+	public TypeParameterElem resolveTypeParameter(EltSimpleName name) {
+		TypeParameterElem elem = resolveLocalTypeParameter(name);
+
+		if (elem == null && parentScope() != null) {
+			elem = parentScope().resolveTypeParameter(name);
+		}
+
+		return elem;
 	}
 
 	// TODO Add visibility discrimination
@@ -79,6 +86,11 @@ public abstract class Scope {
 		}
 
 		return elem;
+	}
+
+	// TODO Add visibility discrimination
+	public TypeParameterElem resolveLocalTypeParameter(EltSimpleName name) {
+		return null;
 	}
 
 	// TODO Add visibility discrimination

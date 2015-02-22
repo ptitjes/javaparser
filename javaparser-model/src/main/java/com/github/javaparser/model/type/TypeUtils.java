@@ -1,5 +1,10 @@
 package com.github.javaparser.model.type;
 
+import com.github.javaparser.model.Analysis;
+import com.github.javaparser.model.element.Elem;
+import com.github.javaparser.model.element.TypeElem;
+import com.github.javaparser.model.element.TypeParameterElem;
+
 import javax.lang.model.element.Element;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.type.*;
@@ -11,6 +16,12 @@ import java.util.List;
  * @author Didier Villevalois
  */
 public class TypeUtils implements Types {
+
+	private final Analysis analysis;
+
+	public TypeUtils(Analysis analysis) {
+		this.analysis = analysis;
+	}
 
 	@Override
 	public Element asElement(TypeMirror t) {
@@ -125,11 +136,11 @@ public class TypeUtils implements Types {
 
 	@Override
 	public DeclaredType getDeclaredType(TypeElement typeElem, TypeMirror... typeArgs) {
-		return getDeclaredType(null, typeElem, typeArgs);
+		return new DeclaredTpe(NoTpe.NONE, (TypeElem) typeElem, Arrays.asList((TpeMirror[]) typeArgs));
 	}
 
 	@Override
 	public DeclaredType getDeclaredType(DeclaredType containing, TypeElement typeElem, TypeMirror... typeArgs) {
-		return new DeclaredTpe((TpeMirror) containing, typeElem, Arrays.asList((TpeMirror[]) typeArgs));
+		return new DeclaredTpe((TpeMirror) containing, (TypeElem) typeElem, Arrays.asList((TpeMirror[]) typeArgs));
 	}
 }

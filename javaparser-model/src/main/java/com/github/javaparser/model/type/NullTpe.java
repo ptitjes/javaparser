@@ -20,4 +20,9 @@ public class NullTpe extends TpeMirror implements NullType {
 	public <R, P> R accept(TypeVisitor<R, P> typeVisitor, P p) {
 		return typeVisitor.visitNull(this, p);
 	}
+
+	@Override
+	public String toString() {
+		return "null";
+	}
 }

@@ -30,4 +30,9 @@ public class ArrayTpe extends TpeMirror implements ArrayType {
 	public <R, P> R accept(TypeVisitor<R, P> typeVisitor, P p) {
 		return typeVisitor.visitArray(this, p);
 	}
+
+	@Override
+	public String toString() {
+		return componentType.toString() + "[]";
+	}
 }

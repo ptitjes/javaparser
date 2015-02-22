@@ -31,4 +31,10 @@ public class UnionTpe extends TpeMirror implements UnionType {
 	public <R, P> R accept(TypeVisitor<R, P> typeVisitor, P p) {
 		return typeVisitor.visitUnion(this, p);
 	}
+
+
+	@Override
+	public String toString() {
+		return allToString(alternatives, "&");
+	}
 }

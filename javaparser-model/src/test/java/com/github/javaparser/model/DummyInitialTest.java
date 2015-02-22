@@ -28,7 +28,7 @@ public class DummyInitialTest {
 		Analysis model = analyser.buildModel(new File("javaparser/javaparser-model/src/test/data"));
 
 		if (!model.hasErrors()) {
-			for (PackageElement packageElement : model.getPackageElements()) {
+			for (PackageElement packageElement : model.getSourcePackageElements()) {
 				dumpScanner.scan(packageElement);
 			}
 		}

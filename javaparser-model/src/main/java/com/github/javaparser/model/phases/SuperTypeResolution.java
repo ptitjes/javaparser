@@ -1,5 +1,7 @@
 package com.github.javaparser.model.phases;
 
+import com.github.javaparser.ast.Node;
+import com.github.javaparser.ast.body.AnnotationDeclaration;
 import com.github.javaparser.ast.body.ClassOrInterfaceDeclaration;
 import com.github.javaparser.ast.body.EnumDeclaration;
 import com.github.javaparser.ast.type.*;
@@ -18,14 +20,12 @@ import com.github.javaparser.model.type.*;
 
 import javax.lang.model.element.PackageElement;
 import javax.lang.model.element.TypeElement;
-import javax.lang.model.type.TypeKind;
 import javax.lang.model.util.ElementScanner8;
-import javax.lang.model.util.Types;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import static com.github.javaparser.model.source.utils.NodeListUtils.visitAll;
-import static com.github.javaparser.model.source.utils.SrcNameUtils.asName;
 
 /**
  * @author Didier Villevalois
@@ -42,81 +42,9 @@ public class SuperTypeResolution {
 	}
 
 	public void process() {
-		for (PackageElement packageElement : analysis.getPackageElements()) {
+		for (PackageElement packageElement : analysis.getSourcePackageElements()) {
 			scanner.scan(packageElement);
 		}
-	}
-
-	private void process(TypeElem e, ClassOrInterfaceDeclaration n) {
-		// TODO First process type parameters' bounds' type refs
-
-		List<ClassOrInterfaceType> extended = n.getExtends();
-		List<ClassOrInterfaceType> implemented = n.getImplements();
-
-		if (n.isInterface()) {
-			e.setSuperClass(NoTpe.NONE);
-
-			try {
-				List<TpeMirror> interfaces = new ArrayList<TpeMirror>();
-				if (implemented != null) {
-					for (ClassOrInterfaceType type : extended) {
-						TpeMirror typeMirror = resolveType(type, e);
-						interfaces.add(typeMirror);
-					}
-				}
-				e.setInterfaces(interfaces);
-			} catch (ScopeException ex) {
-				analysis.report(Severity.ERROR, "Can't resolve supertype: " + ex.getMessage(), e.origin());
-			}
-		} else {
-			try {
-				if (extended != null && extended.size() == 1) {
-					ClassOrInterfaceType type = extended.get(0);
-					TpeMirror typeMirror = resolveType(type, e);
-					e.setSuperClass(typeMirror);
-				} else e.setSuperClass(NoTpe.NONE);
-			} catch (ScopeException ex) {
-				analysis.report(Severity.ERROR, "Can't resolve supertype: " + ex.getMessage(), e.origin());
-			}
-
-			try {
-				List<TpeMirror> interfaces = new ArrayList<TpeMirror>();
-				if (implemented != null) {
-					for (ClassOrInterfaceType type : implemented) {
-						TpeMirror typeMirror = resolveType(type, e);
-						interfaces.add(typeMirror);
-					}
-				}
-				e.setInterfaces(interfaces);
-			} catch (ScopeException ex) {
-				analysis.report(Severity.ERROR, "Can't resolve supertype: " + ex.getMessage(), e.origin());
-			}
-		}
-	}
-
-	private void process(TypeElem e, EnumDeclaration n) {
-		List<ClassOrInterfaceType> implemented = n.getImplements();
-
-		try {
-			List<TpeMirror> interfaces = new ArrayList<TpeMirror>();
-			if (implemented != null) {
-				for (ClassOrInterfaceType type : implemented) {
-					TpeMirror typeMirror = resolveType(type, e);
-					interfaces.add(typeMirror);
-				}
-			}
-			e.setInterfaces(interfaces);
-		} catch (ScopeException ex) {
-			analysis.report(Severity.ERROR, "Can't resolve supertype: " + ex.getMessage(), e.origin());
-		}
-	}
-
-	public TpeMirror resolveType(Type type, TypeElem fromElem) {
-		TpeMirror tpeMirror = type.accept(typeResolver, fromElem);
-		if (tpeMirror == null) {
-			throw new ScopeException("Can't find type '" + type + "'", null);
-		}
-		return tpeMirror;
 	}
 
 	private ElementScanner8<Void, Void> scanner = new ElementScanner8<Void, Void>() {
@@ -125,7 +53,9 @@ public class SuperTypeResolution {
 		public Void visitType(TypeElement e, Void aVoid) {
 			TypeElem typeElem = (TypeElem) e;
 			SourceOrigin origin = (SourceOrigin) typeElem.origin();
-			origin.getNode().accept(discriminator, typeElem);
+			Node node = origin.getNode();
+
+			node.accept(discriminator, typeElem);
 
 			return super.visitType(e, aVoid);
 		}
@@ -135,14 +65,74 @@ public class SuperTypeResolution {
 
 		@Override
 		public void visit(ClassOrInterfaceDeclaration n, TypeElem arg) {
-			process(arg, n);
+			// TODO First process type parameters' bounds' type refs
+
+			List<ClassOrInterfaceType> extended = n.getExtends();
+			List<ClassOrInterfaceType> implemented = n.getImplements();
+
+			if (n.isInterface()) {
+				arg.setSuperClass(NoTpe.NONE);
+
+				try {
+					arg.setInterfaces(resolveTypes(extended, arg));
+				} catch (ScopeException ex) {
+					analysis.report(Severity.ERROR, "Can't resolve supertype: " + ex.getMessage(), arg.origin());
+				}
+			} else {
+				if (extended != null && extended.size() == 1) {
+					try {
+						ClassOrInterfaceType type = extended.get(0);
+						arg.setSuperClass(resolveType(type, arg));
+					} catch (ScopeException ex) {
+						analysis.report(Severity.ERROR, "Can't resolve supertype: " + ex.getMessage(), arg.origin());
+					}
+				} else arg.setSuperClass(NoTpe.NONE);
+
+				try {
+					arg.setInterfaces(resolveTypes(implemented, arg));
+				} catch (ScopeException ex) {
+					analysis.report(Severity.ERROR, "Can't resolve supertype: " + ex.getMessage(), arg.origin());
+				}
+			}
 		}
 
 		@Override
 		public void visit(EnumDeclaration n, TypeElem arg) {
-			process(arg, n);
+			List<ClassOrInterfaceType> implemented = n.getImplements();
+
+			arg.setSuperClass(typeUtils.enumTypeOf(arg.asType()));
+
+			try {
+				arg.setInterfaces(resolveTypes(implemented, arg));
+			} catch (ScopeException ex) {
+				analysis.report(Severity.ERROR, "Can't resolve supertype: " + ex.getMessage(), arg.origin());
+			}
+		}
+
+		@Override
+		public void visit(AnnotationDeclaration n, TypeElem arg) {
+			arg.setSuperClass(NoTpe.NONE);
+			arg.setInterfaces(Collections.<TpeMirror>singletonList(typeUtils.annotationType()));
 		}
 	};
+
+	private List<TpeMirror> resolveTypes(List<? extends Type> types, TypeElem fromElem) {
+		List<TpeMirror> tpeMirrors = new ArrayList<TpeMirror>();
+		if (types != null) {
+			for (Type type : types) {
+				tpeMirrors.add(resolveType(type, fromElem));
+			}
+		}
+		return tpeMirrors;
+	}
+
+	private TpeMirror resolveType(Type type, TypeElem fromElem) {
+		TpeMirror tpeMirror = type.accept(typeResolver, fromElem);
+		if (tpeMirror == null) {
+			throw new ScopeException("Can't find type '" + type + "'", null);
+		}
+		return tpeMirror;
+	}
 
 	private GenericVisitor<TpeMirror, TypeElem> typeResolver = new GenericVisitorAdapter<TpeMirror, TypeElem>() {
 		@Override
@@ -168,7 +158,7 @@ public class SuperTypeResolution {
 					TypeElem typeElem = typeScopeElem.scope().resolveType(typeName);
 					return new DeclaredTpe(typeScopeMirror, typeElem, tpeArgsMirrors);
 				} else {
-					TypeElem typeElem = arg.parentScope().resolveType(typeName);
+					TypeElem typeElem = arg.scope().resolveType(typeName);
 					return new DeclaredTpe(NoTpe.NONE, typeElem, tpeArgsMirrors);
 				}
 			}

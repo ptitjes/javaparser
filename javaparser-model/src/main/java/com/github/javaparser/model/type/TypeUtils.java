@@ -8,8 +8,10 @@ import com.github.javaparser.model.element.TypeParameterElem;
 import javax.lang.model.element.Element;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.type.*;
+import javax.lang.model.util.Elements;
 import javax.lang.model.util.Types;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -22,6 +24,20 @@ public class TypeUtils implements Types {
 	public TypeUtils(Analysis analysis) {
 		this.analysis = analysis;
 	}
+
+	/* Internal convenience API */
+
+	public DeclaredTpe enumTypeOf(TpeMirror tpeMirror) {
+		TypeElem enumTypeElem = analysis.getElementUtils().java_lang_Enum();
+		return new DeclaredTpe(NoTpe.NONE, enumTypeElem, Collections.singletonList(tpeMirror));
+	}
+
+	public DeclaredTpe annotationType() {
+		TypeElem annotationTypeElem = analysis.getElementUtils().java_lang_annotation_Annotation();
+		return new DeclaredTpe(NoTpe.NONE, annotationTypeElem, Collections.<TpeMirror>emptyList());
+	}
+
+	/* Standard API */
 
 	@Override
 	public Element asElement(TypeMirror t) {

@@ -1,6 +1,7 @@
 package com.github.javaparser.model;
 
 import com.github.javaparser.ast.CompilationUnit;
+import com.github.javaparser.model.element.ElementUtils;
 import com.github.javaparser.model.element.Origin;
 import com.github.javaparser.model.phases.SuperTypeResolution;
 import com.github.javaparser.model.report.Reporter;
@@ -24,6 +25,7 @@ public class Analysis implements Reporter {
 
 	private final AnalysisConfiguration configuration;
 	private final TypeUtils typeUtils;
+	private final ElementUtils elementUtils;
 
 	private boolean errors = false;
 
@@ -38,6 +40,7 @@ public class Analysis implements Reporter {
 		this.configuration = configuration;
 
 		typeUtils = new TypeUtils(this);
+		elementUtils = new ElementUtils(this);
 	}
 
 	public void addCompilationUnit(File file, CompilationUnit cu) {
@@ -77,7 +80,7 @@ public class Analysis implements Reporter {
 		sourcePackages.put(name, packageElem);
 	}
 
-	public List<? extends PackageElement> getPackageElements() {
+	public List<? extends PackageElement> getSourcePackageElements() {
 		return new ArrayList<PackageElement>(sourcePackages.values());
 	}
 
@@ -85,8 +88,8 @@ public class Analysis implements Reporter {
 		return typeUtils;
 	}
 
-	public Elements getElementUtils() {
-		return null;
+	public ElementUtils getElementUtils() {
+		return elementUtils;
 	}
 
 	public Scope dependencyScope() {

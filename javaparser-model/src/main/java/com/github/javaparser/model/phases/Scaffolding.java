@@ -19,6 +19,7 @@ import javax.lang.model.element.ElementKind;
 import javax.lang.model.element.Modifier;
 import javax.lang.model.element.NestingKind;
 
+import java.io.File;
 import java.util.EnumSet;
 import java.util.Set;
 
@@ -37,7 +38,7 @@ public class Scaffolding {
 		this.analysis = analysis;
 	}
 
-	public void process(CompilationUnit cu) {
+	public void process(File file, CompilationUnit cu) {
 		PackageDeclaration packageDecl = cu.getPackage();
 		EltName packageName = asName(packageDecl.getName());
 
@@ -48,7 +49,8 @@ public class Scaffolding {
 			analysis.addSourcePackage(packageElem);
 		}
 
-		SrcFile source = new SrcFile(packageElem.scope(), cu);
+		SrcFile source = new SrcFile(packageElem.scope(), file, cu);
+
 		visitAll(new ElemBuilder(source), packageElem, cu.getTypes());
 	}
 

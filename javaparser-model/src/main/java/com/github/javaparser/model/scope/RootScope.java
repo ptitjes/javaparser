@@ -17,10 +17,19 @@ public abstract class RootScope extends Scope {
 	@Override
 	public TypeElem resolveType(EltName name) {
 		List<PackageElem> packageElems = resolvePackages(name.qualifier());
-		for (PackageElem packageElem : packageElems) {
-			TypeElem typeElem = packageElem.scope().resolveType(name);
+		if (packageElems != null) {
+			for (PackageElem packageElem : packageElems) {
+				TypeElem typeElem = packageElem.scope().resolveType(name.simpleName());
+				if (typeElem != null) return typeElem;
+			}
+		}
+
+		TypeElem parentTypeElem = resolveType(name.qualifier());
+		if (parentTypeElem != null) {
+			TypeElem typeElem = parentTypeElem.scope().resolveType(name.simpleName());
 			if (typeElem != null) return typeElem;
 		}
+
 		return super.resolveType(name);
 	}
 

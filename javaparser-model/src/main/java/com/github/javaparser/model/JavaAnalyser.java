@@ -69,7 +69,7 @@ public class JavaAnalyser {
 				CompilationUnit cu = JavaParser.parse(sourceFile,
 						configuration.getEncoding(),
 						configuration.isConsiderComments());
-				analysis.addCompilationUnit(cu);
+				analysis.addCompilationUnit(sourceFile, cu);
 			} catch (ParseException e) {
 				analysis.report(sourceFile, e);
 			} catch (IOException e) {

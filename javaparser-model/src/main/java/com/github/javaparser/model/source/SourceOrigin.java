@@ -4,6 +4,7 @@ import com.github.javaparser.Position;
 import com.github.javaparser.ast.CompilationUnit;
 import com.github.javaparser.ast.Node;
 import com.github.javaparser.model.element.Origin;
+import com.github.javaparser.model.source.base.SrcFile;
 
 /**
  * @author Didier Villevalois
@@ -20,7 +21,16 @@ public class SourceOrigin implements Origin {
 
 	@Override
 	public String toLocationString() {
+		SrcFile srcFile = (SrcFile) Attributes.get(cu);
 		Position position = Position.beginOf(node);
-		return position.getLine() + "," + position.getColumn();
+		return srcFile.file().getPath() + "(" + position.getLine() + "," + position.getColumn() + ")";
+	}
+
+	public CompilationUnit getCu() {
+		return cu;
+	}
+
+	public Node getNode() {
+		return node;
 	}
 }

@@ -5,10 +5,6 @@ import com.github.javaparser.model.element.TypeElem;
 import com.github.javaparser.model.element.TypeParameterElem;
 import com.github.javaparser.model.element.VariableElem;
 
-import javax.lang.model.element.ExecutableElement;
-import javax.lang.model.element.TypeElement;
-import javax.lang.model.element.VariableElement;
-
 /**
  * @author Didier Villevalois
  */

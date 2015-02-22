@@ -3,18 +3,16 @@ package com.github.javaparser.model;
 import com.github.javaparser.ast.CompilationUnit;
 import com.github.javaparser.model.element.ElementUtils;
 import com.github.javaparser.model.element.Origin;
+import com.github.javaparser.model.element.PackageElem;
+import com.github.javaparser.model.phases.Scaffolding;
 import com.github.javaparser.model.phases.SuperTypeResolution;
 import com.github.javaparser.model.report.Reporter;
 import com.github.javaparser.model.scope.EltName;
-import com.github.javaparser.model.phases.Scaffolding;
-import com.github.javaparser.model.element.PackageElem;
 import com.github.javaparser.model.scope.RootScope;
 import com.github.javaparser.model.scope.Scope;
 import com.github.javaparser.model.type.TypeUtils;
 
 import javax.lang.model.element.PackageElement;
-import javax.lang.model.util.Elements;
-import javax.lang.model.util.Types;
 import java.io.File;
 import java.util.*;
 

@@ -16,6 +16,9 @@ public abstract class RootScope extends Scope {
 
 	@Override
 	public TypeElem resolveType(EltName name) {
+		if (name.isEmpty())
+			return super.resolveType(name);
+
 		List<PackageElem> packageElems = resolvePackages(name.qualifier());
 		if (packageElems != null) {
 			for (PackageElem packageElem : packageElems) {

@@ -1,6 +1,7 @@
 package com.github.javaparser.model.phases;
 
 import com.github.javaparser.ast.Node;
+import com.github.javaparser.ast.TypeParameter;
 import com.github.javaparser.ast.body.AnnotationDeclaration;
 import com.github.javaparser.ast.body.ClassOrInterfaceDeclaration;
 import com.github.javaparser.ast.body.EnumDeclaration;
@@ -14,6 +15,7 @@ import com.github.javaparser.model.element.TypeParameterElem;
 import com.github.javaparser.model.report.Reporter.Severity;
 import com.github.javaparser.model.scope.EltNames;
 import com.github.javaparser.model.scope.EltSimpleName;
+import com.github.javaparser.model.scope.Scope;
 import com.github.javaparser.model.scope.ScopeException;
 import com.github.javaparser.model.source.SourceOrigin;
 import com.github.javaparser.model.type.*;
@@ -21,9 +23,7 @@ import com.github.javaparser.model.type.*;
 import javax.lang.model.element.PackageElement;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.util.ElementScanner8;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 import static com.github.javaparser.model.source.utils.NodeListUtils.visitAll;
 
@@ -65,7 +65,15 @@ public class SuperTypeResolution {
 
 		@Override
 		public void visit(ClassOrInterfaceDeclaration n, TypeElem arg) {
-			// TODO First process type parameters' bounds' type refs
+
+			try {
+				CycleDetectingTypeResolver cdtResolver = new CycleDetectingTypeResolver();
+				for (TypeParameterElem typeParameterElem : arg.getTypeParameters()) {
+					cdtResolver.resolveBounds(typeParameterElem, arg.scope());
+				}
+			} catch (ScopeException ex) {
+				analysis.report(Severity.ERROR, ex.getMessage(), arg.origin());
+			}
 
 			List<ClassOrInterfaceType> extended = n.getExtends();
 			List<ClassOrInterfaceType> implemented = n.getImplements();
@@ -74,7 +82,7 @@ public class SuperTypeResolution {
 				arg.setSuperClass(NoTpe.NONE);
 
 				try {
-					arg.setInterfaces(resolveTypes(extended, arg));
+					arg.setInterfaces(resolveTypes(extended, arg.scope()));
 				} catch (ScopeException ex) {
 					analysis.report(Severity.ERROR, "Can't resolve supertype: " + ex.getMessage(), arg.origin());
 				}
@@ -82,14 +90,14 @@ public class SuperTypeResolution {
 				if (extended != null && extended.size() == 1) {
 					try {
 						ClassOrInterfaceType type = extended.get(0);
-						arg.setSuperClass(resolveType(type, arg));
+						arg.setSuperClass(resolveType(type, arg.scope()));
 					} catch (ScopeException ex) {
 						analysis.report(Severity.ERROR, "Can't resolve supertype: " + ex.getMessage(), arg.origin());
 					}
 				} else arg.setSuperClass(NoTpe.NONE);
 
 				try {
-					arg.setInterfaces(resolveTypes(implemented, arg));
+					arg.setInterfaces(resolveTypes(implemented, arg.scope()));
 				} catch (ScopeException ex) {
 					analysis.report(Severity.ERROR, "Can't resolve supertype: " + ex.getMessage(), arg.origin());
 				}
@@ -103,7 +111,7 @@ public class SuperTypeResolution {
 			arg.setSuperClass(typeUtils.enumTypeOf(arg.asType()));
 
 			try {
-				arg.setInterfaces(resolveTypes(implemented, arg));
+				arg.setInterfaces(resolveTypes(implemented, arg.scope()));
 			} catch (ScopeException ex) {
 				analysis.report(Severity.ERROR, "Can't resolve supertype: " + ex.getMessage(), arg.origin());
 			}
@@ -116,27 +124,36 @@ public class SuperTypeResolution {
 		}
 	};
 
-	private List<TpeMirror> resolveTypes(List<? extends Type> types, TypeElem fromElem) {
+	private List<TpeMirror> resolveTypes(List<? extends Type> types, Scope scope) {
 		List<TpeMirror> tpeMirrors = new ArrayList<TpeMirror>();
 		if (types != null) {
 			for (Type type : types) {
-				tpeMirrors.add(resolveType(type, fromElem));
+				tpeMirrors.add(resolveType(type, scope));
 			}
 		}
 		return tpeMirrors;
 	}
 
-	private TpeMirror resolveType(Type type, TypeElem fromElem) {
-		TpeMirror tpeMirror = type.accept(typeResolver, fromElem);
+	private TpeMirror resolveType(Type type, Scope scope) {
+		TpeMirror tpeMirror = type.accept(typeResolver, scope);
 		if (tpeMirror == null) {
 			throw new ScopeException("Can't find type '" + type + "'", null);
 		}
 		return tpeMirror;
 	}
 
-	private GenericVisitor<TpeMirror, TypeElem> typeResolver = new GenericVisitorAdapter<TpeMirror, TypeElem>() {
+	private GenericVisitor<TpeMirror, Scope> typeResolver = new TypeResolver();
+
+	class TypeResolver extends GenericVisitorAdapter<TpeMirror, Scope> {
+
+		protected List<TpeMirror> resolveBounds(TypeParameterElem typeParameterElem, Scope scope) {
+			List<TpeMirror> boundsMirrors = typeParameterElem.getBounds();
+			if (boundsMirrors != null) return boundsMirrors;
+			else return Collections.emptyList();
+		}
+
 		@Override
-		public TpeMirror visit(ClassOrInterfaceType n, TypeElem arg) {
+		public TpeMirror visit(ClassOrInterfaceType n, Scope arg) {
 			ClassOrInterfaceType typeScope = n.getScope();
 			EltSimpleName typeName = EltNames.makeSimple(n.getName());
 			List<Type> typeArgs = n.getTypeArgs();
@@ -145,10 +162,12 @@ public class SuperTypeResolution {
 			// - Static/Instance type members
 			// - No scope and no type args on type vars
 
-			TypeParameterElem typeParameterElem = arg.scope().resolveTypeParameter(typeName);
+			TypeParameterElem typeParameterElem = arg.resolveTypeParameter(typeName);
 			if (typeParameterElem != null) {
-				// TODO Fix bounds
-				return new TpeVariable(typeParameterElem, null, null);
+				List<TpeMirror> bounds = resolveBounds(typeParameterElem, arg);
+				if (bounds.isEmpty())
+					return new TpeVariable(typeParameterElem, typeUtils.objectType(), NullTpe.NULL);
+				else return new TpeVariable(typeParameterElem, new UnionTpe(bounds), NullTpe.NULL);
 			} else {
 				List<TpeMirror> tpeArgsMirrors = visitAll(this, arg, typeArgs);
 
@@ -158,14 +177,14 @@ public class SuperTypeResolution {
 					TypeElem typeElem = typeScopeElem.scope().resolveType(typeName);
 					return new DeclaredTpe(typeScopeMirror, typeElem, tpeArgsMirrors);
 				} else {
-					TypeElem typeElem = arg.scope().resolveType(typeName);
+					TypeElem typeElem = arg.resolveType(typeName);
 					return new DeclaredTpe(NoTpe.NONE, typeElem, tpeArgsMirrors);
 				}
 			}
 		}
 
 		@Override
-		public TpeMirror visit(ReferenceType n, TypeElem arg) {
+		public TpeMirror visit(ReferenceType n, Scope arg) {
 			int depth = n.getArrayCount();
 			Type type = n.getType();
 			TpeMirror tpeMirror = type.accept(this, arg);
@@ -178,13 +197,17 @@ public class SuperTypeResolution {
 		}
 
 		@Override
-		public TpeMirror visit(WildcardType n, TypeElem arg) {
-			// TODO Implement
-			return null;
+		public TpeMirror visit(WildcardType n, Scope arg) {
+			ReferenceType eBound = n.getExtends();
+			ReferenceType sBound = n.getSuper();
+
+			TpeMirror eBoundMirror = eBound != null ? eBound.accept(this, arg) : typeUtils.objectType();
+			TpeMirror sBoundMirror = sBound != null ? sBound.accept(this, arg) : NullTpe.NULL;
+			return new WildcardTpe(eBoundMirror, sBoundMirror);
 		}
 
 		@Override
-		public TpeMirror visit(PrimitiveType n, TypeElem arg) {
+		public TpeMirror visit(PrimitiveType n, Scope arg) {
 			switch (n.getType()) {
 				case Boolean:
 					return PrimitiveTpe.BOOLEAN;
@@ -208,8 +231,32 @@ public class SuperTypeResolution {
 		}
 
 		@Override
-		public TpeMirror visit(VoidType n, TypeElem arg) {
+		public TpeMirror visit(VoidType n, Scope arg) {
 			return NoTpe.VOID;
 		}
-	};
+	}
+
+	class CycleDetectingTypeResolver extends TypeResolver {
+
+		Map<TypeParameterElem, Object> pendingResolution = new IdentityHashMap<TypeParameterElem, Object>();
+
+		@Override
+		public List<TpeMirror> resolveBounds(TypeParameterElem typeParameterElem, Scope scope) {
+			List<TpeMirror> boundsMirrors = typeParameterElem.getBounds();
+			if (boundsMirrors == null) {
+				SourceOrigin origin = (SourceOrigin) typeParameterElem.origin();
+				TypeParameter node = (TypeParameter) origin.getNode();
+				List<ClassOrInterfaceType> bounds = node.getTypeBound();
+
+				if (pendingResolution.containsKey(typeParameterElem))
+					throw new ScopeException("Circular type parameter definition", node);
+
+				pendingResolution.put(typeParameterElem, new Object());
+				boundsMirrors = visitAll(this, scope, bounds);
+				typeParameterElem.setBounds(boundsMirrors);
+				pendingResolution.remove(typeParameterElem);
+			}
+			return boundsMirrors;
+		}
+	}
 }

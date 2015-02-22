@@ -52,6 +52,7 @@ public class DeclaredTpe extends TpeMirror implements DeclaredType {
 
 	@Override
 	public String toString() {
-		return enclosingType + "." + "(" + ((TypeElem) element).getQualifiedName() + ")" + element.getSimpleName() + "<" + allToString(typeArguments) + ">";
+		return (enclosingType != NoTpe.NONE ? enclosingType + "." : "") +
+				"(" + element.getQualifiedName() + ")" + element.getSimpleName() + "<" + allToString(typeArguments) + ">";
 	}
 }

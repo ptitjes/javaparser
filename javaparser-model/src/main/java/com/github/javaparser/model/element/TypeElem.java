@@ -81,7 +81,7 @@ public class TypeElem extends Elem implements TypeElement {
 	}
 
 	@Override
-	public final List<? extends TypeParameterElement> getTypeParameters() {
+	public final List<TypeParameterElem> getTypeParameters() {
 		return typeParameters;
 	}
 

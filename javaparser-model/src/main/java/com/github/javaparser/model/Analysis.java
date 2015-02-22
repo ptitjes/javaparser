@@ -24,8 +24,8 @@ import java.util.*;
 public class Analysis implements Reporter {
 
 	private final AnalysisConfiguration configuration;
-	private final TypeUtils typeUtils;
-	private final ElementUtils elementUtils;
+	private final TypeUtils typeUtils = new TypeUtils(this);
+	private final ElementUtils elementUtils = new ElementUtils(this);
 
 	private boolean errors = false;
 
@@ -38,9 +38,6 @@ public class Analysis implements Reporter {
 
 	public Analysis(AnalysisConfiguration configuration) {
 		this.configuration = configuration;
-
-		typeUtils = new TypeUtils(this);
-		elementUtils = new ElementUtils(this);
 	}
 
 	public void addCompilationUnit(File file, CompilationUnit cu) {

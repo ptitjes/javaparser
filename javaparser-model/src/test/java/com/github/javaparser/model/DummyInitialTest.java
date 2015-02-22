@@ -7,10 +7,12 @@ import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
 import javax.lang.model.element.*;
+import javax.lang.model.type.TypeMirror;
 import javax.lang.model.util.ElementScanner8;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 
 /**
  * @author Didier Villevalois
@@ -65,10 +67,39 @@ public class DummyInitialTest {
 			}
 			System.out.print(e.getSimpleName());
 
+			printBounds(e);
+
 			System.out.print("(superClass: " + e.getSuperclass() + ", interfaces: " + e.getInterfaces().toString() + ")");
 
 			System.out.println();
 			return super.visitType(e, aVoid);
+		}
+
+		private void printBounds(TypeElement e) {
+			System.out.print("<");
+			boolean first = true;
+			for (TypeParameterElement typeParameterElement : e.getTypeParameters()) {
+				if (!first) System.out.print(",");
+				else first = false;
+				visit(typeParameterElement);
+			}
+			System.out.print(">");
+		}
+
+		@Override
+		public Void visitTypeParameter(TypeParameterElement e, Void aVoid) {
+			System.out.print(e.getSimpleName());
+			List<? extends TypeMirror> bounds = e.getBounds();
+			if (!bounds.isEmpty()) {
+				System.out.print(" extends ");
+				boolean first = true;
+				for (TypeMirror type : bounds) {
+					if (!first) System.out.print("&");
+					else first = false;
+					System.out.print(type.toString());
+				}
+			}
+			return null;
 		}
 
 		@Override

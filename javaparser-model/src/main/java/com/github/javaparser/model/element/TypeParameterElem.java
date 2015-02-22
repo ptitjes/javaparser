@@ -14,6 +14,8 @@ import java.util.List;
  */
 public class TypeParameterElem extends Elem implements TypeParameterElement {
 
+	private List<TpeMirror> bounds;
+
 	public TypeParameterElem(Origin origin,
 	                         Elem enclosing,
 	                         EltSimpleName simpleName) {
@@ -36,8 +38,12 @@ public class TypeParameterElem extends Elem implements TypeParameterElement {
 	}
 
 	@Override
-	public List<? extends TypeMirror> getBounds() {
-		return null;
+	public List<TpeMirror> getBounds() {
+		return bounds;
+	}
+
+	public void setBounds(List<TpeMirror> bounds) {
+		this.bounds = bounds;
 	}
 
 	@Override

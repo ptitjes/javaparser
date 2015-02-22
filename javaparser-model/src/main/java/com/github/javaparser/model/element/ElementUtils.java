@@ -22,6 +22,10 @@ public class ElementUtils implements Elements {
 
 	/* Internal convenience API */
 
+	public TypeElem java_lang_Object() {
+		return (TypeElem) getTypeElement("java.lang.Object");
+	}
+
 	public TypeElem java_lang_Enum() {
 		return (TypeElem) getTypeElement("java.lang.Enum");
 	}

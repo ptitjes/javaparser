@@ -27,6 +27,11 @@ public class TypeUtils implements Types {
 
 	/* Internal convenience API */
 
+	public TpeMirror objectType() {
+		TypeElem objectTypeElem = analysis.getElementUtils().java_lang_Object();
+		return new DeclaredTpe(NoTpe.NONE, objectTypeElem, Collections.<TpeMirror>emptyList());
+	}
+
 	public DeclaredTpe enumTypeOf(TpeMirror tpeMirror) {
 		TypeElem enumTypeElem = analysis.getElementUtils().java_lang_Enum();
 		return new DeclaredTpe(NoTpe.NONE, enumTypeElem, Collections.singletonList(tpeMirror));

@@ -14,6 +14,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.github.javaparser.model.source.utils.NodeListUtils.safeIterable;
 import static com.github.javaparser.model.source.utils.SrcNameUtils.asName;
 
 /**
@@ -67,7 +68,7 @@ public class CompilationUnitAttr extends Attributes {
 		public TypeElem resolveLocalType(EltSimpleName name) {
 			List<TypeElem> candidates = new ArrayList<TypeElem>();
 
-			for (ImportDeclaration importDecl : node().getImports()) {
+			for (ImportDeclaration importDecl : safeIterable(node().getImports())) {
 				if (importDecl.isAsterisk()) continue;
 
 				EltName importName = asName(importDecl.getName());
@@ -83,7 +84,7 @@ public class CompilationUnitAttr extends Attributes {
 				throw new ScopeException("Ambiguous imports for type '" + name + "'", node());
 			}
 
-			for (ImportDeclaration importDecl : node().getImports()) {
+			for (ImportDeclaration importDecl : safeIterable(node().getImports())) {
 				if (!importDecl.isAsterisk()) continue;
 
 				EltName importName = asName(importDecl.getName());
@@ -108,7 +109,7 @@ public class CompilationUnitAttr extends Attributes {
 		public VariableElem resolveLocalVariable(EltSimpleName name) {
 			List<VariableElem> candidates = new ArrayList<VariableElem>();
 
-			for (ImportDeclaration importDecl : node().getImports()) {
+			for (ImportDeclaration importDecl : safeIterable(node().getImports())) {
 				if (!importDecl.isStatic() || importDecl.isAsterisk()) continue;
 
 				EltName importName = asName(importDecl.getName());
@@ -124,7 +125,7 @@ public class CompilationUnitAttr extends Attributes {
 				throw new ScopeException("Ambiguous imports for variable '" + name + "'", node());
 			}
 
-			for (ImportDeclaration importDecl : node().getImports()) {
+			for (ImportDeclaration importDecl : safeIterable(node().getImports())) {
 				if (!importDecl.isStatic() || !importDecl.isAsterisk()) continue;
 
 				EltName importName = asName(importDecl.getName());
@@ -149,7 +150,7 @@ public class CompilationUnitAttr extends Attributes {
 		public ExecutableElem resolveLocalExecutable(EltSimpleName name) {
 			List<ExecutableElem> candidates = new ArrayList<ExecutableElem>();
 
-			for (ImportDeclaration importDecl : node().getImports()) {
+			for (ImportDeclaration importDecl : safeIterable(node().getImports())) {
 				if (!importDecl.isStatic() || importDecl.isAsterisk()) continue;
 
 				EltName importName = asName(importDecl.getName());
@@ -165,7 +166,7 @@ public class CompilationUnitAttr extends Attributes {
 				throw new ScopeException("Ambiguous imports for executable '" + name + "'", node());
 			}
 
-			for (ImportDeclaration importDecl : node().getImports()) {
+			for (ImportDeclaration importDecl : safeIterable(node().getImports())) {
 				if (!importDecl.isStatic() || !importDecl.isAsterisk()) continue;
 
 				EltName importName = asName(importDecl.getName());

@@ -21,7 +21,7 @@ public class EltSimpleName extends EltName {
 
 	@Override
 	public EltName qualifier() {
-		return null;
+		return EltNames.empty;
 	}
 
 	@Override

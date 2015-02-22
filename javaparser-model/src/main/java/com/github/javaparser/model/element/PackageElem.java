@@ -6,7 +6,10 @@ import com.github.javaparser.model.scope.Scope;
 import com.github.javaparser.model.type.NoTpe;
 import com.github.javaparser.model.type.TpeMirror;
 
-import javax.lang.model.element.*;
+import javax.lang.model.element.ElementKind;
+import javax.lang.model.element.ElementVisitor;
+import javax.lang.model.element.Modifier;
+import javax.lang.model.element.PackageElement;
 import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.Map;

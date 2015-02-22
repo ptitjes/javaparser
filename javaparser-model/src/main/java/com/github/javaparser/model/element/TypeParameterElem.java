@@ -5,7 +5,6 @@ import com.github.javaparser.model.scope.Scope;
 import com.github.javaparser.model.type.TpeMirror;
 
 import javax.lang.model.element.*;
-import javax.lang.model.type.TypeMirror;
 import java.util.EnumSet;
 import java.util.List;
 

@@ -3,8 +3,6 @@ package com.github.javaparser.model;
 import com.github.javaparser.JavaParser;
 import com.github.javaparser.ParseException;
 import com.github.javaparser.ast.CompilationUnit;
-import com.github.javaparser.model.report.NullReporter;
-import com.github.javaparser.model.report.Reporter;
 
 import java.io.File;
 import java.io.FileFilter;

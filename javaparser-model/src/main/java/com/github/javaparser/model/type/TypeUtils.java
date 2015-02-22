@@ -1,14 +1,11 @@
 package com.github.javaparser.model.type;
 
 import com.github.javaparser.model.Analysis;
-import com.github.javaparser.model.element.Elem;
 import com.github.javaparser.model.element.TypeElem;
-import com.github.javaparser.model.element.TypeParameterElem;
 
 import javax.lang.model.element.Element;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.type.*;
-import javax.lang.model.util.Elements;
 import javax.lang.model.util.Types;
 import java.util.Arrays;
 import java.util.Collections;

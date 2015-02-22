@@ -29,7 +29,7 @@ public class CompilationUnitAttr extends Attributes {
 	private final File file;
 
 	public CompilationUnitAttr(Scope parentScope, File file, CompilationUnit cu) {
-		super(null, cu);
+		super(cu, cu);
 		this.parentScope = parentScope;
 		this.file = file;
 	}

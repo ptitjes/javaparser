@@ -49,21 +49,23 @@ public class Scaffolding {
 			analysis.addSourcePackage(packageElem);
 		}
 
-		CompilationUnitAttr source = new CompilationUnitAttr(packageElem.scope(), file, cu);
+		CompilationUnitAttr attr = new CompilationUnitAttr(packageElem.scope(), file, cu);
 
-		visitAll(new ElemBuilder(source), packageElem, cu.getTypes());
+		visitAll(new ElemBuilder(cu, attr.scope()), packageElem, cu.getTypes());
 	}
 
 	class ElemBuilder extends VoidVisitorAdapter<Elem> {
 
-		private final CompilationUnitAttr source;
+		private final CompilationUnit cu;
+		private final Scope scope;
 
-		public ElemBuilder(CompilationUnitAttr source) {
-			this.source = source;
+		public ElemBuilder(CompilationUnit cu, Scope scope) {
+			this.cu = cu;
+			this.scope = scope;
 		}
 
 		private SourceOrigin originFor(Node n) {
-			return new SourceOrigin(source.node(), n);
+			return new SourceOrigin(cu, n);
 		}
 
 		private NestingKind nestingKind(Elem parent) {
@@ -71,11 +73,11 @@ public class Scaffolding {
 		}
 
 		private Scope scopeFor(Elem parent) {
-			return parent instanceof PackageElem ? source.scope() : parent.scope();
+			return parent instanceof PackageElem ? scope : parent.scope();
 		}
 
 		private <E extends Elem> void setAttributes(Node n, E elem) {
-			new ElementAttr<E>(source, n, elem);
+			new ElementAttr<E>(cu, n, elem);
 		}
 
 		@Override

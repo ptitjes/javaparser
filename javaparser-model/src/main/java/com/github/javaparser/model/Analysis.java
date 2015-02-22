@@ -9,6 +9,7 @@ import com.github.javaparser.model.phases.Scaffolding;
 import com.github.javaparser.model.element.PackageElem;
 import com.github.javaparser.model.scope.RootScope;
 import com.github.javaparser.model.scope.Scope;
+import com.github.javaparser.model.type.TypeUtils;
 
 import javax.lang.model.element.PackageElement;
 import javax.lang.model.util.Elements;
@@ -22,7 +23,10 @@ import java.util.*;
 public class Analysis implements Reporter {
 
 	private final AnalysisConfiguration configuration;
+	private final TypeUtils typeUtils;
+
 	private boolean errors = false;
+
 	private final Scaffolding scaffolding = new Scaffolding(this);
 	private final SuperTypeResolution superTypeResolution = new SuperTypeResolution(this);
 
@@ -32,6 +36,8 @@ public class Analysis implements Reporter {
 
 	public Analysis(AnalysisConfiguration configuration) {
 		this.configuration = configuration;
+
+		typeUtils = new TypeUtils(this);
 	}
 
 	public void addCompilationUnit(File file, CompilationUnit cu) {
@@ -75,8 +81,8 @@ public class Analysis implements Reporter {
 		return new ArrayList<PackageElement>(sourcePackages.values());
 	}
 
-	public Types getTypeUtils() {
-		return null;
+	public TypeUtils getTypeUtils() {
+		return typeUtils;
 	}
 
 	public Elements getElementUtils() {

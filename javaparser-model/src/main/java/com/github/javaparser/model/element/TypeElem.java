@@ -4,7 +4,6 @@ import com.github.javaparser.model.scope.EltName;
 import com.github.javaparser.model.scope.EltSimpleName;
 import com.github.javaparser.model.scope.Scope;
 import com.github.javaparser.model.type.DeclaredTpe;
-import com.github.javaparser.model.type.NoTpe;
 import com.github.javaparser.model.type.TpeMirror;
 
 import javax.lang.model.element.*;
@@ -19,6 +18,7 @@ public class TypeElem extends Elem implements TypeElement {
 	private final EltName qualifiedName;
 	private final NestingKind nesting;
 	private final List<TypeParameterElem> typeParameters = new ArrayList<TypeParameterElem>();
+	private final Map<EltSimpleName, TypeParameterElem> perNameTypeParameters = new HashMap<EltSimpleName, TypeParameterElem>();
 	private final Map<EltSimpleName, TypeElem> types = new HashMap<EltSimpleName, TypeElem>();
 	private final Map<EltSimpleName, ExecutableElem> executables = new HashMap<EltSimpleName, ExecutableElem>();
 	private final Map<EltSimpleName, VariableElem> variables = new HashMap<EltSimpleName, VariableElem>();
@@ -46,6 +46,7 @@ public class TypeElem extends Elem implements TypeElement {
 		switch (elem.getKind()) {
 			case TYPE_PARAMETER:
 				typeParameters.add((TypeParameterElem) elem);
+				perNameTypeParameters.put(name, (TypeParameterElem) elem);
 				break;
 			case CLASS:
 			case INTERFACE:
@@ -70,7 +71,7 @@ public class TypeElem extends Elem implements TypeElement {
 	}
 
 	@Override
-	public final Name getQualifiedName() {
+	public final EltName getQualifiedName() {
 		return qualifiedName;
 	}
 
@@ -128,18 +129,59 @@ public class TypeElem extends Elem implements TypeElement {
 		}
 
 		@Override
+		public TypeParameterElem resolveLocalTypeParameter(EltSimpleName name) {
+			return perNameTypeParameters.get(name);
+		}
+
+		@Override
 		public TypeElem resolveLocalType(EltSimpleName name) {
-			return types.get(name);
+			TypeElem typeElem = types.get(name);
+			if (typeElem == null && superClass != null && superClass instanceof DeclaredTpe) {
+				typeElem = ((DeclaredTpe) superClass).asElement().scope().resolveLocalType(name);
+			}
+			if (typeElem == null && interfaces != null && !interfaces.isEmpty()) {
+				for (TpeMirror anInterface : interfaces) {
+					if (anInterface instanceof DeclaredTpe) {
+						typeElem = ((DeclaredTpe) anInterface).asElement().scope().resolveLocalType(name);
+						if (typeElem != null) break;
+					}
+				}
+			}
+			return typeElem;
 		}
 
 		@Override
 		public VariableElem resolveLocalVariable(EltSimpleName name) {
-			return variables.get(name);
+			VariableElem variableElem = variables.get(name);
+			if (variableElem == null && superClass != null && superClass instanceof DeclaredTpe) {
+				variableElem = ((DeclaredTpe) superClass).asElement().scope().resolveLocalVariable(name);
+			}
+			if (variableElem == null && interfaces != null && !interfaces.isEmpty()) {
+				for (TpeMirror anInterface : interfaces) {
+					if (anInterface instanceof DeclaredTpe) {
+						variableElem = ((DeclaredTpe) anInterface).asElement().scope().resolveLocalVariable(name);
+						if (variableElem != null) break;
+					}
+				}
+			}
+			return variableElem;
 		}
 
 		@Override
 		public ExecutableElem resolveLocalExecutable(EltSimpleName name) {
-			return executables.get(name);
+			ExecutableElem executableElem = executables.get(name);
+			if (executableElem == null && superClass != null && superClass instanceof DeclaredTpe) {
+				executableElem = ((DeclaredTpe) superClass).asElement().scope().resolveLocalExecutable(name);
+			}
+			if (executableElem == null && interfaces != null && !interfaces.isEmpty()) {
+				for (TpeMirror anInterface : interfaces) {
+					if (anInterface instanceof DeclaredTpe) {
+						executableElem = ((DeclaredTpe) anInterface).asElement().scope().resolveLocalExecutable(name);
+						if (executableElem != null) break;
+					}
+				}
+			}
+			return executableElem;
 		}
 	};
 }

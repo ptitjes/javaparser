@@ -6,8 +6,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
-import javax.lang.model.element.Element;
-import javax.lang.model.element.PackageElement;
+import javax.lang.model.element.*;
 import javax.lang.model.util.ElementScanner8;
 import java.io.File;
 import java.io.IOException;
@@ -40,15 +39,64 @@ public class DummyInitialTest {
 		private int indent = 0;
 
 		@Override
-		public Void scan(Element e, Void aVoid) {
-			for (int i = 0; i < indent; i++) {
-				System.out.print("  ");
+		public Void visitPackage(PackageElement e, Void aVoid) {
+			printIndent();
+			System.out.println("Package: " + e.getSimpleName());
+			return super.visitPackage(e, aVoid);
+		}
+
+		@Override
+		public Void visitType(TypeElement e, Void aVoid) {
+			printIndent();
+			System.out.print("Type: ");
+			switch (e.getKind()) {
+				case CLASS:
+					System.out.print("class ");
+					break;
+				case INTERFACE:
+					System.out.print("interface ");
+					break;
+				case ANNOTATION_TYPE:
+					System.out.print("@interface ");
+					break;
+				case ENUM:
+					System.out.print("enum ");
+					break;
 			}
-			System.out.println(e.getKind() + " " + e.getSimpleName());
+			System.out.print(e.getSimpleName());
+
+			System.out.print("(superClass: " + e.getSuperclass() + ", interfaces: " + e.getInterfaces().toString() + ")");
+
+			System.out.println();
+			return super.visitType(e, aVoid);
+		}
+
+		@Override
+		public Void visitVariable(VariableElement e, Void aVoid) {
+			printIndent();
+			System.out.println("Variable: " + e.getSimpleName());
+			return super.visitVariable(e, aVoid);
+		}
+
+		@Override
+		public Void visitExecutable(ExecutableElement e, Void aVoid) {
+			printIndent();
+			System.out.println("Executable: " + e.getSimpleName());
+			return super.visitExecutable(e, aVoid);
+		}
+
+		@Override
+		public Void scan(Element e, Void aVoid) {
 			indent++;
 			super.scan(e, aVoid);
 			indent--;
 			return null;
+		}
+
+		private void printIndent() {
+			for (int i = 0; i < indent; i++) {
+				System.out.print("  ");
+			}
 		}
 	};
 }

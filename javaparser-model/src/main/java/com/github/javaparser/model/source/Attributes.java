@@ -11,7 +11,7 @@ import com.github.javaparser.model.scope.Scope;
  */
 public class Attributes {
 
-	private static Attributes get(Node node) {
+	public static Attributes get(Node node) {
 		return (Attributes) node.getData();
 	}
 

@@ -2,6 +2,7 @@ package com.github.javaparser.model;
 
 import com.github.javaparser.ast.CompilationUnit;
 import com.github.javaparser.model.element.Origin;
+import com.github.javaparser.model.phases.SuperTypeResolution;
 import com.github.javaparser.model.report.Reporter;
 import com.github.javaparser.model.scope.EltName;
 import com.github.javaparser.model.phases.Scaffolding;
@@ -23,6 +24,7 @@ public class Analysis implements Reporter {
 	private final AnalysisConfiguration configuration;
 	private boolean errors = false;
 	private final Scaffolding scaffolding = new Scaffolding(this);
+	private final SuperTypeResolution superTypeResolution = new SuperTypeResolution(this);
 
 	private final List<CompilationUnit> compilationUnits = new ArrayList<CompilationUnit>();
 	private final Map<EltName, List<PackageElem>> dependencyPackages = new HashMap<EltName, List<PackageElem>>();
@@ -32,9 +34,10 @@ public class Analysis implements Reporter {
 		this.configuration = configuration;
 	}
 
-	public void addCompilationUnit(CompilationUnit cu) {
+	public void addCompilationUnit(File file, CompilationUnit cu) {
 		compilationUnits.add(cu);
-		scaffolding.process(cu);
+		scaffolding.process(file, cu);
+		superTypeResolution.process();
 	}
 
 	public List<CompilationUnit> getCompilationUnits() {
@@ -109,7 +112,9 @@ public class Analysis implements Reporter {
 
 		@Override
 		public List<PackageElem> resolvePackages(EltName name) {
-			return Collections.singletonList(sourcePackages.get(name));
+			PackageElem packageElem = sourcePackages.get(name);
+			if (packageElem == null) return null;
+			return Collections.singletonList(packageElem);
 		}
 	};
 

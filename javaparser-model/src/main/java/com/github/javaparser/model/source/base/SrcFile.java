@@ -11,6 +11,7 @@ import com.github.javaparser.model.scope.Scope;
 import com.github.javaparser.model.scope.ScopeException;
 import com.github.javaparser.model.source.Attributes;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,10 +23,12 @@ import static com.github.javaparser.model.source.utils.SrcNameUtils.asName;
 public class SrcFile extends Attributes {
 
 	private final Scope parentScope;
+	private final File file;
 
-	public SrcFile(Scope parentScope, CompilationUnit cu) {
+	public SrcFile(Scope parentScope, File file, CompilationUnit cu) {
 		super(null, cu);
 		this.parentScope = parentScope;
+		this.file = file;
 	}
 
 	public SrcFile source() {
@@ -34,6 +37,10 @@ public class SrcFile extends Attributes {
 
 	public Scope parentScope() {
 		return parentScope;
+	}
+
+	public File file() {
+		return file;
 	}
 
 	@Override
@@ -61,7 +68,7 @@ public class SrcFile extends Attributes {
 
 				EltName importName = asName(importDecl.getName());
 				if (importName.simpleName().equals(name)) {
-					TypeElem candidate = rootScope().resolveType(importName/*, importDecl.isStatic()*/);
+					TypeElem candidate = parentScope().resolveType(importName/*, importDecl.isStatic()*/);
 					if (candidate != null) candidates.add(candidate);
 				}
 			}
@@ -77,7 +84,7 @@ public class SrcFile extends Attributes {
 
 				EltName importName = asName(importDecl.getName());
 
-				TypeElem candidateParent = rootScope().resolveType(importName);
+				TypeElem candidateParent = parentScope().resolveType(importName);
 				if (candidateParent != null) {
 					TypeElem candidate = candidateParent.scope().resolveLocalType(name/*, importDecl.isStatic()*/);
 					if (candidate != null) candidates.add(candidate);
@@ -102,7 +109,7 @@ public class SrcFile extends Attributes {
 
 				EltName importName = asName(importDecl.getName());
 				if (importName.simpleName().equals(name)) {
-					VariableElem candidate = rootScope().resolveVariable(importName/*, importDecl.isStatic()*/);
+					VariableElem candidate = parentScope().resolveVariable(importName/*, importDecl.isStatic()*/);
 					if (candidate != null) candidates.add(candidate);
 				}
 			}
@@ -118,7 +125,7 @@ public class SrcFile extends Attributes {
 
 				EltName importName = asName(importDecl.getName());
 
-				TypeElem candidateParent = rootScope().resolveType(importName);
+				TypeElem candidateParent = parentScope().resolveType(importName);
 				if (candidateParent != null) {
 					VariableElem candidate = candidateParent.scope().resolveLocalVariable(name/*, importDecl.isStatic()*/);
 					if (candidate != null) candidates.add(candidate);
@@ -143,7 +150,7 @@ public class SrcFile extends Attributes {
 
 				EltName importName = asName(importDecl.getName());
 				if (importName.simpleName().equals(name)) {
-					ExecutableElem candidate = rootScope().resolveExecutable(importName/*, importDecl.isStatic()*/);
+					ExecutableElem candidate = parentScope().resolveExecutable(importName/*, importDecl.isStatic()*/);
 					if (candidate != null) candidates.add(candidate);
 				}
 			}
@@ -159,7 +166,7 @@ public class SrcFile extends Attributes {
 
 				EltName importName = asName(importDecl.getName());
 
-				TypeElem candidateParent = rootScope().resolveType(importName);
+				TypeElem candidateParent = parentScope().resolveType(importName);
 				if (candidateParent != null) {
 					ExecutableElem candidate = candidateParent.scope().resolveLocalExecutable(name/*, importDecl.isStatic()*/);
 					if (candidate != null) candidates.add(candidate);

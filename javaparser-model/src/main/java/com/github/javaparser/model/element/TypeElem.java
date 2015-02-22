@@ -4,6 +4,7 @@ import com.github.javaparser.model.scope.EltName;
 import com.github.javaparser.model.scope.EltSimpleName;
 import com.github.javaparser.model.scope.Scope;
 import com.github.javaparser.model.type.DeclaredTpe;
+import com.github.javaparser.model.type.NoTpe;
 import com.github.javaparser.model.type.TpeMirror;
 
 import javax.lang.model.element.*;
@@ -21,6 +22,8 @@ public class TypeElem extends Elem implements TypeElement {
 	private final Map<EltSimpleName, TypeElem> types = new HashMap<EltSimpleName, TypeElem>();
 	private final Map<EltSimpleName, ExecutableElem> executables = new HashMap<EltSimpleName, ExecutableElem>();
 	private final Map<EltSimpleName, VariableElem> variables = new HashMap<EltSimpleName, VariableElem>();
+	private TpeMirror superClass;
+	private List<TpeMirror> interfaces;
 
 	public TypeElem(Origin origin,
 	                Scope parentScope,
@@ -83,12 +86,20 @@ public class TypeElem extends Elem implements TypeElement {
 
 	@Override
 	public TypeMirror getSuperclass() {
-		return null;
+		return superClass;
+	}
+
+	public void setSuperClass(TpeMirror superClass) {
+		this.superClass = superClass;
 	}
 
 	@Override
 	public List<? extends TypeMirror> getInterfaces() {
-		return null;
+		return interfaces;
+	}
+
+	public void setInterfaces(List<TpeMirror> interfaces) {
+		this.interfaces = interfaces;
 	}
 
 	@Override

@@ -1,5 +1,6 @@
 package com.github.javaparser.model.source;
 
+import com.github.javaparser.ast.CompilationUnit;
 import com.github.javaparser.ast.Node;
 import com.github.javaparser.model.element.Elem;
 import com.github.javaparser.model.scope.Scope;
@@ -17,17 +18,17 @@ public class Attributes {
 		node.setData(data);
 	}
 
-	private final CompilationUnitAttr source;
+	private final CompilationUnit compilationUnit;
 	private final Node node;
 
-	public Attributes(CompilationUnitAttr source, Node node) {
-		this.source = source;
+	public Attributes(CompilationUnit compilationUnit, Node node) {
+		this.compilationUnit = compilationUnit;
 		this.node = node;
 		if (node != null) Attributes.set(node, this);
 	}
 
-	public CompilationUnitAttr source() {
-		return source;
+	public CompilationUnit compilationUnit() {
+		return compilationUnit;
 	}
 
 	public Node node() {

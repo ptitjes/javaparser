@@ -137,9 +137,17 @@ public class SuperTypeResolution {
 	private TpeMirror resolveType(Type type, Scope scope) {
 		TpeMirror tpeMirror = type.accept(typeResolver, scope);
 		if (tpeMirror == null) {
-			throw new ScopeException("Can't find type '" + type + "'", null);
+			throw new ScopeException("Can't resolve type '" + type + "'", null);
 		}
 		return tpeMirror;
+	}
+
+	private TypeElem findTypeElem(EltSimpleName typeName, Scope scope) {
+		TypeElem typeElem = scope.resolveType(typeName);
+		if (typeElem == null) {
+			throw new ScopeException("Can't find type '" + typeName + "'", null);
+		}
+		return typeElem;
 	}
 
 	private GenericVisitor<TpeMirror, Scope> typeResolver = new TypeResolver();
@@ -174,10 +182,10 @@ public class SuperTypeResolution {
 				if (typeScope != null) {
 					DeclaredTpe typeScopeMirror = (DeclaredTpe) typeScope.accept(this, arg);
 					TypeElem typeScopeElem = typeScopeMirror.asElement();
-					TypeElem typeElem = typeScopeElem.scope().resolveType(typeName);
+					TypeElem typeElem = findTypeElem(typeName, typeScopeElem.scope());
 					return new DeclaredTpe(typeScopeMirror, typeElem, tpeArgsMirrors);
 				} else {
-					TypeElem typeElem = arg.resolveType(typeName);
+					TypeElem typeElem = findTypeElem(typeName, arg);
 					return new DeclaredTpe(NoTpe.NONE, typeElem, tpeArgsMirrors);
 				}
 			}

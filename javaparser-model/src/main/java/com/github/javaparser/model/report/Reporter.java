@@ -1,8 +1,7 @@
 package com.github.javaparser.model.report;
 
+import com.github.javaparser.model.classpath.ClasspathElement;
 import com.github.javaparser.model.element.Origin;
-
-import java.io.File;
 
 /**
  * @author Didier Villevalois
@@ -13,7 +12,7 @@ public interface Reporter {
 		INFO, WARNING, ERROR
 	}
 
-	public void report(File file, Exception exception);
+	public void report(ClasspathElement file, Exception exception);
 
 	public void report(Severity severity, String message, Origin origin);
 }

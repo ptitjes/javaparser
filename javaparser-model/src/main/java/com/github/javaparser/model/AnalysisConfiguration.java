@@ -10,7 +10,7 @@ public class AnalysisConfiguration {
 
 	private Reporter reporter = new NullReporter();
 	private String encoding = null;
-	private boolean considerComments = true;
+	private boolean consideringComments = true;
 
 	public AnalysisConfiguration() {
 	}
@@ -21,7 +21,7 @@ public class AnalysisConfiguration {
 	}
 
 	public AnalysisConfiguration considerComments(boolean considerComments) {
-		this.considerComments = considerComments;
+		this.consideringComments = considerComments;
 		return this;
 	}
 
@@ -38,7 +38,7 @@ public class AnalysisConfiguration {
 		return encoding;
 	}
 
-	public boolean isConsiderComments() {
-		return considerComments;
+	public boolean isConsideringComments() {
+		return consideringComments;
 	}
 }

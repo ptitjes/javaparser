@@ -1,6 +1,7 @@
 package com.github.javaparser.model;
 
 import com.github.javaparser.ast.CompilationUnit;
+import com.github.javaparser.model.classpath.ClasspathElement;
 import com.github.javaparser.model.element.ElementUtils;
 import com.github.javaparser.model.element.Origin;
 import com.github.javaparser.model.element.PackageElem;
@@ -18,7 +19,6 @@ import javax.lang.model.element.ElementKind;
 import javax.lang.model.element.Modifier;
 import javax.lang.model.element.NestingKind;
 import javax.lang.model.element.PackageElement;
-import java.io.File;
 import java.util.*;
 
 /**
@@ -61,7 +61,7 @@ public class Analysis implements Reporter {
 		addDependencyPackage(packageElem);
 	}
 
-	public void addCompilationUnit(File file, CompilationUnit cu) {
+	public void addCompilationUnit(ClasspathElement file, CompilationUnit cu) {
 		compilationUnits.add(cu);
 		scaffolding.process(file, cu);
 	}
@@ -149,7 +149,7 @@ public class Analysis implements Reporter {
 	};
 
 	@Override
-	public void report(File file, Exception exception) {
+	public void report(ClasspathElement file, Exception exception) {
 		errors = true;
 		configuration.getReporter().report(file, exception);
 	}

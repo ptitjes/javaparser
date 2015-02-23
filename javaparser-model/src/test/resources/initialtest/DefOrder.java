@@ -1,4 +1,4 @@
-package com.github.javaparser.model.test;
+package initialtest;
 
 /**
  * @author Didier Villevalois
@@ -6,6 +6,7 @@ package com.github.javaparser.model.test;
 class DefOrder {
 	static class Test1 extends Test2 {
 	}
+
 	static class Test2 {
 	}
 }

@@ -1,4 +1,4 @@
-package com.github.javaparser.model.test;
+package initialtest;
 
 /**
  * @author Didier Villevalois

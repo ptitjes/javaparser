@@ -1,15 +1,14 @@
 package com.github.javaparser.model.report;
 
+import com.github.javaparser.model.classpath.ClasspathElement;
 import com.github.javaparser.model.element.Origin;
-
-import java.io.File;
 
 /**
  * @author Didier Villevalois
  */
 public class NullReporter implements Reporter {
 	@Override
-	public void report(File file, Exception exception) {
+	public void report(ClasspathElement file, Exception exception) {
 	}
 
 	@Override

@@ -2,6 +2,7 @@ package com.github.javaparser.model.source;
 
 import com.github.javaparser.ast.CompilationUnit;
 import com.github.javaparser.ast.ImportDeclaration;
+import com.github.javaparser.model.classpath.ClasspathElement;
 import com.github.javaparser.model.element.ExecutableElem;
 import com.github.javaparser.model.element.TypeElem;
 import com.github.javaparser.model.element.VariableElem;
@@ -10,7 +11,6 @@ import com.github.javaparser.model.scope.EltSimpleName;
 import com.github.javaparser.model.scope.Scope;
 import com.github.javaparser.model.scope.ScopeException;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,9 +27,9 @@ public class CompilationUnitAttr extends Attributes {
 	}
 
 	private final Scope parentScope;
-	private final File file;
+	private final ClasspathElement file;
 
-	public CompilationUnitAttr(Scope parentScope, File file, CompilationUnit cu) {
+	public CompilationUnitAttr(Scope parentScope, ClasspathElement file, CompilationUnit cu) {
 		super(cu, cu);
 		this.parentScope = parentScope;
 		this.file = file;
@@ -43,7 +43,7 @@ public class CompilationUnitAttr extends Attributes {
 		return parentScope;
 	}
 
-	public File file() {
+	public ClasspathElement file() {
 		return file;
 	}
 

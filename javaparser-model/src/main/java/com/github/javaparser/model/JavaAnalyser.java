@@ -3,11 +3,16 @@ package com.github.javaparser.model;
 import com.github.javaparser.JavaParser;
 import com.github.javaparser.ParseException;
 import com.github.javaparser.ast.CompilationUnit;
+import com.github.javaparser.model.classpath.ClasspathElement;
+import com.github.javaparser.model.classpath.ClasspathSource;
+import com.github.javaparser.model.classpath.DirSourcesFinder;
 
 import java.io.File;
-import java.io.FileFilter;
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayDeque;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Queue;
 
 /**
  * @author Didier Villevalois
@@ -25,48 +30,27 @@ public class JavaAnalyser {
 	}
 
 	public Analysis buildModel(final File sourceDirectory) {
-		if (!sourceDirectory.exists())
-			throw new IllegalArgumentException("No such directory: " + sourceDirectory.getAbsolutePath());
+		return buildModel(new DirSourcesFinder(sourceDirectory));
+	}
 
-		FileFilter directoryFilter = new FileFilter() {
-			@Override
-			public boolean accept(File file) {
-				return file.isDirectory();
-			}
-		};
-		FileFilter packageSourceFilter = new FileFilter() {
-			@Override
-			public boolean accept(File file) {
-				String name = file.getName();
-				return name.equals("package.java");
-			}
-		};
-		FileFilter javaSourceFilter = new FileFilter() {
-			@Override
-			public boolean accept(File file) {
-				String name = file.getName();
-				return name.endsWith(".java") && !name.equals("package.java");
-			}
-		};
-
-		Queue<File> directories = new ArrayDeque<File>();
-		List<File> sourceFiles = new ArrayList<File>();
+	public Analysis buildModel(final ClasspathSource sourceDirectory) {
+		Queue<ClasspathSource> directories = new ArrayDeque<ClasspathSource>();
+		List<ClasspathElement> sourceFiles = new ArrayList<ClasspathElement>();
 
 		directories.add(sourceDirectory);
 		while (!directories.isEmpty()) {
-			File current = directories.poll();
+			ClasspathSource current = directories.poll();
 
-			directories.addAll(Arrays.asList(current.listFiles(directoryFilter)));
-			sourceFiles.addAll(Arrays.asList(current.listFiles(packageSourceFilter)));
-			sourceFiles.addAll(Arrays.asList(current.listFiles(javaSourceFilter)));
+			directories.addAll(current.getSubtrees());
+			sourceFiles.addAll(current.getElements());
 		}
 
 		Analysis analysis = new Analysis(configuration);
-		for (File sourceFile : sourceFiles) {
+		for (ClasspathElement sourceFile : sourceFiles) {
 			try {
-				CompilationUnit cu = JavaParser.parse(sourceFile,
+				CompilationUnit cu = JavaParser.parse(sourceFile.getInputStream(),
 						configuration.getEncoding(),
-						configuration.isConsiderComments());
+						configuration.isConsideringComments());
 				analysis.addCompilationUnit(sourceFile, cu);
 			} catch (ParseException e) {
 				analysis.report(sourceFile, e);

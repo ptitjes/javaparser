@@ -1,6 +1,8 @@
 package com.github.javaparser.model.type;
 
-import com.github.javaparser.model.Analysis;
+import com.github.javaparser.model.Registry;
+import com.github.javaparser.model.classpath.Classpath;
+import com.github.javaparser.model.element.ElementUtils;
 import com.github.javaparser.model.element.TypeElem;
 
 import javax.lang.model.element.Element;
@@ -14,28 +16,31 @@ import java.util.List;
 /**
  * @author Didier Villevalois
  */
-public class TypeUtils implements Types {
+public class TypeUtils implements Types, Registry.Participant {
 
-	private final Analysis analysis;
+	private Classpath classpath;
+	private ElementUtils elementUtils;
 
-	public TypeUtils(Analysis analysis) {
-		this.analysis = analysis;
+	@Override
+	public void configure(Registry registry) {
+		classpath = registry.get(Classpath.class);
+		elementUtils = registry.get(ElementUtils.class);
 	}
 
 	/* Internal convenience API */
 
 	public TpeMirror objectType() {
-		TypeElem objectTypeElem = analysis.getElementUtils().java_lang_Object();
+		TypeElem objectTypeElem = elementUtils.java_lang_Object();
 		return new DeclaredTpe(NoTpe.NONE, objectTypeElem, Collections.<TpeMirror>emptyList());
 	}
 
 	public DeclaredTpe enumTypeOf(TpeMirror tpeMirror) {
-		TypeElem enumTypeElem = analysis.getElementUtils().java_lang_Enum();
+		TypeElem enumTypeElem = elementUtils.java_lang_Enum();
 		return new DeclaredTpe(NoTpe.NONE, enumTypeElem, Collections.singletonList(tpeMirror));
 	}
 
 	public DeclaredTpe annotationType() {
-		TypeElem annotationTypeElem = analysis.getElementUtils().java_lang_annotation_Annotation();
+		TypeElem annotationTypeElem = elementUtils.java_lang_annotation_Annotation();
 		return new DeclaredTpe(NoTpe.NONE, annotationTypeElem, Collections.<TpeMirror>emptyList());
 	}
 

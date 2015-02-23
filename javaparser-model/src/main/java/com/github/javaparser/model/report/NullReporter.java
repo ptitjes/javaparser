@@ -14,4 +14,9 @@ public class NullReporter implements Reporter {
 	@Override
 	public void report(Severity severity, String message, Origin origin) {
 	}
+
+	@Override
+	public boolean hasErrors() {
+		return false;
+	}
 }

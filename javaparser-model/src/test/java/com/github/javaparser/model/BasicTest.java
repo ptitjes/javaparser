@@ -42,11 +42,11 @@ public class BasicTest {
 		Analysis model = analyser.buildModel(new File("src/test/resources/scenario_a"));
 
 		assertEquals(1, model.getCompilationUnits().size());
-		assertEquals(1, model.getSourcePackageElements().size());
-		assertTrue(model.getSourcePackageElements().get(0).isUnnamed());
+		assertEquals(1, model.getSourcePackages().size());
+		assertTrue(model.getSourcePackages().get(0).isUnnamed());
 
-		assertEquals(1, model.getSourcePackageElements().get(0).getEnclosedElements().size());
-		Element elmtClassA = model.getSourcePackageElements().get(0).getEnclosedElements().get(0);
+		assertEquals(1, model.getSourcePackages().get(0).getEnclosedElements().size());
+		Element elmtClassA = model.getSourcePackages().get(0).getEnclosedElements().get(0);
 		assertTrue(elmtClassA instanceof TypeElem);
 		TypeElem typeClassA = (TypeElem) elmtClassA;
 		assertTrue(elmtClassA.getSimpleName().contentEquals("A"));

@@ -1,6 +1,7 @@
 package com.github.javaparser.model.element;
 
-import com.github.javaparser.model.Analysis;
+import com.github.javaparser.model.Registry;
+import com.github.javaparser.model.classpath.Classpath;
 import com.github.javaparser.model.scope.EltNames;
 
 import javax.lang.model.element.*;
@@ -12,12 +13,13 @@ import java.util.Map;
 /**
  * @author Didier Villevalois
  */
-public class ElementUtils implements Elements {
+public class ElementUtils implements Elements, Registry.Participant {
 
-	private final Analysis analysis;
+	private Classpath classpath;
 
-	public ElementUtils(Analysis analysis) {
-		this.analysis = analysis;
+	@Override
+	public void configure(Registry registry) {
+		classpath = registry.get(Classpath.class);
 	}
 
 	/* Internal convenience API */
@@ -39,12 +41,12 @@ public class ElementUtils implements Elements {
 	@Override
 	public PackageElement getPackageElement(CharSequence name) {
 		// TODO We should have a unique PackageElement per package...
-		return analysis.getSourcePackage(EltNames.make(name));
+		return classpath.getSourcePackage(EltNames.make(name));
 	}
 
 	@Override
 	public TypeElement getTypeElement(CharSequence name) {
-		return analysis.sourceScope().resolveType(EltNames.make(name));
+		return classpath.sourceScope().resolveType(EltNames.make(name));
 	}
 
 	@Override

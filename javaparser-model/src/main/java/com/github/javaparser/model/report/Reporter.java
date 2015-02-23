@@ -15,4 +15,6 @@ public interface Reporter {
 	public void report(ClasspathElement file, Exception exception);
 
 	public void report(Severity severity, String message, Origin origin);
+
+	boolean hasErrors();
 }

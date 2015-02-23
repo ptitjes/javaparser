@@ -1,18 +1,17 @@
 package com.github.javaparser.model;
 
-import com.github.javaparser.JavaParser;
-import com.github.javaparser.ParseException;
-import com.github.javaparser.ast.CompilationUnit;
-import com.github.javaparser.model.classpath.ClasspathElement;
+import com.github.javaparser.model.classpath.Classpath;
 import com.github.javaparser.model.classpath.ClasspathSource;
 import com.github.javaparser.model.classpath.DirSourcesFinder;
+import com.github.javaparser.model.element.ElementUtils;
+import com.github.javaparser.model.phases.Scaffolding;
+import com.github.javaparser.model.phases.SurfaceTyping1;
+import com.github.javaparser.model.phases.SurfaceTyping2;
+import com.github.javaparser.model.phases.TypeResolver;
+import com.github.javaparser.model.report.Reporter;
+import com.github.javaparser.model.type.TypeUtils;
 
 import java.io.File;
-import java.io.IOException;
-import java.util.ArrayDeque;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Queue;
 
 /**
  * @author Didier Villevalois
@@ -34,30 +33,23 @@ public class JavaAnalyser {
 	}
 
 	public Analysis buildModel(final ClasspathSource sourceDirectory) {
-		Queue<ClasspathSource> directories = new ArrayDeque<ClasspathSource>();
-		List<ClasspathElement> sourceFiles = new ArrayList<ClasspathElement>();
+		Registry registry = new Registry();
 
-		directories.add(sourceDirectory);
-		while (!directories.isEmpty()) {
-			ClasspathSource current = directories.poll();
+		Classpath classpath = new Classpath();
 
-			directories.addAll(current.getSubtrees());
-			sourceFiles.addAll(current.getElements());
-		}
+		registry.register(classpath);
+		registry.register(Reporter.class, configuration.getReporter());
+		registry.register(new Scaffolding());
+		registry.register(new TypeResolver());
+		registry.register(new SurfaceTyping1());
+		registry.register(new SurfaceTyping2());
+		registry.register(new TypeUtils());
+		registry.register(new ElementUtils());
+		registry.configure();
 
-		Analysis analysis = new Analysis(configuration);
-		for (ClasspathElement sourceFile : sourceFiles) {
-			try {
-				CompilationUnit cu = JavaParser.parse(sourceFile.getInputStream(),
-						configuration.getEncoding(),
-						configuration.isConsideringComments());
-				analysis.addCompilationUnit(sourceFile, cu);
-			} catch (ParseException e) {
-				analysis.report(sourceFile, e);
-			} catch (IOException e) {
-				analysis.report(sourceFile, e);
-			}
-		}
+		classpath.addSources(sourceDirectory);
+
+		Analysis analysis = new Analysis(configuration, registry);
 		analysis.proceed();
 		return analysis;
 	}

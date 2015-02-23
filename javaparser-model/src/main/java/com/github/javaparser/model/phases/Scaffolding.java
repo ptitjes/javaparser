@@ -8,7 +8,8 @@ import com.github.javaparser.ast.body.*;
 import com.github.javaparser.ast.expr.*;
 import com.github.javaparser.ast.stmt.*;
 import com.github.javaparser.ast.visitor.VoidVisitorAdapter;
-import com.github.javaparser.model.Analysis;
+import com.github.javaparser.model.Registry;
+import com.github.javaparser.model.classpath.Classpath;
 import com.github.javaparser.model.classpath.ClasspathElement;
 import com.github.javaparser.model.element.*;
 import com.github.javaparser.model.scope.EltName;
@@ -31,23 +32,24 @@ import static com.github.javaparser.model.source.utils.SrcNameUtils.asName;
 /**
  * @author Didier Villevalois
  */
-public class Scaffolding {
+public class Scaffolding implements Registry.Participant {
 
-	private final Analysis analysis;
+	private Classpath classpath;
 
-	public Scaffolding(Analysis analysis) {
-		this.analysis = analysis;
+	@Override
+	public void configure(Registry registry) {
+		classpath = registry.get(Classpath.class);
 	}
 
 	public void process(ClasspathElement file, CompilationUnit cu) {
 		PackageDeclaration packageDecl = cu.getPackage();
 		EltName packageName = packageDecl == null ? EltNames.empty : asName(packageDecl.getName());
 
-		PackageElem packageElem = analysis.getSourcePackage(packageName);
+		PackageElem packageElem = classpath.getSourcePackage(packageName);
 		if (packageElem == null) {
 			SourceOrigin origin = new SourceOrigin(cu, packageDecl);
-			packageElem = new PackageElem(analysis.sourceScope(), origin, packageName);
-			analysis.addSourcePackage(packageElem);
+			packageElem = new PackageElem(classpath.sourceScope(), origin, packageName);
+			classpath.addSourcePackage(packageElem);
 		}
 
 		CompilationUnitAttr attr = new CompilationUnitAttr(packageElem.scope(), file, cu);

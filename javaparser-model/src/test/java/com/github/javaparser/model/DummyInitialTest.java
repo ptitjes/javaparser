@@ -29,7 +29,7 @@ public class DummyInitialTest {
 
 		Analysis model = analyser.buildModel(new File("src/test/resources/initialtest"));
 		if (!model.hasErrors()) {
-			for (PackageElement packageElement : model.getSourcePackageElements()) {
+			for (PackageElement packageElement : model.getSourcePackages()) {
 				dumpScanner.scan(packageElement);
 			}
 		}

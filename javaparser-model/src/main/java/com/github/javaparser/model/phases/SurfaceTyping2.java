@@ -3,27 +3,33 @@ package com.github.javaparser.model.phases;
 import com.github.javaparser.ast.CompilationUnit;
 import com.github.javaparser.ast.body.MethodDeclaration;
 import com.github.javaparser.ast.visitor.VoidVisitorAdapter;
-import com.github.javaparser.model.Analysis;
+import com.github.javaparser.model.Registry;
+import com.github.javaparser.model.classpath.Classpath;
 import com.github.javaparser.model.element.ExecutableElem;
+import com.github.javaparser.model.report.Reporter;
 import com.github.javaparser.model.source.ElementAttr;
 import com.github.javaparser.model.type.TypeUtils;
 
 /**
  * @author Didier Villevalois
  */
-public class SurfaceTyping2 {
+public class SurfaceTyping2 implements Registry.Participant {
 
-	private final Analysis analysis;
-	private final TypeUtils typeUtils;
+	private Reporter reporter;
+	private Classpath classpath;
+	private TypeUtils typeUtils;
+	private TypeResolver typeResolver;
 
-	public SurfaceTyping2(Analysis analysis) {
-		this.analysis = analysis;
-
-		typeUtils = analysis.getTypeUtils();
+	@Override
+	public void configure(Registry registry) {
+		reporter = registry.get(Reporter.class);
+		classpath = registry.get(Classpath.class);
+		typeUtils = registry.get(TypeUtils.class);
+		typeResolver = registry.get(TypeResolver.class);
 	}
 
 	public void process() {
-		for (CompilationUnit cu : analysis.getCompilationUnits()) {
+		for (CompilationUnit cu : classpath.getCompilationUnits()) {
 			cu.accept(scanner, null);
 		}
 	}

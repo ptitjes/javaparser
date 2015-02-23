@@ -7,8 +7,10 @@ import com.github.javaparser.ast.body.EnumDeclaration;
 import com.github.javaparser.ast.expr.ObjectCreationExpr;
 import com.github.javaparser.ast.type.ClassOrInterfaceType;
 import com.github.javaparser.ast.visitor.VoidVisitorAdapter;
-import com.github.javaparser.model.Analysis;
+import com.github.javaparser.model.Registry;
+import com.github.javaparser.model.classpath.Classpath;
 import com.github.javaparser.model.element.TypeElem;
+import com.github.javaparser.model.report.Reporter;
 import com.github.javaparser.model.report.Reporter.Severity;
 import com.github.javaparser.model.scope.ScopeException;
 import com.github.javaparser.model.source.ElementAttr;
@@ -23,21 +25,23 @@ import java.util.List;
 /**
  * @author Didier Villevalois
  */
-public class SurfaceTyping1 {
+public class SurfaceTyping1 implements Registry.Participant {
 
-	private final Analysis analysis;
-	private final TypeUtils typeUtils;
-	private final TypeResolver typeResolver;
+	private Reporter reporter;
+	private Classpath classpath;
+	private TypeUtils typeUtils;
+	private TypeResolver typeResolver;
 
-	public SurfaceTyping1(Analysis analysis) {
-		this.analysis = analysis;
-
-		typeUtils = analysis.getTypeUtils();
-		typeResolver = new TypeResolver(analysis);
+	@Override
+	public void configure(Registry registry) {
+		reporter = registry.get(Reporter.class);
+		classpath = registry.get(Classpath.class);
+		typeUtils = registry.get(TypeUtils.class);
+		typeResolver = registry.get(TypeResolver.class);
 	}
 
 	public void process() {
-		for (CompilationUnit cu : analysis.getCompilationUnits()) {
+		for (CompilationUnit cu : classpath.getCompilationUnits()) {
 			cu.accept(scanner, null);
 		}
 	}
@@ -52,7 +56,7 @@ public class SurfaceTyping1 {
 			try {
 				typeResolver.resolveTypeParameters(elem.getTypeParameters(), elem.scope());
 			} catch (ScopeException ex) {
-				analysis.report(Severity.ERROR, ex.getMessage(), elem.origin());
+				reporter.report(Severity.ERROR, ex.getMessage(), elem.origin());
 			}
 
 			List<ClassOrInterfaceType> extended = n.getExtends();
@@ -64,7 +68,7 @@ public class SurfaceTyping1 {
 				try {
 					elem.setInterfaces(typeResolver.resolveTypes(extended, elem.scope()));
 				} catch (ScopeException ex) {
-					analysis.report(Severity.ERROR, "Can't resolve supertype: " + ex.getMessage(), elem.origin());
+					reporter.report(Severity.ERROR, "Can't resolve supertype: " + ex.getMessage(), elem.origin());
 				}
 			} else {
 				if (extended != null && extended.size() == 1) {
@@ -72,14 +76,14 @@ public class SurfaceTyping1 {
 						ClassOrInterfaceType type = extended.get(0);
 						elem.setSuperClass(typeResolver.resolveType(type, elem.scope()));
 					} catch (ScopeException ex) {
-						analysis.report(Severity.ERROR, "Can't resolve supertype: " + ex.getMessage(), elem.origin());
+						reporter.report(Severity.ERROR, "Can't resolve supertype: " + ex.getMessage(), elem.origin());
 					}
 				} else elem.setSuperClass(NoTpe.NONE);
 
 				try {
 					elem.setInterfaces(typeResolver.resolveTypes(implemented, elem.scope()));
 				} catch (ScopeException ex) {
-					analysis.report(Severity.ERROR, "Can't resolve supertype: " + ex.getMessage(), elem.origin());
+					reporter.report(Severity.ERROR, "Can't resolve supertype: " + ex.getMessage(), elem.origin());
 				}
 			}
 
@@ -98,7 +102,7 @@ public class SurfaceTyping1 {
 			try {
 				elem.setInterfaces(typeResolver.resolveTypes(implemented, elem.scope()));
 			} catch (ScopeException ex) {
-				analysis.report(Severity.ERROR, "Can't resolve supertype: " + ex.getMessage(), elem.origin());
+				reporter.report(Severity.ERROR, "Can't resolve supertype: " + ex.getMessage(), elem.origin());
 			}
 
 			super.visit(n, arg);
@@ -137,7 +141,7 @@ public class SurfaceTyping1 {
 						throw new IllegalStateException();
 				}
 			} catch (ScopeException ex) {
-				analysis.report(Severity.ERROR, "Can't resolve supertype: " + ex.getMessage(), elem.origin());
+				reporter.report(Severity.ERROR, "Can't resolve supertype: " + ex.getMessage(), elem.origin());
 			}
 
 			super.visit(n, arg);

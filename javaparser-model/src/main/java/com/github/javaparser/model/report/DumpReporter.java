@@ -14,6 +14,7 @@ public class DumpReporter implements Reporter {
 	private static final String INDENT = "    ";
 
 	private final PrintWriter out;
+	private boolean errors = false;
 
 	public DumpReporter(PrintWriter out) {
 		this.out = out;
@@ -21,12 +22,19 @@ public class DumpReporter implements Reporter {
 
 	@Override
 	public void report(ClasspathElement file, Exception exception) {
+		errors = true;
 		report(Severity.ERROR, file.getPath(), exception.getMessage());
 	}
 
 	@Override
 	public void report(Severity severity, String message, Origin origin) {
+		if (severity == Reporter.Severity.ERROR) errors = true;
 		report(severity, origin.toLocationString(), message);
+	}
+
+	@Override
+	public boolean hasErrors() {
+		return errors;
 	}
 
 	private void report(Severity severity, String location, String message) {

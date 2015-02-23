@@ -3,7 +3,8 @@ package com.github.javaparser.model.phases;
 import com.github.javaparser.ast.TypeParameter;
 import com.github.javaparser.ast.type.*;
 import com.github.javaparser.ast.visitor.GenericVisitorAdapter;
-import com.github.javaparser.model.Analysis;
+import com.github.javaparser.model.Registry;
+import com.github.javaparser.model.classpath.Classpath;
 import com.github.javaparser.model.element.TypeElem;
 import com.github.javaparser.model.element.TypeParameterElem;
 import com.github.javaparser.model.scope.EltNames;
@@ -20,12 +21,15 @@ import static com.github.javaparser.model.source.utils.NodeListUtils.visitAll;
 /**
  * @author Didier Villevalois
  */
-public class TypeResolver {
+public class TypeResolver implements Registry.Participant {
 
-	private final TypeUtils typeUtils;
+	private Classpath classpath;
+	private TypeUtils typeUtils;
 
-	public TypeResolver(Analysis analysis) {
-		typeUtils = analysis.getTypeUtils();
+	@Override
+	public void configure(Registry registry) {
+		classpath = registry.get(Classpath.class);
+		typeUtils = registry.get(TypeUtils.class);
 	}
 
 	public List<TpeMirror> resolveTypes(List<? extends Type> types, Scope scope) {

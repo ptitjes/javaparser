@@ -41,6 +41,9 @@ public class Analysis implements Reporter {
 	public void addCompilationUnit(File file, CompilationUnit cu) {
 		compilationUnits.add(cu);
 		scaffolding.process(file, cu);
+	}
+
+	public void proceed() {
 		superTypeResolution.process();
 	}
 

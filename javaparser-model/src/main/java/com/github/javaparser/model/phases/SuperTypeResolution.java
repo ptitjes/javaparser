@@ -175,7 +175,7 @@ public class SuperTypeResolution {
 				List<TpeMirror> bounds = resolveBounds(typeParameterElem, arg);
 				if (bounds.isEmpty())
 					return new TpeVariable(typeParameterElem, typeUtils.objectType(), NullTpe.NULL);
-				else return new TpeVariable(typeParameterElem, new UnionTpe(bounds), NullTpe.NULL);
+				else return new TpeVariable(typeParameterElem, new IntersectionTpe(bounds), NullTpe.NULL);
 			} else {
 				List<TpeMirror> tpeArgsMirrors = visitAll(this, arg, typeArgs);
 

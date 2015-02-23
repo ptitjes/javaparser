@@ -7,7 +7,8 @@ import com.github.javaparser.model.element.Origin;
 import com.github.javaparser.model.element.PackageElem;
 import com.github.javaparser.model.element.TypeElem;
 import com.github.javaparser.model.phases.Scaffolding;
-import com.github.javaparser.model.phases.SuperTypeResolution;
+import com.github.javaparser.model.phases.SurfaceTyping1;
+import com.github.javaparser.model.phases.SurfaceTyping2;
 import com.github.javaparser.model.report.Reporter;
 import com.github.javaparser.model.scope.EltName;
 import com.github.javaparser.model.scope.EltNames;
@@ -33,7 +34,8 @@ public class Analysis implements Reporter {
 	private boolean errors = false;
 
 	private final Scaffolding scaffolding = new Scaffolding(this);
-	private final SuperTypeResolution superTypeResolution = new SuperTypeResolution(this);
+	private final SurfaceTyping1 surfaceTyping1 = new SurfaceTyping1(this);
+	private final SurfaceTyping2 surfaceTyping2 = new SurfaceTyping2(this);
 
 	private final List<CompilationUnit> compilationUnits = new ArrayList<CompilationUnit>();
 	private final Map<EltName, List<PackageElem>> dependencyPackages = new HashMap<EltName, List<PackageElem>>();
@@ -67,7 +69,8 @@ public class Analysis implements Reporter {
 	}
 
 	public void proceed() {
-		superTypeResolution.process();
+		surfaceTyping1.process();
+		surfaceTyping2.process();
 	}
 
 	public List<CompilationUnit> getCompilationUnits() {

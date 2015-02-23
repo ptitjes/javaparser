@@ -2,11 +2,10 @@ package com.github.javaparser.model.source;
 
 import com.github.javaparser.ast.CompilationUnit;
 import com.github.javaparser.ast.Node;
-import com.github.javaparser.ast.body.AnnotationDeclaration;
-import com.github.javaparser.ast.body.ClassOrInterfaceDeclaration;
-import com.github.javaparser.ast.body.EnumDeclaration;
+import com.github.javaparser.ast.body.*;
 import com.github.javaparser.ast.expr.ObjectCreationExpr;
 import com.github.javaparser.model.element.Elem;
+import com.github.javaparser.model.element.ExecutableElem;
 import com.github.javaparser.model.element.TypeElem;
 import com.github.javaparser.model.scope.Scope;
 
@@ -28,6 +27,14 @@ public class ElementAttr<E extends Elem> extends Attributes {
 	}
 
 	public static ElementAttr<TypeElem> get(ObjectCreationExpr n) {
+		return doGet(n);
+	}
+
+	public static ElementAttr<ExecutableElem> get(ConstructorDeclaration n) {
+		return doGet(n);
+	}
+
+	public static ElementAttr<ExecutableElem> get(MethodDeclaration n) {
 		return doGet(n);
 	}
 

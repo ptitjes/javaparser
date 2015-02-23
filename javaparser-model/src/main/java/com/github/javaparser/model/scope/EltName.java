@@ -61,6 +61,12 @@ public abstract class EltName implements Name {
 
 	@Override
 	public boolean equals(Object obj) {
-		return obj instanceof EltName && nameString.equals(((EltName) obj).nameString);
+		if (obj == this) {
+			return true;
+		}
+		if (obj == null || !(obj instanceof EltName)) {
+			return false;
+		}
+		return nameString.equals(((EltName) obj).nameString);
 	}
 }

@@ -5,6 +5,8 @@ import com.github.javaparser.ast.Node;
 import com.github.javaparser.ast.PackageDeclaration;
 import com.github.javaparser.ast.TypeParameter;
 import com.github.javaparser.ast.body.*;
+import com.github.javaparser.ast.expr.*;
+import com.github.javaparser.ast.stmt.*;
 import com.github.javaparser.ast.visitor.VoidVisitorAdapter;
 import com.github.javaparser.model.Analysis;
 import com.github.javaparser.model.element.*;
@@ -54,6 +56,11 @@ public class Scaffolding {
 
 	VoidVisitorAdapter<Context> attributesBuilder = new VoidVisitorAdapter<Context>() {
 
+		private void recurse(Node n, Elem elem, Context arg) {
+			Context inside = arg.inside(elem);
+			visitAll(this, inside, n.getChildrenNodes());
+		}
+
 		/* Declarations */
 
 		@Override
@@ -67,9 +74,7 @@ public class Scaffolding {
 					arg.nestingKind());
 			arg.setElemAttributes(n, elem);
 
-			Context inside = arg.inside(elem);
-			visitAll(this, inside, n.getTypeParameters());
-			visitAll(this, inside, n.getMembers());
+			recurse(n, elem, arg);
 		}
 
 		@Override
@@ -83,8 +88,7 @@ public class Scaffolding {
 					arg.nestingKind());
 			arg.setElemAttributes(n, elem);
 
-			Context inside = arg.inside(elem);
-			visitAll(this, inside, n.getMembers());
+			recurse(n, elem, arg);
 		}
 
 		@Override
@@ -98,9 +102,12 @@ public class Scaffolding {
 					arg.nestingKind());
 			arg.setElemAttributes(n, elem);
 
-			Context inside = arg.inside(elem);
-			visitAll(this, inside, n.getEntries());
-			visitAll(this, inside, n.getMembers());
+			recurse(n, elem, arg);
+		}
+
+		@Override
+		public void visit(EmptyTypeDeclaration n, Context arg) {
+			super.visit(n, arg);
 		}
 
 		@Override
@@ -111,6 +118,11 @@ public class Scaffolding {
 		}
 
 		@Override
+		public void visit(InitializerDeclaration n, Context arg) {
+			super.visit(n, arg);
+		}
+
+		@Override
 		public void visit(ConstructorDeclaration n, Context arg) {
 			ExecutableElem elem = new ExecutableElem(arg.originFor(n), arg.elem,
 					convert(n.getModifiers()),
@@ -118,8 +130,7 @@ public class Scaffolding {
 					ElementKind.CONSTRUCTOR);
 			arg.setElemAttributes(n, elem);
 
-			Context inside = arg.inside(elem);
-			visitAll(this, inside, n.getParameters());
+			recurse(n, elem, arg);
 		}
 
 		@Override
@@ -130,16 +141,28 @@ public class Scaffolding {
 					ElementKind.METHOD);
 			arg.setElemAttributes(n, elem);
 
-			Context inside = arg.inside(elem);
-			visitAll(this, inside, n.getParameters());
+			recurse(n, elem, arg);
+		}
+
+		@Override
+		public void visit(Parameter n, Context arg) {
+			super.visit(n, arg);
+		}
+
+		@Override
+		public void visit(MultiTypeParameter n, Context arg) {
+			super.visit(n, arg);
 		}
 
 		@Override
 		public void visit(AnnotationMemberDeclaration n, Context arg) {
-			arg.setElemAttributes(n, new ExecutableElem(arg.originFor(n), arg.elem,
+			ExecutableElem elem = new ExecutableElem(arg.originFor(n), arg.elem,
 					convert(n.getModifiers()),
 					EltNames.makeSimple(n.getName()),
-					ElementKind.METHOD));
+					ElementKind.METHOD);
+			arg.setElemAttributes(n, elem);
+
+			recurse(n, elem, arg);
 		}
 
 		@Override
@@ -147,25 +170,290 @@ public class Scaffolding {
 			Set<Modifier> modifiers = convert(n.getModifiers());
 
 			for (VariableDeclarator d : n.getVariables()) {
-				arg.setElemAttributes(n, new VariableElem(arg.originFor(n), arg.elem,
+				VariableElem elem = new VariableElem(arg.originFor(n), arg.elem,
 						modifiers,
 						EltNames.makeSimple(d.getId().getName()),
-						ElementKind.FIELD));
+						ElementKind.FIELD);
+				arg.setElemAttributes(n, elem);
+
+				recurse(n, elem, arg);
 			}
 		}
 
 		@Override
 		public void visit(EnumConstantDeclaration n, Context arg) {
-			arg.setElemAttributes(n, new VariableElem(arg.originFor(n), arg.elem,
+			VariableElem elem = new VariableElem(arg.originFor(n), arg.elem,
 					EnumSet.of(Modifier.PUBLIC),
 					EltNames.makeSimple(n.getName()),
-					ElementKind.ENUM_CONSTANT));
+					ElementKind.ENUM_CONSTANT);
+			arg.setElemAttributes(n, elem);
+
+			recurse(n, elem, arg);
+		}
+
+		@Override
+		public void visit(EmptyMemberDeclaration n, Context arg) {
+			super.visit(n, arg);
 		}
 
 		/* Statements */
 
+		@Override
+		public void visit(BlockStmt n, Context arg) {
+			super.visit(n, arg);
+		}
+
+		@Override
+		public void visit(BreakStmt n, Context arg) {
+			super.visit(n, arg);
+		}
+
+		@Override
+		public void visit(ContinueStmt n, Context arg) {
+			super.visit(n, arg);
+		}
+
+		@Override
+		public void visit(ForStmt n, Context arg) {
+			super.visit(n, arg);
+		}
+
+		@Override
+		public void visit(ForeachStmt n, Context arg) {
+			super.visit(n, arg);
+		}
+
+		@Override
+		public void visit(ExpressionStmt n, Context arg) {
+			super.visit(n, arg);
+		}
+
+		@Override
+		public void visit(EmptyStmt n, Context arg) {
+			super.visit(n, arg);
+		}
+
+		@Override
+		public void visit(DoStmt n, Context arg) {
+			super.visit(n, arg);
+		}
+
+		@Override
+		public void visit(AssertStmt n, Context arg) {
+			super.visit(n, arg);
+		}
+
+		@Override
+		public void visit(ExplicitConstructorInvocationStmt n, Context arg) {
+			super.visit(n, arg);
+		}
+
+		@Override
+		public void visit(IfStmt n, Context arg) {
+			super.visit(n, arg);
+		}
+
+		@Override
+		public void visit(LabeledStmt n, Context arg) {
+			super.visit(n, arg);
+		}
+
+		@Override
+		public void visit(ReturnStmt n, Context arg) {
+			super.visit(n, arg);
+		}
+
+		@Override
+		public void visit(SwitchEntryStmt n, Context arg) {
+			super.visit(n, arg);
+		}
+
+		@Override
+		public void visit(SwitchStmt n, Context arg) {
+			super.visit(n, arg);
+		}
+
+		@Override
+		public void visit(SynchronizedStmt n, Context arg) {
+			super.visit(n, arg);
+		}
+
+		@Override
+		public void visit(ThrowStmt n, Context arg) {
+			super.visit(n, arg);
+		}
+
+		@Override
+		public void visit(TryStmt n, Context arg) {
+			super.visit(n, arg);
+		}
+
+		@Override
+		public void visit(CatchClause n, Context arg) {
+			super.visit(n, arg);
+		}
+
+		@Override
+		public void visit(TypeDeclarationStmt n, Context arg) {
+			super.visit(n, arg);
+		}
+
+		@Override
+		public void visit(WhileStmt n, Context arg) {
+			super.visit(n, arg);
+		}
+
 		/* Expressions */
 
+		@Override
+		public void visit(ArrayAccessExpr n, Context arg) {
+			super.visit(n, arg);
+		}
+
+		@Override
+		public void visit(ArrayCreationExpr n, Context arg) {
+			super.visit(n, arg);
+		}
+
+		@Override
+		public void visit(ArrayInitializerExpr n, Context arg) {
+			super.visit(n, arg);
+		}
+
+		@Override
+		public void visit(AssignExpr n, Context arg) {
+			super.visit(n, arg);
+		}
+
+		@Override
+		public void visit(BinaryExpr n, Context arg) {
+			super.visit(n, arg);
+		}
+
+		@Override
+		public void visit(BooleanLiteralExpr n, Context arg) {
+			super.visit(n, arg);
+		}
+
+		@Override
+		public void visit(CastExpr n, Context arg) {
+			super.visit(n, arg);
+		}
+
+		@Override
+		public void visit(CharLiteralExpr n, Context arg) {
+			super.visit(n, arg);
+		}
+
+		@Override
+		public void visit(ClassExpr n, Context arg) {
+			super.visit(n, arg);
+		}
+
+		@Override
+		public void visit(ConditionalExpr n, Context arg) {
+			super.visit(n, arg);
+		}
+
+		@Override
+		public void visit(DoubleLiteralExpr n, Context arg) {
+			super.visit(n, arg);
+		}
+
+		@Override
+		public void visit(EnclosedExpr n, Context arg) {
+			super.visit(n, arg);
+		}
+
+		@Override
+		public void visit(FieldAccessExpr n, Context arg) {
+			super.visit(n, arg);
+		}
+
+		@Override
+		public void visit(InstanceOfExpr n, Context arg) {
+			super.visit(n, arg);
+		}
+
+		@Override
+		public void visit(IntegerLiteralExpr n, Context arg) {
+			super.visit(n, arg);
+		}
+
+		@Override
+		public void visit(IntegerLiteralMinValueExpr n, Context arg) {
+			super.visit(n, arg);
+		}
+
+		@Override
+		public void visit(LongLiteralExpr n, Context arg) {
+			super.visit(n, arg);
+		}
+
+		@Override
+		public void visit(LongLiteralMinValueExpr n, Context arg) {
+			super.visit(n, arg);
+		}
+
+		@Override
+		public void visit(MethodCallExpr n, Context arg) {
+			super.visit(n, arg);
+		}
+
+		@Override
+		public void visit(NullLiteralExpr n, Context arg) {
+			super.visit(n, arg);
+		}
+
+		@Override
+		public void visit(ObjectCreationExpr n, Context arg) {
+			super.visit(n, arg);
+		}
+
+		@Override
+		public void visit(QualifiedNameExpr n, Context arg) {
+			super.visit(n, arg);
+		}
+
+		@Override
+		public void visit(StringLiteralExpr n, Context arg) {
+			super.visit(n, arg);
+		}
+
+		@Override
+		public void visit(SuperExpr n, Context arg) {
+			super.visit(n, arg);
+		}
+
+		@Override
+		public void visit(ThisExpr n, Context arg) {
+			super.visit(n, arg);
+		}
+
+		@Override
+		public void visit(UnaryExpr n, Context arg) {
+			super.visit(n, arg);
+		}
+
+		@Override
+		public void visit(VariableDeclarationExpr n, Context arg) {
+			super.visit(n, arg);
+		}
+
+		@Override
+		public void visit(LambdaExpr n, Context arg) {
+			super.visit(n, arg);
+		}
+
+		@Override
+		public void visit(MethodReferenceExpr n, Context arg) {
+			super.visit(n, arg);
+		}
+
+		@Override
+		public void visit(TypeExpr n, Context arg) {
+			super.visit(n, arg);
+		}
 	};
 
 	class Context {

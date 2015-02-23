@@ -4,14 +4,19 @@ import com.github.javaparser.ast.CompilationUnit;
 import com.github.javaparser.model.element.ElementUtils;
 import com.github.javaparser.model.element.Origin;
 import com.github.javaparser.model.element.PackageElem;
+import com.github.javaparser.model.element.TypeElem;
 import com.github.javaparser.model.phases.Scaffolding;
 import com.github.javaparser.model.phases.SuperTypeResolution;
 import com.github.javaparser.model.report.Reporter;
 import com.github.javaparser.model.scope.EltName;
+import com.github.javaparser.model.scope.EltNames;
 import com.github.javaparser.model.scope.RootScope;
 import com.github.javaparser.model.scope.Scope;
 import com.github.javaparser.model.type.TypeUtils;
 
+import javax.lang.model.element.ElementKind;
+import javax.lang.model.element.Modifier;
+import javax.lang.model.element.NestingKind;
 import javax.lang.model.element.PackageElement;
 import java.io.File;
 import java.util.*;
@@ -36,6 +41,24 @@ public class Analysis implements Reporter {
 
 	public Analysis(AnalysisConfiguration configuration) {
 		this.configuration = configuration;
+		addTemporaryFakeJavaLangPackage();
+	}
+
+	private void addTemporaryFakeJavaLangPackage() {
+		Origin fakeBinaryOrigin = new Origin() {
+			@Override
+			public String toLocationString() {
+				return "Fake";
+			}
+		};
+
+		PackageElem packageElem = new PackageElem(dependencyScope, fakeBinaryOrigin, EltNames.make("java.lang"));
+		new TypeElem(fakeBinaryOrigin, packageElem.scope(), packageElem, EnumSet.of(Modifier.PUBLIC),
+				EltNames.make("java.lang.Object"), EltNames.makeSimple("Object"), ElementKind.CLASS, NestingKind.TOP_LEVEL);
+		new TypeElem(fakeBinaryOrigin, packageElem.scope(), packageElem, EnumSet.of(Modifier.PUBLIC),
+				EltNames.make("java.lang.Enum"), EltNames.makeSimple("Enum"), ElementKind.CLASS, NestingKind.TOP_LEVEL);
+
+		addDependencyPackage(packageElem);
 	}
 
 	public void addCompilationUnit(File file, CompilationUnit cu) {

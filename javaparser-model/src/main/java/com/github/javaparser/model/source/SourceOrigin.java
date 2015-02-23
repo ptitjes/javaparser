@@ -3,6 +3,7 @@ package com.github.javaparser.model.source;
 import com.github.javaparser.Position;
 import com.github.javaparser.ast.CompilationUnit;
 import com.github.javaparser.ast.Node;
+import com.github.javaparser.ast.PackageDeclaration;
 import com.github.javaparser.model.element.Origin;
 
 /**
@@ -31,5 +32,13 @@ public class SourceOrigin implements Origin {
 
 	public Node getNode() {
 		return node;
+	}
+
+	@Override
+	public String toString() {
+		PackageDeclaration packageDecl = cu.getPackage();
+		return "SourceOrigin{package=" +
+				(packageDecl == null ? "<default>" : packageDecl.getName()) +
+				", nodeClass=" + node.getClass() + '}';
 	}
 }

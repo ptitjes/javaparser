@@ -184,4 +184,9 @@ public class TypeElem extends Elem implements TypeElement {
 			return executableElem;
 		}
 	};
+
+	@Override
+	public String toString() {
+		return getKind() + " '" + getQualifiedName() + "'";
+	}
 }

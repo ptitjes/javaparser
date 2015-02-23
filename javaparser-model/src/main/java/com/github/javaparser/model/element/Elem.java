@@ -92,4 +92,9 @@ public abstract class Elem implements Element {
 	public <A extends Annotation> A[] getAnnotationsByType(Class<A> annotationType) {
 		return null;
 	}
+
+	@Override
+	public String toString() {
+		return getKind() + " '" + getSimpleName() + "'";
+	}
 }

@@ -89,4 +89,9 @@ public class PackageElem extends Elem implements PackageElement {
 			return null;
 		}
 	};
+
+	@Override
+	public String toString() {
+		return getKind() + " '" + getQualifiedName() + "'";
+	}
 }

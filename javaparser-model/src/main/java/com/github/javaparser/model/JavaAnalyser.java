@@ -74,6 +74,7 @@ public class JavaAnalyser {
 				analysis.report(sourceFile, e);
 			}
 		}
+		analysis.proceed();
 		return analysis;
 	}
 }

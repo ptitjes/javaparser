@@ -9,6 +9,7 @@ import com.github.javaparser.ast.expr.*;
 import com.github.javaparser.ast.stmt.*;
 import com.github.javaparser.ast.visitor.VoidVisitorAdapter;
 import com.github.javaparser.model.Analysis;
+import com.github.javaparser.model.classpath.ClasspathElement;
 import com.github.javaparser.model.element.*;
 import com.github.javaparser.model.scope.EltName;
 import com.github.javaparser.model.scope.EltNames;
@@ -20,7 +21,6 @@ import com.github.javaparser.model.source.SourceOrigin;
 import javax.lang.model.element.ElementKind;
 import javax.lang.model.element.Modifier;
 import javax.lang.model.element.NestingKind;
-import java.io.File;
 import java.util.EnumSet;
 import java.util.Set;
 
@@ -39,9 +39,9 @@ public class Scaffolding {
 		this.analysis = analysis;
 	}
 
-	public void process(File file, CompilationUnit cu) {
+	public void process(ClasspathElement file, CompilationUnit cu) {
 		PackageDeclaration packageDecl = cu.getPackage();
-		EltName packageName = asName(packageDecl.getName());
+		EltName packageName = packageDecl == null ? EltNames.empty : asName(packageDecl.getName());
 
 		PackageElem packageElem = analysis.getSourcePackage(packageName);
 		if (packageElem == null) {

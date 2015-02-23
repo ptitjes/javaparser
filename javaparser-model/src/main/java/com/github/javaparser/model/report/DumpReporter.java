@@ -1,8 +1,8 @@
 package com.github.javaparser.model.report;
 
+import com.github.javaparser.model.classpath.ClasspathElement;
 import com.github.javaparser.model.element.Origin;
 
-import java.io.File;
 import java.io.PrintWriter;
 import java.util.StringTokenizer;
 
@@ -20,7 +20,7 @@ public class DumpReporter implements Reporter {
 	}
 
 	@Override
-	public void report(File file, Exception exception) {
+	public void report(ClasspathElement file, Exception exception) {
 		report(Severity.ERROR, file.getPath(), exception.getMessage());
 	}
 

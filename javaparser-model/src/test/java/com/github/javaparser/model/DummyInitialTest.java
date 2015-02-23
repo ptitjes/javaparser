@@ -27,8 +27,7 @@ public class DummyInitialTest {
 						.reporter(new DumpReporter(new PrintWriter(System.out)))
 		);
 
-		Analysis model = analyser.buildModel(new File("javaparser/javaparser-model/src/test/data"));
-
+		Analysis model = analyser.buildModel(new File("src/test/resources/initialtest"));
 		if (!model.hasErrors()) {
 			for (PackageElement packageElement : model.getSourcePackageElements()) {
 				dumpScanner.scan(packageElement);

@@ -7,7 +7,7 @@ public abstract class EltNames {
 
 	// TODO Should we use CharSequence directly in names and have utils for dot search ?
 
-	public static final EltName empty = new EltSimpleName("");
+	public static final EltSimpleName empty = new EltSimpleName("");
 
 	public static EltSimpleName makeSimple(CharSequence name) {
 		return makeSimple(name.toString());

@@ -3,11 +3,23 @@ package com.github.javaparser.model.test;
 /**
  * @author Didier Villevalois
  */
-interface InterfaceA {
-}
+class GenA {
+	interface InterfaceA {
+	}
 
-class GenA<X/* extends Y*/, Y extends X & InterfaceA> extends GenParent<X, Y> {
-}
+	class ClassA {
+	}
 
-class GenParent<T, U> {
+	class GenA1<X/* extends Y*/, Y extends X> extends GenParent<X, Y> {
+	}
+
+	class GenA2<X/* extends Y*/, Y extends ClassA & InterfaceA> extends GenParent<X, Y> {
+	}
+
+	// Should fail because Y is union type with a type var
+	//class GenA3<X/* extends Y*/, Y extends X & InterfaceA> extends GenParent<X, Y> {
+	//}
+
+	class GenParent<T, U> {
+	}
 }

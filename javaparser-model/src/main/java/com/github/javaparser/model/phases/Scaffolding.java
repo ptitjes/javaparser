@@ -49,132 +49,105 @@ public class Scaffolding {
 		}
 
 		CompilationUnitAttr attr = new CompilationUnitAttr(packageElem.scope(), file, cu);
-
-		visitAll(new ElemBuilder(cu, attr.scope()), packageElem, cu.getTypes());
+		visitAll(attributesBuilder, new Context(cu, attr.scope(), packageElem), cu.getTypes());
 	}
 
-	class ElemBuilder extends VoidVisitorAdapter<Elem> {
+	VoidVisitorAdapter<Context> attributesBuilder = new VoidVisitorAdapter<Context>() {
 
-		private final CompilationUnit cu;
-		private final Scope scope;
-
-		public ElemBuilder(CompilationUnit cu, Scope scope) {
-			this.cu = cu;
-			this.scope = scope;
-		}
-
-		private SourceOrigin originFor(Node n) {
-			return new SourceOrigin(cu, n);
-		}
-
-		private NestingKind nestingKind(Elem parent) {
-			return parent instanceof PackageElem ? NestingKind.TOP_LEVEL : NestingKind.MEMBER;
-		}
-
-		private Scope scopeFor(Elem parent) {
-			return parent instanceof PackageElem ? scope : parent.scope();
-		}
-
-		private EltName makeQualifiedName(Elem parent, String name) {
-			if (name.isEmpty() || parent.getSimpleName().isEmpty())
-				return EltNames.makeSimple(name);
-			else if (parent instanceof PackageElem)
-				return EltNames.make(((PackageElem) parent).getQualifiedName(), name);
-			else if (parent instanceof TypeElem)
-				return EltNames.make(((TypeElem) parent).getQualifiedName(), name);
-			else return EltNames.makeSimple(name);
-		}
-
-		private <E extends Elem> void setAttributes(Node n, E elem) {
-			new ElementAttr<E>(cu, n, elem);
-		}
+		/* Declarations */
 
 		@Override
-		public void visit(ClassOrInterfaceDeclaration n, Elem arg) {
+		public void visit(ClassOrInterfaceDeclaration n, Context arg) {
 			String name = n.getName();
-			TypeElem elem = new TypeElem(originFor(n), scopeFor(arg), arg,
+			TypeElem elem = new TypeElem(arg.originFor(n), arg.scope, arg.elem,
 					convert(n.getModifiers()),
-					makeQualifiedName(arg, name),
+					arg.qualifiedName(name),
 					EltNames.makeSimple(name),
 					n.isInterface() ? ElementKind.INTERFACE : ElementKind.CLASS,
-					nestingKind(arg));
-			setAttributes(n, elem);
+					arg.nestingKind());
+			arg.setElemAttributes(n, elem);
 
-			visitAll(this, elem, n.getTypeParameters());
-			visitAll(this, elem, n.getMembers());
+			Context inside = arg.inside(elem);
+			visitAll(this, inside, n.getTypeParameters());
+			visitAll(this, inside, n.getMembers());
 		}
 
 		@Override
-		public void visit(AnnotationDeclaration n, Elem arg) {
+		public void visit(AnnotationDeclaration n, Context arg) {
 			String name = n.getName();
-			TypeElem elem = new TypeElem(originFor(n), scopeFor(arg), arg,
+			TypeElem elem = new TypeElem(arg.originFor(n), arg.scope, arg.elem,
 					convert(n.getModifiers()),
-					makeQualifiedName(arg, name),
+					arg.qualifiedName(name),
 					EltNames.makeSimple(name),
 					ElementKind.ANNOTATION_TYPE,
-					nestingKind(arg));
-			setAttributes(n, elem);
+					arg.nestingKind());
+			arg.setElemAttributes(n, elem);
 
-			visitAll(this, elem, n.getMembers());
+			Context inside = arg.inside(elem);
+			visitAll(this, inside, n.getMembers());
 		}
 
 		@Override
-		public void visit(EnumDeclaration n, Elem arg) {
+		public void visit(EnumDeclaration n, Context arg) {
 			String name = n.getName();
-			TypeElem elem = new TypeElem(originFor(n), scopeFor(arg), arg,
+			TypeElem elem = new TypeElem(arg.originFor(n), arg.scope, arg.elem,
 					convert(n.getModifiers()),
-					makeQualifiedName(arg, name),
+					arg.qualifiedName(name),
 					EltNames.makeSimple(name),
 					ElementKind.ENUM,
-					nestingKind(arg));
-			setAttributes(n, elem);
+					arg.nestingKind());
+			arg.setElemAttributes(n, elem);
 
-			visitAll(this, elem, n.getEntries());
-			visitAll(this, elem, n.getMembers());
+			Context inside = arg.inside(elem);
+			visitAll(this, inside, n.getEntries());
+			visitAll(this, inside, n.getMembers());
 		}
 
 		@Override
-		public void visit(TypeParameter n, Elem arg) {
-			TypeParameterElem elem = new TypeParameterElem(originFor(n), arg, EltNames.makeSimple(n.getName()));
-			setAttributes(n, elem);
+		public void visit(TypeParameter n, Context arg) {
+			TypeParameterElem elem = new TypeParameterElem(arg.originFor(n), arg.elem,
+					EltNames.makeSimple(n.getName()));
+			arg.setElemAttributes(n, elem);
 		}
 
 		@Override
-		public void visit(ConstructorDeclaration n, Elem arg) {
-			ExecutableElem elem = new ExecutableElem(originFor(n), arg,
+		public void visit(ConstructorDeclaration n, Context arg) {
+			ExecutableElem elem = new ExecutableElem(arg.originFor(n), arg.elem,
 					convert(n.getModifiers()),
 					EltNames.makeSimple(n.getName()),
 					ElementKind.CONSTRUCTOR);
-			setAttributes(n, elem);
+			arg.setElemAttributes(n, elem);
 
-			visitAll(this, elem, n.getParameters());
+			Context inside = arg.inside(elem);
+			visitAll(this, inside, n.getParameters());
 		}
 
 		@Override
-		public void visit(MethodDeclaration n, Elem arg) {
-			ExecutableElem elem = new ExecutableElem(originFor(n), arg,
+		public void visit(MethodDeclaration n, Context arg) {
+			ExecutableElem elem = new ExecutableElem(arg.originFor(n), arg.elem,
 					convert(n.getModifiers()),
 					EltNames.makeSimple(n.getName()),
 					ElementKind.METHOD);
-			setAttributes(n, elem);
+			arg.setElemAttributes(n, elem);
 
-			visitAll(this, elem, n.getParameters());
+			Context inside = arg.inside(elem);
+			visitAll(this, inside, n.getParameters());
 		}
 
 		@Override
-		public void visit(AnnotationMemberDeclaration n, Elem arg) {
-			setAttributes(n, new ExecutableElem(originFor(n), arg,
+		public void visit(AnnotationMemberDeclaration n, Context arg) {
+			arg.setElemAttributes(n, new ExecutableElem(arg.originFor(n), arg.elem,
 					convert(n.getModifiers()),
 					EltNames.makeSimple(n.getName()),
 					ElementKind.METHOD));
 		}
 
 		@Override
-		public void visit(FieldDeclaration n, Elem arg) {
+		public void visit(FieldDeclaration n, Context arg) {
 			Set<Modifier> modifiers = convert(n.getModifiers());
 
 			for (VariableDeclarator d : n.getVariables()) {
-				setAttributes(n, new VariableElem(originFor(n), arg,
+				arg.setElemAttributes(n, new VariableElem(arg.originFor(n), arg.elem,
 						modifiers,
 						EltNames.makeSimple(d.getId().getName()),
 						ElementKind.FIELD));
@@ -182,11 +155,85 @@ public class Scaffolding {
 		}
 
 		@Override
-		public void visit(EnumConstantDeclaration n, Elem arg) {
-			setAttributes(n, new VariableElem(originFor(n), arg,
+		public void visit(EnumConstantDeclaration n, Context arg) {
+			arg.setElemAttributes(n, new VariableElem(arg.originFor(n), arg.elem,
 					EnumSet.of(Modifier.PUBLIC),
 					EltNames.makeSimple(n.getName()),
 					ElementKind.ENUM_CONSTANT));
+		}
+
+		/* Statements */
+
+		/* Expressions */
+
+	};
+
+	class Context {
+
+		public final CompilationUnit cu;
+		public final Scope scope;
+		public final Elem elem;
+
+		public Context(CompilationUnit cu, Scope scope, Elem elem) {
+			this.cu = cu;
+			this.scope = scope;
+			this.elem = elem;
+		}
+
+		public Context inside(Elem elem) {
+			return new Context(cu, elem.scope(), elem);
+		}
+
+		public Context inside(Scope scope) {
+			return new Context(cu, scope, elem);
+		}
+
+		public <E extends Elem> void setElemAttributes(Node n, E elem) {
+			new ElementAttr<E>(cu, n, elem);
+		}
+
+		public SourceOrigin originFor(Node n) {
+			return new SourceOrigin(cu, n);
+		}
+
+		public NestingKind nestingKind() {
+			switch (elem.getKind()) {
+				case PACKAGE:
+					return NestingKind.TOP_LEVEL;
+				case ENUM:
+				case CLASS:
+				case ANNOTATION_TYPE:
+				case INTERFACE:
+					return NestingKind.MEMBER;
+				case ENUM_CONSTANT:
+				case FIELD:
+				case LOCAL_VARIABLE:
+				case RESOURCE_VARIABLE: // TODO What to do about that ???
+					return NestingKind.ANONYMOUS;
+				case METHOD:
+				case CONSTRUCTOR:
+				case STATIC_INIT:
+				case INSTANCE_INIT:
+					return NestingKind.LOCAL;
+				default:
+					throw new IllegalStateException();
+			}
+		}
+
+		public EltName qualifiedName(String name) {
+			if (name.isEmpty() || elem.getSimpleName().isEmpty())
+				return EltNames.makeSimple(name);
+			else switch (elem.getKind()) {
+				case PACKAGE:
+					return EltNames.make(((PackageElem) elem).getQualifiedName(), name);
+				case ENUM:
+				case CLASS:
+				case ANNOTATION_TYPE:
+				case INTERFACE:
+					return EltNames.make(((TypeElem) elem).getQualifiedName(), name);
+				default:
+					return EltNames.makeSimple(name);
+			}
 		}
 	}
 }

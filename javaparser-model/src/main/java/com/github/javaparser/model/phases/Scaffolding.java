@@ -65,49 +65,41 @@ public class Scaffolding {
 
 		@Override
 		public void visit(ClassOrInterfaceDeclaration n, Context arg) {
-			String name = n.getName();
-			TypeElem elem = new TypeElem(arg.originFor(n), arg.scope, arg.elem,
-					convert(n.getModifiers()),
-					arg.qualifiedName(name),
-					EltNames.makeSimple(name),
-					n.isInterface() ? ElementKind.INTERFACE : ElementKind.CLASS,
-					arg.nestingKind());
-			arg.setElemAttributes(n, elem);
-
-			recurse(n, elem, arg);
+			visitTypeDeclaration(n, n.isInterface() ? ElementKind.INTERFACE : ElementKind.CLASS, arg);
 		}
 
 		@Override
 		public void visit(AnnotationDeclaration n, Context arg) {
-			String name = n.getName();
-			TypeElem elem = new TypeElem(arg.originFor(n), arg.scope, arg.elem,
-					convert(n.getModifiers()),
-					arg.qualifiedName(name),
-					EltNames.makeSimple(name),
-					ElementKind.ANNOTATION_TYPE,
-					arg.nestingKind());
-			arg.setElemAttributes(n, elem);
-
-			recurse(n, elem, arg);
+			visitTypeDeclaration(n, ElementKind.ANNOTATION_TYPE, arg);
 		}
 
 		@Override
 		public void visit(EnumDeclaration n, Context arg) {
+			visitTypeDeclaration(n, ElementKind.ENUM, arg);
+		}
+
+		private void visitTypeDeclaration(TypeDeclaration n, ElementKind kind, Context arg) {
 			String name = n.getName();
 			TypeElem elem = new TypeElem(arg.originFor(n), arg.scope, arg.elem,
 					convert(n.getModifiers()),
 					arg.qualifiedName(name),
 					EltNames.makeSimple(name),
-					ElementKind.ENUM,
-					arg.nestingKind());
+					kind, arg.nestingKind());
 			arg.setElemAttributes(n, elem);
 
 			recurse(n, elem, arg);
 		}
 
 		@Override
-		public void visit(EmptyTypeDeclaration n, Context arg) {
-			super.visit(n, arg);
+		public void visit(ObjectCreationExpr n, Context arg) {
+			TypeElem elem = new TypeElem(arg.originFor(n), arg.scope, arg.elem,
+					EnumSet.noneOf(Modifier.class),
+					EltNames.empty,
+					EltNames.empty,
+					ElementKind.CLASS, arg.nestingKind());
+			arg.setElemAttributes(n, elem);
+
+			recurse(n, elem, arg);
 		}
 
 		@Override
@@ -119,7 +111,13 @@ public class Scaffolding {
 
 		@Override
 		public void visit(InitializerDeclaration n, Context arg) {
-			super.visit(n, arg);
+			ExecutableElem elem = new ExecutableElem(arg.originFor(n), arg.elem,
+					n.isStatic() ? EnumSet.of(Modifier.STATIC) : EnumSet.noneOf(Modifier.class),
+					EltNames.empty,
+					n.isStatic() ? ElementKind.STATIC_INIT : ElementKind.INSTANCE_INIT);
+			arg.setElemAttributes(n, elem);
+
+			recurse(n, elem, arg);
 		}
 
 		@Override
@@ -146,12 +144,24 @@ public class Scaffolding {
 
 		@Override
 		public void visit(Parameter n, Context arg) {
-			super.visit(n, arg);
+			VariableElem elem = new VariableElem(arg.originFor(n), arg.elem,
+					convert(n.getModifiers()),
+					EltNames.makeSimple(n.getId().getName()),
+					ElementKind.PARAMETER);
+			arg.setElemAttributes(n, elem);
+
+			recurse(n, elem, arg);
 		}
 
 		@Override
 		public void visit(MultiTypeParameter n, Context arg) {
-			super.visit(n, arg);
+			VariableElem elem = new VariableElem(arg.originFor(n), arg.elem,
+					convert(n.getModifiers()),
+					EltNames.makeSimple(n.getId().getName()),
+					ElementKind.EXCEPTION_PARAMETER);
+			arg.setElemAttributes(n, elem);
+
+			recurse(n, elem, arg);
 		}
 
 		@Override
@@ -189,11 +199,6 @@ public class Scaffolding {
 			arg.setElemAttributes(n, elem);
 
 			recurse(n, elem, arg);
-		}
-
-		@Override
-		public void visit(EmptyMemberDeclaration n, Context arg) {
-			super.visit(n, arg);
 		}
 
 		/* Statements */
@@ -406,16 +411,6 @@ public class Scaffolding {
 		}
 
 		@Override
-		public void visit(ObjectCreationExpr n, Context arg) {
-			super.visit(n, arg);
-		}
-
-		@Override
-		public void visit(QualifiedNameExpr n, Context arg) {
-			super.visit(n, arg);
-		}
-
-		@Override
 		public void visit(StringLiteralExpr n, Context arg) {
 			super.visit(n, arg);
 		}
@@ -520,7 +515,7 @@ public class Scaffolding {
 				case INTERFACE:
 					return EltNames.make(((TypeElem) elem).getQualifiedName(), name);
 				default:
-					return EltNames.makeSimple(name);
+					return EltNames.empty;
 			}
 		}
 	}

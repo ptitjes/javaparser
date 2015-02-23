@@ -22,4 +22,8 @@ class GenA {
 
 	class GenParent<T, U> {
 	}
+
+	public ClassA a = new ClassA() {
+		private int toto = 0;
+	};
 }

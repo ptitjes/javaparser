@@ -5,6 +5,7 @@ import com.github.javaparser.ast.TypeParameter;
 import com.github.javaparser.ast.body.AnnotationDeclaration;
 import com.github.javaparser.ast.body.ClassOrInterfaceDeclaration;
 import com.github.javaparser.ast.body.EnumDeclaration;
+import com.github.javaparser.ast.expr.ObjectCreationExpr;
 import com.github.javaparser.ast.type.*;
 import com.github.javaparser.ast.visitor.GenericVisitor;
 import com.github.javaparser.ast.visitor.GenericVisitorAdapter;
@@ -121,6 +122,27 @@ public class SuperTypeResolution {
 		public void visit(AnnotationDeclaration n, TypeElem arg) {
 			arg.setSuperClass(NoTpe.NONE);
 			arg.setInterfaces(Collections.<TpeMirror>singletonList(typeUtils.annotationType()));
+		}
+
+		@Override
+		public void visit(ObjectCreationExpr n, TypeElem arg) {
+			ClassOrInterfaceType type = n.getType();
+
+			try {
+				DeclaredTpe tpeMirror = (DeclaredTpe) resolveType(type, arg.scope());
+				switch (tpeMirror.asElement().getKind()) {
+					case INTERFACE:
+						arg.setSuperClass(typeUtils.objectType());
+						arg.setInterfaces(Collections.<TpeMirror>singletonList(tpeMirror));
+					case CLASS:
+						arg.setSuperClass(tpeMirror);
+						arg.setInterfaces(Collections.<TpeMirror>emptyList());
+					default:
+						throw new IllegalStateException();
+				}
+			} catch (ScopeException ex) {
+				analysis.report(Severity.ERROR, "Can't resolve supertype: " + ex.getMessage(), arg.origin());
+			}
 		}
 	};
 

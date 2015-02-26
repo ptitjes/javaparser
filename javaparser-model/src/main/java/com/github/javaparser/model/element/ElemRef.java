@@ -13,7 +13,7 @@ public abstract class ElemRef<E extends QualifiedNameableElem> {
 
 	public abstract EltName qualifiedName();
 
-	public abstract E dereference();
+	public abstract E dereference() throws ElemDereferenceException;
 
 	public static abstract class Lazy<E extends QualifiedNameableElem> extends ElemRef<E> {
 
@@ -24,7 +24,7 @@ public abstract class ElemRef<E extends QualifiedNameableElem> {
 			this.qualifiedName = qualifiedName;
 		}
 
-		public abstract E load();
+		public abstract E load() throws ElemDereferenceException;
 
 		@Override
 		public final EltName qualifiedName() {
@@ -32,7 +32,7 @@ public abstract class ElemRef<E extends QualifiedNameableElem> {
 		}
 
 		@Override
-		public final E dereference() {
+		public final E dereference() throws ElemDereferenceException {
 			if (elem == null) {
 				elem = load();
 			}
@@ -54,7 +54,7 @@ public abstract class ElemRef<E extends QualifiedNameableElem> {
 		}
 
 		@Override
-		public final E dereference() {
+		public final E dereference() throws ElemDereferenceException {
 			return elem;
 		}
 	}

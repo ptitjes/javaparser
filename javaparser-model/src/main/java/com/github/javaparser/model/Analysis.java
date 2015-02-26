@@ -5,7 +5,7 @@ import com.github.javaparser.ParseException;
 import com.github.javaparser.ast.CompilationUnit;
 import com.github.javaparser.model.classpath.Classpath;
 import com.github.javaparser.model.classpath.ClasspathElement;
-import com.github.javaparser.model.classpath.ClasspathSource;
+import com.github.javaparser.model.classpath.DirSourcesFinder;
 import com.github.javaparser.model.element.ElementUtils;
 import com.github.javaparser.model.phases.Scaffolding;
 import com.github.javaparser.model.phases.SurfaceTyping1;
@@ -15,10 +15,7 @@ import com.github.javaparser.model.type.TypeUtils;
 
 import javax.lang.model.element.PackageElement;
 import java.io.IOException;
-import java.util.ArrayDeque;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Queue;
+import java.util.*;
 
 /**
  * @author Didier Villevalois
@@ -50,16 +47,8 @@ public class Analysis {
 	}
 
 	public void proceed() {
-		Queue<ClasspathSource> directories = new ArrayDeque<ClasspathSource>();
-		List<ClasspathElement> sourceFiles = new ArrayList<ClasspathElement>();
-
-		directories.addAll(classpath.getSources());
-		while (!directories.isEmpty()) {
-			ClasspathSource current = directories.poll();
-
-			directories.addAll(current.getSubtrees());
-			sourceFiles.addAll(current.getElements());
-		}
+		Set<ClasspathElement> sourceFiles =
+				DirSourcesFinder.getAllElements(classpath.getSources(), ".java");
 
 		for (ClasspathElement sourceFile : sourceFiles) {
 			try {

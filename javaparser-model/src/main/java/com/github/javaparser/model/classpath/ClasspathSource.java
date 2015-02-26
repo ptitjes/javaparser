@@ -18,5 +18,5 @@ public interface ClasspathSource {
 	/**
 	 * Leaves of the trees.
 	 */
-	Set<ClasspathElement> getElements();
+	Set<ClasspathElement> getElements(String extension);
 }

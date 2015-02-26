@@ -21,6 +21,8 @@ import java.util.*;
 public class Classpath {
 
 	private final List<ClasspathSource> sourceDirectories = new ArrayList<ClasspathSource>();
+	private final List<ClasspathSource> classFileDirectories = new ArrayList<ClasspathSource>();
+	private final List<ClasspathElement> jarFiles = new ArrayList<ClasspathElement>();
 
 	private final List<CompilationUnit> compilationUnits = new ArrayList<CompilationUnit>();
 
@@ -52,8 +54,30 @@ public class Classpath {
 		sourceDirectories.add(sourceDirectory);
 	}
 
+	public void addClassFiles(final ClasspathSource classFileDirectory) {
+		classFileDirectories.add(classFileDirectory);
+	}
+
+	public void addJars(final ClasspathSource jarFileDirectory) {
+		for (ClasspathElement element : jarFileDirectory.getElements(".jar")) {
+			addJar(element);
+		}
+	}
+
+	public void addJar(final ClasspathElement jarFile) {
+		jarFiles.add(jarFile);
+	}
+
 	public List<ClasspathSource> getSources() {
 		return sourceDirectories;
+	}
+
+	public List<ClasspathSource> getClassFileDirectories() {
+		return classFileDirectories;
+	}
+
+	public List<ClasspathElement> getJarFiles() {
+		return jarFiles;
 	}
 
 	public void addCompilationUnit(CompilationUnit cu) {

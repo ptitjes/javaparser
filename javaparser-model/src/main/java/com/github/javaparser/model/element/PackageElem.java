@@ -17,14 +17,13 @@ import java.util.Map;
 /**
  * @author Didier Villevalois
  */
-public class PackageElem extends Elem implements PackageElement {
+public class PackageElem extends QualifiedNameableElem implements PackageElement {
 
-	private final EltName qualifiedName;
 	private final Map<EltSimpleName, TypeElem> types = new HashMap<EltSimpleName, TypeElem>();
 
 	public PackageElem(Scope parentScope, Origin origin, EltName qualifiedName) {
-		super(origin, parentScope, null, EnumSet.noneOf(Modifier.class), qualifiedName.simpleName(), ElementKind.PACKAGE);
-		this.qualifiedName = qualifiedName;
+		super(origin, parentScope, null, EnumSet.noneOf(Modifier.class),
+				qualifiedName, qualifiedName.simpleName(), ElementKind.PACKAGE);
 	}
 
 	@Override
@@ -44,13 +43,8 @@ public class PackageElem extends Elem implements PackageElement {
 	}
 
 	@Override
-	public EltName getQualifiedName() {
-		return qualifiedName;
-	}
-
-	@Override
 	public boolean isUnnamed() {
-		return qualifiedName.isEmpty();
+		return getQualifiedName().isEmpty();
 	}
 
 	@Override

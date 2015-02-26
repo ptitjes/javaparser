@@ -13,9 +13,8 @@ import java.util.*;
 /**
  * @author Didier Villevalois
  */
-public class TypeElem extends Elem implements TypeElement {
+public class TypeElem extends QualifiedNameableElem implements TypeElement {
 
-	private final EltName qualifiedName;
 	private final NestingKind nesting;
 	private final List<TypeParameterElem> typeParameters = new ArrayList<TypeParameterElem>();
 	private final Map<EltSimpleName, TypeParameterElem> perNameTypeParameters = new HashMap<EltSimpleName, TypeParameterElem>();
@@ -33,8 +32,7 @@ public class TypeElem extends Elem implements TypeElement {
 	                EltSimpleName simpleName,
 	                ElementKind kind,
 	                NestingKind nesting) {
-		super(origin, parentScope, enclosing, modifiers, simpleName, kind);
-		this.qualifiedName = qualifiedName;
+		super(origin, parentScope, enclosing, modifiers, qualifiedName, simpleName, kind);
 		this.nesting = nesting;
 	}
 
@@ -70,9 +68,8 @@ public class TypeElem extends Elem implements TypeElement {
 		}
 	}
 
-	@Override
-	public final EltName getQualifiedName() {
-		return qualifiedName;
+	public ElemRef<TypeElem> asRef() {
+		return ElemRef.make(this);
 	}
 
 	@Override

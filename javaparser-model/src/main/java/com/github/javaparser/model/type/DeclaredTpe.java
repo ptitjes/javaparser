@@ -1,5 +1,6 @@
 package com.github.javaparser.model.type;
 
+import com.github.javaparser.model.element.ElemRef;
 import com.github.javaparser.model.element.TypeElem;
 
 import javax.lang.model.type.DeclaredType;
@@ -14,11 +15,19 @@ import java.util.List;
 public class DeclaredTpe extends TpeMirror implements DeclaredType {
 
 	private final TpeMirror enclosingType;
-	private final TypeElem element;
+	private final ElemRef<TypeElem> element;
 	private final List<TpeMirror> typeArguments;
 
 	public DeclaredTpe(TpeMirror enclosingType,
 	                   TypeElem element,
+	                   List<TpeMirror> typeArguments) {
+		this.enclosingType = enclosingType;
+		this.element = element.asRef();
+		this.typeArguments = typeArguments;
+	}
+
+	public DeclaredTpe(TpeMirror enclosingType,
+	                   ElemRef<TypeElem> element,
 	                   List<TpeMirror> typeArguments) {
 		this.enclosingType = enclosingType;
 		this.element = element;
@@ -32,7 +41,7 @@ public class DeclaredTpe extends TpeMirror implements DeclaredType {
 
 	@Override
 	public TypeElem asElement() {
-		return element;
+		return element.dereference();
 	}
 
 	@Override
@@ -53,6 +62,6 @@ public class DeclaredTpe extends TpeMirror implements DeclaredType {
 	@Override
 	public String toString() {
 		return (enclosingType != NoTpe.NONE ? enclosingType + "." : "") +
-				"(" + element.getQualifiedName() + ")" + element.getSimpleName() + "<" + allToString(typeArguments) + ">";
+				element.qualifiedName() + "<" + allToString(typeArguments) + ">";
 	}
 }

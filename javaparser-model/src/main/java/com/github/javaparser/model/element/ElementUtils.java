@@ -32,6 +32,10 @@ public class ElementUtils implements Elements, Registry.Participant {
 		return (TypeElem) getTypeElement("java.lang.Enum");
 	}
 
+	public TypeElem java_lang_String() {
+		return (TypeElem) getTypeElement("java.lang.String");
+	}
+
 	public TypeElem java_lang_annotation_Annotation() {
 		return (TypeElem) getTypeElement("java.lang.annotation.Annotation");
 	}

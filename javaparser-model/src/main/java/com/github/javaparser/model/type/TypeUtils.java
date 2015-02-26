@@ -44,6 +44,24 @@ public class TypeUtils implements Types, Registry.Participant {
 		return new DeclaredTpe(NoTpe.NONE, annotationTypeElem, Collections.<TpeMirror>emptyList());
 	}
 
+	public boolean isPrimitiveOrString(TpeMirror tpeMirror) {
+		switch (tpeMirror.getKind()) {
+			case BOOLEAN:
+			case BYTE:
+			case SHORT:
+			case INT:
+			case LONG:
+			case CHAR:
+			case FLOAT:
+			case DOUBLE:
+				return true;
+			case DECLARED:
+				return ((DeclaredTpe) tpeMirror).asElement() == elementUtils.java_lang_String();
+			default:
+				return false;
+		}
+	}
+
 	/* Standard API */
 
 	@Override

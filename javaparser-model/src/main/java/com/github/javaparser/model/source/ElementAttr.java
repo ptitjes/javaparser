@@ -7,6 +7,7 @@ import com.github.javaparser.ast.expr.ObjectCreationExpr;
 import com.github.javaparser.model.element.Elem;
 import com.github.javaparser.model.element.ExecutableElem;
 import com.github.javaparser.model.element.TypeElem;
+import com.github.javaparser.model.element.VariableElem;
 import com.github.javaparser.model.scope.Scope;
 
 /**
@@ -35,6 +36,26 @@ public class ElementAttr<E extends Elem> extends Attributes {
 	}
 
 	public static ElementAttr<ExecutableElem> get(MethodDeclaration n) {
+		return doGet(n);
+	}
+
+	public static ElementAttr<ExecutableElem> get(AnnotationMemberDeclaration n) {
+		return doGet(n);
+	}
+
+	public static ElementAttr<ExecutableElem> get(InitializerDeclaration n) {
+		return doGet(n);
+	}
+
+	public static ElementAttr<VariableElem> get(FieldDeclaration n) {
+		return doGet(n);
+	}
+
+	public static ElementAttr<VariableElem> get(EnumConstantDeclaration n) {
+		return doGet(n);
+	}
+
+	public static ElementAttr<VariableElem> get(Parameter n) {
 		return doGet(n);
 	}
 

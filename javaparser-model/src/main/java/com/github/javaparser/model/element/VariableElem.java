@@ -15,6 +15,9 @@ import java.util.Set;
  */
 public class VariableElem extends Elem implements VariableElement {
 
+	private TpeMirror type;
+	private Object constantValue;
+
 	public VariableElem(Origin origin,
 	                    Elem enclosing,
 	                    Set<Modifier> modifiers,
@@ -30,12 +33,20 @@ public class VariableElem extends Elem implements VariableElement {
 
 	@Override
 	public TpeMirror asType() {
-		return null;
+		return type;
+	}
+
+	public void setType(TpeMirror type) {
+		this.type = type;
 	}
 
 	@Override
 	public Object getConstantValue() {
-		return null;
+		return constantValue;
+	}
+
+	public void setConstantValue(Object constantValue) {
+		this.constantValue = constantValue;
 	}
 
 	@Override

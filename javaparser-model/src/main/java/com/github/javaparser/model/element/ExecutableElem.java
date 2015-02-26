@@ -17,6 +17,11 @@ public class ExecutableElem extends Elem implements ExecutableElement {
 	private final Map<EltSimpleName, TypeParameterElem> perNameTypeParameters = new HashMap<EltSimpleName, TypeParameterElem>();
 	private final List<VariableElem> parameters = new ArrayList<VariableElem>();
 	private final Map<EltSimpleName, VariableElem> perNameParam = new HashMap<EltSimpleName, VariableElem>();
+	private TpeMirror receiverType;
+	private TpeMirror returnType;
+	private boolean isVarArgs;
+	private List<TpeMirror> thrownTypes;
+	private AnnotationValue defaultValue;
 
 	public ExecutableElem(Origin origin,
 	                      Elem enclosing,
@@ -59,7 +64,11 @@ public class ExecutableElem extends Elem implements ExecutableElement {
 
 	@Override
 	public TypeMirror getReturnType() {
-		return null;
+		return returnType;
+	}
+
+	public void setReturnType(TpeMirror returnType) {
+		this.returnType = returnType;
 	}
 
 	@Override
@@ -69,27 +78,43 @@ public class ExecutableElem extends Elem implements ExecutableElement {
 
 	@Override
 	public TypeMirror getReceiverType() {
-		return null;
+		return receiverType;
+	}
+
+	public void setReceiverType(TpeMirror receiverType) {
+		this.receiverType = receiverType;
 	}
 
 	@Override
 	public boolean isVarArgs() {
-		return false;
+		return isVarArgs;
+	}
+
+	public void setVarArgs(boolean isVarArgs) {
+		this.isVarArgs = isVarArgs;
 	}
 
 	@Override
 	public boolean isDefault() {
-		return false;
+		return getModifiers().contains(Modifier.DEFAULT);
 	}
 
 	@Override
 	public List<? extends TypeMirror> getThrownTypes() {
-		return null;
+		return thrownTypes;
+	}
+
+	public void setThrownTypes(List<TpeMirror> thrownTypes) {
+		this.thrownTypes = thrownTypes;
 	}
 
 	@Override
 	public AnnotationValue getDefaultValue() {
 		return null;
+	}
+
+	public void setDefaultValue(AnnotationValue defaultValue) {
+		this.defaultValue = defaultValue;
 	}
 
 	@Override

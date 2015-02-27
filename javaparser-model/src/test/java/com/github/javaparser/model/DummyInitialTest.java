@@ -30,6 +30,7 @@ public class DummyInitialTest {
 
 		Classpath classpath = new Classpath();
 		classpath.addSourceFileDirectory(new File("../javaparser-core/src/main/java"));
+		classpath.addSourceFileDirectory(new File("../javaparser-core/target/generated-sources/javacc"));
 		classpath.addJar(new File("/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/rt.jar"));
 
 		Analysis model = analyser.buildModel(classpath);
@@ -42,47 +43,35 @@ public class DummyInitialTest {
 
 	private ElementScanner8<Void, Void> dumpScanner = new ElementScanner8<Void, Void>() {
 
-		private int indent = 0;
+		private int indent = -1;
 
 		@Override
 		public Void visitPackage(PackageElement e, Void aVoid) {
 			printIndent();
-			System.out.println("Package: " + e.getSimpleName());
+			System.out.println("Package: " + e.getQualifiedName());
 			return super.visitPackage(e, aVoid);
 		}
 
 		@Override
 		public Void visitType(TypeElement e, Void aVoid) {
 			printIndent();
-			System.out.print("Type: ");
-			switch (e.getKind()) {
-				case CLASS:
-					System.out.print("class ");
-					break;
-				case INTERFACE:
-					System.out.print("interface ");
-					break;
-				case ANNOTATION_TYPE:
-					System.out.print("@interface ");
-					break;
-				case ENUM:
-					System.out.print("enum ");
-					break;
-			}
-			System.out.print(e.getSimpleName());
+			System.out.print(e.getKind() + " " + e.getSimpleName());
 
 			printBounds(e);
 
-			System.out.print("(superClass: " + e.getSuperclass() + ", interfaces: " + e.getInterfaces().toString() + ")");
+			System.out.print(" (superClass: " + e.getSuperclass() + ", interfaces: " + e.getInterfaces().toString() + ")");
 
 			System.out.println();
 			return super.visitType(e, aVoid);
 		}
 
-		private void printBounds(TypeElement e) {
+		private void printBounds(Parameterizable e) {
+			List<? extends TypeParameterElement> typeParameters = e.getTypeParameters();
+			if (typeParameters.isEmpty()) return;
+
 			System.out.print("<");
 			boolean first = true;
-			for (TypeParameterElement typeParameterElement : e.getTypeParameters()) {
+			for (TypeParameterElement typeParameterElement : typeParameters) {
 				if (!first) System.out.print(",");
 				else first = false;
 				visit(typeParameterElement);
@@ -109,15 +98,17 @@ public class DummyInitialTest {
 		@Override
 		public Void visitVariable(VariableElement e, Void aVoid) {
 			printIndent();
-			System.out.println("Variable: " + e.getSimpleName());
+			System.out.println(e.getKind() + " " + e.getSimpleName() + ": " + e.asType());
 			return super.visitVariable(e, aVoid);
 		}
 
 		@Override
 		public Void visitExecutable(ExecutableElement e, Void aVoid) {
 			printIndent();
-			System.out.println("Executable: " + e.getSimpleName());
-			return super.visitExecutable(e, aVoid);
+			System.out.print(e.getKind() + " ");
+			printBounds(e);
+			System.out.println(e.getSimpleName() + ": " + e.asType());
+			return null; // super.visitExecutable(e, aVoid);
 		}
 
 		@Override

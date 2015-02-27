@@ -63,9 +63,22 @@ public class ExecutableTpe extends TpeMirror implements ExecutableType {
 
 	@Override
 	public String toString() {
-		return "<" + allToString(typeVariables) + ">" +
-				returnType + " " + getReceiverType() + "." +
-				null + "(" + allToString(parameterTypes) +
-				" throws " + allToString(thrownTypes);
+		StringBuilder buffer = new StringBuilder();
+		if (!typeVariables.isEmpty()) {
+			buffer.append('<');
+			buffer.append(allToString(typeVariables));
+			buffer.append('>');
+			buffer.append(' ');
+		}
+		buffer.append(returnType);
+		buffer.append(' ');
+		buffer.append('(');
+		buffer.append(allToString(parameterTypes));
+		buffer.append(')');
+		if (!thrownTypes.isEmpty()) {
+			buffer.append(" throws ");
+			buffer.append(allToString(thrownTypes));
+		}
+		return buffer.toString();
 	}
 }

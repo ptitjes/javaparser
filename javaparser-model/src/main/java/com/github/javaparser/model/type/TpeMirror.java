@@ -37,6 +37,6 @@ public abstract class TpeMirror implements TypeMirror {
 	}
 
 	protected static String allToString(List<? extends TpeMirror> types) {
-		return allToString(types, ",");
+		return allToString(types, ", ");
 	}
 }

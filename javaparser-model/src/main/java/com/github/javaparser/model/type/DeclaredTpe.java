@@ -3,6 +3,7 @@ package com.github.javaparser.model.type;
 import com.github.javaparser.model.element.ElemRef;
 import com.github.javaparser.model.element.TypeElem;
 
+import javax.lang.model.element.NestingKind;
 import javax.lang.model.type.DeclaredType;
 import javax.lang.model.type.TypeKind;
 import javax.lang.model.type.TypeMirror;
@@ -61,7 +62,21 @@ public class DeclaredTpe extends TpeMirror implements DeclaredType {
 
 	@Override
 	public String toString() {
-		return (enclosingType != NoTpe.NONE ? enclosingType + "." : "") +
-				element.qualifiedName() + "<" + allToString(typeArguments) + ">";
+		StringBuilder buffer = new StringBuilder();
+		if (enclosingType.getKind() != TypeKind.NONE) {
+			buffer.append(enclosingType);
+			buffer.append('.');
+		}
+		if (element.dereference().getNestingKind() == NestingKind.TOP_LEVEL) {
+			buffer.append(element.qualifiedName());
+		} else {
+			buffer.append(element.qualifiedName().simpleName());
+		}
+		if (!typeArguments.isEmpty()) {
+			buffer.append('<');
+			buffer.append(allToString(typeArguments));
+			buffer.append('>');
+		}
+		return buffer.toString();
 	}
 }

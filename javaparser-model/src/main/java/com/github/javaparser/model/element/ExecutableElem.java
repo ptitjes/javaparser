@@ -129,6 +129,11 @@ public class ExecutableElem extends Elem implements ExecutableElement {
 		}
 
 		@Override
+		public TypeParameterElem resolveLocalTypeParameter(EltSimpleName name) {
+			return perNameTypeParameters.get(name);
+		}
+
+		@Override
 		public TypeElem resolveLocalType(EltSimpleName name) {
 			return null;
 		}

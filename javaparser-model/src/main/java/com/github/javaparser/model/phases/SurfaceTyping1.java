@@ -4,7 +4,6 @@ import com.github.javaparser.ast.CompilationUnit;
 import com.github.javaparser.ast.body.AnnotationDeclaration;
 import com.github.javaparser.ast.body.ClassOrInterfaceDeclaration;
 import com.github.javaparser.ast.body.EnumDeclaration;
-import com.github.javaparser.ast.expr.ObjectCreationExpr;
 import com.github.javaparser.ast.type.ClassOrInterfaceType;
 import com.github.javaparser.ast.visitor.VoidVisitorAdapter;
 import com.github.javaparser.model.Registry;
@@ -14,7 +13,6 @@ import com.github.javaparser.model.report.Reporter;
 import com.github.javaparser.model.report.Reporter.Severity;
 import com.github.javaparser.model.scope.ScopeException;
 import com.github.javaparser.model.source.ElementAttr;
-import com.github.javaparser.model.type.DeclaredTpe;
 import com.github.javaparser.model.type.NoTpe;
 import com.github.javaparser.model.type.TpeMirror;
 import com.github.javaparser.model.type.TypeUtils;
@@ -68,7 +66,7 @@ public class SurfaceTyping1 implements Registry.Participant {
 				try {
 					elem.setInterfaces(typeResolver.resolveTypes(extended, elem.scope()));
 				} catch (ScopeException ex) {
-					reporter.report(Severity.ERROR, "Can't resolve supertype: " + ex.getMessage(), elem.origin());
+					reportSuperTypesResolutionError(elem, extended, ex);
 				}
 			} else {
 				if (extended != null && extended.size() == 1) {
@@ -76,14 +74,14 @@ public class SurfaceTyping1 implements Registry.Participant {
 						ClassOrInterfaceType type = extended.get(0);
 						elem.setSuperClass(typeResolver.resolveType(type, elem.scope()));
 					} catch (ScopeException ex) {
-						reporter.report(Severity.ERROR, "Can't resolve supertype: " + ex.getMessage(), elem.origin());
+						reportSuperTypesResolutionError(elem, extended, ex);
 					}
 				} else elem.setSuperClass(NoTpe.NONE);
 
 				try {
 					elem.setInterfaces(typeResolver.resolveTypes(implemented, elem.scope()));
 				} catch (ScopeException ex) {
-					reporter.report(Severity.ERROR, "Can't resolve supertype: " + ex.getMessage(), elem.origin());
+					reportSuperTypesResolutionError(elem, implemented, ex);
 				}
 			}
 
@@ -102,7 +100,7 @@ public class SurfaceTyping1 implements Registry.Participant {
 			try {
 				elem.setInterfaces(typeResolver.resolveTypes(implemented, elem.scope()));
 			} catch (ScopeException ex) {
-				reporter.report(Severity.ERROR, "Can't resolve supertype: " + ex.getMessage(), elem.origin());
+				reportSuperTypesResolutionError(elem, implemented, ex);
 			}
 
 			super.visit(n, arg);
@@ -119,7 +117,8 @@ public class SurfaceTyping1 implements Registry.Participant {
 			super.visit(n, arg);
 		}
 
-		@Override
+		// Too early for now - may depends on enclosing executable's type parameters
+		/*@Override
 		public void visit(ObjectCreationExpr n, Void arg) {
 			ElementAttr<TypeElem> attr = ElementAttr.get(n);
 			TypeElem elem = attr.element();
@@ -145,6 +144,10 @@ public class SurfaceTyping1 implements Registry.Participant {
 			}
 
 			super.visit(n, arg);
-		}
+		}*/
 	};
+
+	private void reportSuperTypesResolutionError(TypeElem elem, List<ClassOrInterfaceType> implemented, ScopeException ex) {
+		reporter.report(Severity.ERROR, "Can't resolve super-types '" + implemented + "' - " + ex.getMessage(), elem.origin());
+	}
 }

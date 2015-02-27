@@ -39,11 +39,14 @@ public abstract class EltNames {
 	}
 
 	public static EltName make(EltName qualifier, CharSequence name) {
-		return make(qualifier, name.toString());
+		return make(qualifier, makeSimple(name));
 	}
 
 	public static EltName make(EltName qualifier, String name) {
-		return new EltQualifiedName(qualifier.toString() + '.' + name,
-				qualifier, makeSimple(name));
+		return make(qualifier, makeSimple(name));
+	}
+
+	public static EltName make(EltName qualifier, EltSimpleName name) {
+		return new EltQualifiedName(qualifier.toString() + '.' + name.toString(), qualifier, name);
 	}
 }

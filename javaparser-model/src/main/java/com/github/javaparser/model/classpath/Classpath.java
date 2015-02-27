@@ -123,7 +123,7 @@ public class Classpath {
 		return dependencyScope;
 	}
 
-	private Scope dependencyScope = new RootScope() {
+	private RootScope dependencyScope = new RootScope() {
 		@Override
 		public Scope parentScope() {
 			return null;
@@ -140,7 +140,7 @@ public class Classpath {
 		return sourceScope;
 	}
 
-	private Scope sourceScope = new RootScope() {
+	private RootScope sourceScope = new RootScope() {
 		@Override
 		public Scope parentScope() {
 			return dependencyScope;
@@ -149,8 +149,8 @@ public class Classpath {
 		@Override
 		public List<PackageElem> resolvePackages(EltName name) {
 			PackageElem packageElem = sourcePackages.get(name);
-			if (packageElem == null) return null;
-			return Collections.singletonList(packageElem);
+			if (packageElem == null) return dependencyScope.resolvePackages(name);
+			else return Collections.singletonList(packageElem);
 		}
 	};
 }

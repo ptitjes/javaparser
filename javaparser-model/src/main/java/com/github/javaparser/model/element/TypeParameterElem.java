@@ -14,6 +14,7 @@ import java.util.List;
 public class TypeParameterElem extends Elem implements TypeParameterElement {
 
 	private List<TpeMirror> bounds;
+	private TpeMirror type;
 
 	public TypeParameterElem(Origin origin,
 	                         Elem enclosing,
@@ -33,7 +34,11 @@ public class TypeParameterElem extends Elem implements TypeParameterElement {
 
 	@Override
 	public TpeMirror asType() {
-		return null;
+		return this.type;
+	}
+
+	public void setType(TpeMirror type) {
+		this.type = type;
 	}
 
 	@Override

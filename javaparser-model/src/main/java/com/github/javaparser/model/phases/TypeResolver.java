@@ -69,10 +69,11 @@ public class TypeResolver implements Registry.Participant {
 
 	class TypeVisitor extends GenericVisitorAdapter<TpeMirror, Scope> {
 
-		protected List<TpeMirror> resolveBounds(TypeParameterElem typeParameterElem, Scope scope) {
+		protected void resolveBounds(TypeParameterElem typeParameterElem, Scope scope) {
 			List<TpeMirror> boundsMirrors = typeParameterElem.getBounds();
-			if (boundsMirrors != null) return boundsMirrors;
-			else return Collections.emptyList();
+			if (boundsMirrors == null)
+				throw new ScopeException("Type parameter bounds not resolved for '" +
+						typeParameterElem.getSimpleName() + "'", null);
 		}
 
 		@Override
@@ -87,10 +88,8 @@ public class TypeResolver implements Registry.Participant {
 
 			TypeParameterElem typeParameterElem = arg.resolveTypeParameter(typeName);
 			if (typeParameterElem != null) {
-				List<TpeMirror> bounds = resolveBounds(typeParameterElem, arg);
-				if (bounds.isEmpty())
-					return new TpeVariable(typeParameterElem, typeUtils.objectType(), NullTpe.NULL);
-				else return new TpeVariable(typeParameterElem, new IntersectionTpe(bounds), NullTpe.NULL);
+				resolveBounds(typeParameterElem, arg);
+				return typeParameterElem.asType();
 			} else {
 				List<TpeMirror> tpeArgsMirrors = visitAll(this, arg, typeArgs);
 
@@ -164,7 +163,7 @@ public class TypeResolver implements Registry.Participant {
 		Map<TypeParameterElem, Object> pendingResolution = new IdentityHashMap<TypeParameterElem, Object>();
 
 		@Override
-		public List<TpeMirror> resolveBounds(TypeParameterElem typeParameterElem, Scope scope) {
+		public void resolveBounds(TypeParameterElem typeParameterElem, Scope scope) {
 			List<TpeMirror> boundsMirrors = typeParameterElem.getBounds();
 			if (boundsMirrors == null) {
 				SourceOrigin origin = (SourceOrigin) typeParameterElem.origin();
@@ -177,9 +176,11 @@ public class TypeResolver implements Registry.Participant {
 				pendingResolution.put(typeParameterElem, new Object());
 				boundsMirrors = visitAll(this, scope, bounds);
 				typeParameterElem.setBounds(boundsMirrors);
+				typeParameterElem.setType(boundsMirrors.isEmpty() ?
+						new TpeVariable(typeParameterElem, typeUtils.objectType(), NullTpe.NULL) :
+						new TpeVariable(typeParameterElem, new IntersectionTpe(boundsMirrors), NullTpe.NULL));
 				pendingResolution.remove(typeParameterElem);
 			}
-			return boundsMirrors;
 		}
 	}
 }

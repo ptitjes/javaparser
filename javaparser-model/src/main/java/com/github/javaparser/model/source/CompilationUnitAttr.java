@@ -6,10 +6,7 @@ import com.github.javaparser.model.classpath.ClasspathElement;
 import com.github.javaparser.model.element.ExecutableElem;
 import com.github.javaparser.model.element.TypeElem;
 import com.github.javaparser.model.element.VariableElem;
-import com.github.javaparser.model.scope.EltName;
-import com.github.javaparser.model.scope.EltSimpleName;
-import com.github.javaparser.model.scope.Scope;
-import com.github.javaparser.model.scope.ScopeException;
+import com.github.javaparser.model.scope.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -89,9 +86,14 @@ public class CompilationUnitAttr extends Attributes {
 
 				EltName importName = asName(importDecl.getName());
 
-				TypeElem candidateParent = parentScope().resolveType(importName);
-				if (candidateParent != null) {
-					TypeElem candidate = candidateParent.scope().resolveLocalType(name/*, importDecl.isStatic()*/);
+				if (importDecl.isStatic()) {
+					TypeElem candidateParent = parentScope().resolveType(importName);
+					if (candidateParent != null) {
+						TypeElem candidate = candidateParent.scope().resolveLocalType(name/*, importDecl.isStatic()*/);
+						if (candidate != null) candidates.add(candidate);
+					}
+				} else {
+					TypeElem candidate = parentScope().resolveType(EltNames.make(importName, name));
 					if (candidate != null) candidates.add(candidate);
 				}
 			}
@@ -101,6 +103,10 @@ public class CompilationUnitAttr extends Attributes {
 				// TODO Be more specific in reported message
 				throw new ScopeException("Ambiguous imports for type '" + name + "'", node());
 			}
+
+			// Implicit java.lang.* import
+			TypeElem candidate = parentScope().resolveType(EltNames.make(EltNames.make("java.lang"), name));
+			if (candidate != null) return candidate;
 
 			return null;
 		}

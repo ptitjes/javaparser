@@ -3,17 +3,11 @@ package com.github.javaparser.model.binary;
 import com.github.javaparser.model.Registry;
 import com.github.javaparser.model.classpath.Classpath;
 import com.github.javaparser.model.classpath.ClasspathElement;
-import com.github.javaparser.model.element.Elem;
-import com.github.javaparser.model.element.ElemDereferenceException;
-import com.github.javaparser.model.element.ElemRef;
-import com.github.javaparser.model.element.TypeElem;
-import com.github.javaparser.model.scope.EltName;
+import com.github.javaparser.model.element.*;
+import com.github.javaparser.model.scope.*;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 /**
  * @author Federico Tomassetti
@@ -26,6 +20,11 @@ public class ClassRegistry implements Registry.Participant {
 	private Map<EltName, ClasspathElement> packages = new HashMap<EltName, ClasspathElement>();
 	private Map<EltName, ClasspathElement> classes = new HashMap<EltName, ClasspathElement>();
 	private Map<EltName, ElemRef<TypeElem>> requestedClasses = new HashMap<EltName, ElemRef<TypeElem>>();
+	private Map<EltName, PackageElem> loadedPackages = new HashMap<EltName, PackageElem>();
+	private Map<EltName, TypeElem> loadedClasses = new HashMap<EltName, TypeElem>();
+
+	private Map<String, EltName> internalToLogical = new HashMap<String, EltName>();
+	private Map<EltName, String> logicalToInternal = new HashMap<EltName, String>();
 
 	@Override
 	public void configure(Registry registry) {
@@ -36,17 +35,15 @@ public class ClassRegistry implements Registry.Participant {
 	public void indexClassFiles() throws IOException {
 		Set<ClasspathElement> classFiles = new HashSet<ClasspathElement>();
 
-		// Inspect all class file directories' content
+		// Inspect all class files
 		classFiles.addAll(Classpath.getElements(classpath.getClassFileSources(), ".class"));
-
-		// Inspect all jars' content
-		// ...
-
 
 		// Index all packages and class names
 		for (ClasspathElement classFile : classFiles) {
 			String path = classFile.getPath();
-			EltName logicalName = null; // ...
+			String packagePath = path.substring(0, path.lastIndexOf('/'));
+
+			EltName logicalName = toLogicalName(path);
 			if (path.endsWith("package.class")) {
 				packages.put(logicalName, classFile);
 			} else {
@@ -55,38 +52,119 @@ public class ClassRegistry implements Registry.Participant {
 		}
 	}
 
-	public ElemRef<TypeElem> getByName(String name) {
-		return null;
+	// Logical to binary name and vice versa routines
+
+	private EltName toLogicalName(String internalName) {
+		EltName logicalName = internalToLogical.get(internalName);
+		if (logicalName != null) {
+			return logicalName;
+		}
+
+		logicalName = EltNames.make(internalName.replace('/', '.').replace('$', '.'));
+		internalToLogical.put(internalName, logicalName);
+		logicalToInternal.put(logicalName, internalName);
+		return logicalName;
 	}
 
-	// Logical to binary name and vice versa routines
-	// ...
+	private String toInternalName(EltName logical) {
+		return logicalToInternal.get(logical);
+	}
+
+	public ElemRef<TypeElem> typeRef(String internalName) {
+		EltName name = toLogicalName(internalName);
+		if (loadedClasses.containsKey(name)) {
+			return loadedClasses.get(name).asRef();
+		}
+		if (requestedClasses.containsKey(name)) {
+			return requestedClasses.get(name);
+		}
+
+		BinTypeElemRef ref = new BinTypeElemRef(name);
+		requestedClasses.put(name, ref);
+		return ref;
+	}
+
+	private PackageElem loadPackage(EltName qualifiedName) throws IOException {
+		if (loadedPackages.containsKey(qualifiedName)) {
+			return loadedPackages.get(qualifiedName);
+		}
+
+		PackageElem elem;
+		ClasspathElement classpathElement = packages.get(qualifiedName);
+		if (classpathElement != null) {
+			elem = classFileReader.readPackage(dependencyScope(), classpathElement.getInputStream());
+		} else {
+			// No package.class file
+			elem = new PackageElem(dependencyScope, new BinaryOrigin(qualifiedName), qualifiedName);
+		}
+		loadedPackages.put(qualifiedName, elem);
+		return elem;
+	}
+
+	private TypeElem loadClass(EltName qualifiedName) throws IOException {
+		if (loadedClasses.containsKey(qualifiedName)) {
+			return loadedClasses.get(qualifiedName);
+		}
+
+		Elem enclosing = null;
+
+		String internalName = toInternalName(qualifiedName);
+		int dollarIndex = internalName.lastIndexOf('$');
+		if (dollarIndex != -1) {
+			String enclosingInternalName = internalName.substring(0, dollarIndex);
+			enclosing = loadClass(toLogicalName(enclosingInternalName));
+		} else {
+			// Top-level class
+			enclosing = loadPackage(qualifiedName.qualifier());
+		}
+
+		ClasspathElement classpathElement = classes.get(qualifiedName);
+		TypeElem elem = classFileReader.readClass(dependencyScope(), enclosing, classpathElement.getInputStream());
+		loadedClasses.put(qualifiedName, elem);
+		return elem;
+	}
 
 	private class BinTypeElemRef extends ElemRef.Lazy<TypeElem> {
 
-		private ClasspathElement classpathElement;
-
 		// Only for top-level classes
-		public BinTypeElemRef(EltName qualifiedName, ClasspathElement classpathElement) {
+		public BinTypeElemRef(EltName qualifiedName) {
 			super(qualifiedName);
-			this.classpathElement = classpathElement;
 		}
 
 		@Override
 		public TypeElem load() {
-			Elem enclosing = null;
-			// if top-level
-			//   get package ref and dereference it
-			// else
-			//   get outer class and dereference it
-
 			try {
-				return classFileReader.readClass(classpath.dependencyScope(),
-						enclosing,
-						classpathElement.getInputStream());
+				return loadClass(qualifiedName());
 			} catch (IOException e) {
 				throw new ElemDereferenceException("Can't load class '" + qualifiedName() + "'", e);
 			}
 		}
 	}
+
+	public RootScope dependencyScope() {
+		return dependencyScope;
+	}
+
+	private RootScope dependencyScope = new RootScope() {
+		@Override
+		public Scope parentScope() {
+			return null;
+		}
+
+		@Override
+		public List<PackageElem> resolvePackages(EltName name) {
+			return null; //dependencyPackages.get(name);
+		}
+
+		@Override
+		public TypeElem resolveType(EltName name) {
+			if (!classes.containsKey(name)) return null;
+
+			try {
+				return loadClass(name);
+			} catch (IOException e) {
+				throw new ScopeException("Error loading class " + name, e);
+			}
+		}
+	};
 }

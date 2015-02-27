@@ -3,6 +3,7 @@ package com.github.javaparser.model;
 import com.github.javaparser.JavaParser;
 import com.github.javaparser.ParseException;
 import com.github.javaparser.ast.CompilationUnit;
+import com.github.javaparser.model.binary.ClassRegistry;
 import com.github.javaparser.model.classpath.Classpath;
 import com.github.javaparser.model.classpath.ClasspathElement;
 import com.github.javaparser.model.element.ElementUtils;
@@ -25,6 +26,8 @@ public class Analysis {
 
 	private final Reporter reporter;
 	private final Classpath classpath;
+	private final ClassRegistry classRegistry;
+
 	private final Scaffolding scaffolding;
 	private final SurfaceTyping1 surfaceTyping1;
 	private final SurfaceTyping2 surfaceTyping2;
@@ -36,7 +39,10 @@ public class Analysis {
 		this.configuration = configuration;
 
 		reporter = registry.get(Reporter.class);
+
 		classpath = registry.get(Classpath.class);
+		classRegistry = registry.get(ClassRegistry.class);
+
 		scaffolding = registry.get(Scaffolding.class);
 		surfaceTyping1 = registry.get(SurfaceTyping1.class);
 		surfaceTyping2 = registry.get(SurfaceTyping2.class);
@@ -51,6 +57,13 @@ public class Analysis {
 			sourceFiles = Classpath.getElements(classpath.getSourceFileSources(), ".java");
 		} catch (IOException e) {
 			reporter.report("Can't retrieve source files", e);
+			return;
+		}
+
+		try {
+			classRegistry.indexClassFiles();
+		} catch (IOException e) {
+			reporter.report("Can't index class files", e);
 			return;
 		}
 

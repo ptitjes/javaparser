@@ -1,5 +1,8 @@
 package com.github.javaparser.model;
 
+import com.github.javaparser.model.binary.BinaryTypeBuilder;
+import com.github.javaparser.model.binary.ClassFileReader;
+import com.github.javaparser.model.binary.ClassRegistry;
 import com.github.javaparser.model.classpath.Classpath;
 import com.github.javaparser.model.classpath.ClasspathSource;
 import com.github.javaparser.model.classpath.DirectorySource;
@@ -45,6 +48,9 @@ public class JavaAnalyser {
 
 		registry.register(classpath);
 		registry.register(Reporter.class, configuration.getReporter());
+		registry.register(new ClassRegistry());
+		registry.register(new ClassFileReader());
+		registry.register(new BinaryTypeBuilder());
 		registry.register(new Scaffolding());
 		registry.register(new TypeResolver());
 		registry.register(new SurfaceTyping1());

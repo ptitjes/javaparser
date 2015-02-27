@@ -38,7 +38,8 @@ public class JarFileSource implements ClasspathSource {
 			JarEntry jarEntry = entries.nextElement();
 			String name = jarEntry.getName();
 			if (name.endsWith(extension)) {
-				elements.add(new JarClasspathElement(name, jarFile, jarEntry));
+				String path = basePath.isEmpty() ? name : basePath + "/" + name;
+				elements.add(new JarClasspathElement(path, jarFile, jarEntry));
 			}
 		}
 		return elements;

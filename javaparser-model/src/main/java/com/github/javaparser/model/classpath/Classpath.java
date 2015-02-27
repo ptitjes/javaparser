@@ -1,6 +1,8 @@
 package com.github.javaparser.model.classpath;
 
 import com.github.javaparser.ast.CompilationUnit;
+import com.github.javaparser.model.Registry;
+import com.github.javaparser.model.binary.ClassRegistry;
 import com.github.javaparser.model.element.Origin;
 import com.github.javaparser.model.element.PackageElem;
 import com.github.javaparser.model.element.TypeElem;
@@ -21,7 +23,7 @@ import java.util.*;
 /**
  * @author Didier Villevalois
  */
-public class Classpath {
+public class Classpath implements Registry.Participant {
 
 	private final List<ClasspathSource> sourceFileSources = new ArrayList<ClasspathSource>();
 	private final List<ClasspathSource> classFileSources = new ArrayList<ClasspathSource>();
@@ -31,25 +33,16 @@ public class Classpath {
 	private final Map<EltName, List<PackageElem>> dependencyPackages = new HashMap<EltName, List<PackageElem>>();
 	private final Map<EltName, PackageElem> sourcePackages = new HashMap<EltName, PackageElem>();
 
+	private ClassRegistry classRegistry;
+
 	public Classpath() {
-		addTemporaryFakeJavaLangPackage();
 	}
 
-	private void addTemporaryFakeJavaLangPackage() {
-		Origin fakeBinaryOrigin = new Origin() {
-			@Override
-			public String toLocationString() {
-				return "Fake";
-			}
-		};
-
-		PackageElem packageElem = new PackageElem(dependencyScope, fakeBinaryOrigin, EltNames.make("java.lang"));
-		new TypeElem(fakeBinaryOrigin, packageElem.scope(), packageElem, EnumSet.of(Modifier.PUBLIC),
-				EltNames.make("java.lang.Object"), EltNames.makeSimple("Object"), ElementKind.CLASS, NestingKind.TOP_LEVEL);
-		new TypeElem(fakeBinaryOrigin, packageElem.scope(), packageElem, EnumSet.of(Modifier.PUBLIC),
-				EltNames.make("java.lang.Enum"), EltNames.makeSimple("Enum"), ElementKind.CLASS, NestingKind.TOP_LEVEL);
-
-		addDependencyPackage(packageElem);
+	@Override
+	public void configure(Registry registry) {
+		// TODO Classpath should be a participant
+		// Create a participant to handle the source scope
+		classRegistry = registry.get(ClassRegistry.class);
 	}
 
 	public void addSourceFiles(final ClasspathSource classpathSource) {
@@ -136,23 +129,6 @@ public class Classpath {
 		return new ArrayList<PackageElement>(sourcePackages.values());
 	}
 
-	public Scope dependencyScope() {
-		return dependencyScope;
-	}
-
-	private RootScope dependencyScope = new RootScope() {
-		@Override
-		public Scope parentScope() {
-			return null;
-		}
-
-		@Override
-		public List<PackageElem> resolvePackages(EltName name) {
-			// TODO Should trigger lazy loading ??
-			return dependencyPackages.get(name);
-		}
-	};
-
 	public Scope sourceScope() {
 		return sourceScope;
 	}
@@ -160,13 +136,13 @@ public class Classpath {
 	private RootScope sourceScope = new RootScope() {
 		@Override
 		public Scope parentScope() {
-			return dependencyScope;
+			return classRegistry.dependencyScope();
 		}
 
 		@Override
 		public List<PackageElem> resolvePackages(EltName name) {
 			PackageElem packageElem = sourcePackages.get(name);
-			if (packageElem == null) return dependencyScope.resolvePackages(name);
+			if (packageElem == null) return classRegistry.dependencyScope().resolvePackages(name);
 			else return Collections.singletonList(packageElem);
 		}
 	};

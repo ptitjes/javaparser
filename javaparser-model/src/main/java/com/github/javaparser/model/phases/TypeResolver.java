@@ -45,7 +45,7 @@ public class TypeResolver implements Registry.Participant {
 	public TpeMirror resolveType(Type type, Scope scope) {
 		TpeMirror tpeMirror = type.accept(typeResolver, scope);
 		if (tpeMirror == null) {
-			throw new ScopeException("Can't resolve type '" + type + "'", null);
+			throw new ScopeException("Can't resolve type '" + type + "'");
 		}
 		return tpeMirror;
 	}
@@ -60,7 +60,7 @@ public class TypeResolver implements Registry.Participant {
 	private TypeElem findTypeElem(EltSimpleName typeName, Scope scope) {
 		TypeElem typeElem = scope.resolveType(typeName);
 		if (typeElem == null) {
-			throw new ScopeException("Can't find type '" + typeName + "'", null);
+			throw new ScopeException("Can't find type '" + typeName + "'");
 		}
 		return typeElem;
 	}
@@ -73,7 +73,7 @@ public class TypeResolver implements Registry.Participant {
 			List<TpeMirror> boundsMirrors = typeParameterElem.getBounds();
 			if (boundsMirrors == null)
 				throw new ScopeException("Type parameter bounds not resolved for '" +
-						typeParameterElem.getSimpleName() + "'", null);
+						typeParameterElem.getSimpleName() + "'");
 		}
 
 		@Override
@@ -115,7 +115,7 @@ public class TypeResolver implements Registry.Participant {
 
 		private TpeMirror makeArray(TpeMirror tpeMirror, int depth) {
 			if (depth == 0) return tpeMirror;
-			else return makeArray(new ArrayTpe(tpeMirror), depth);
+			else return makeArray(new ArrayTpe(tpeMirror), depth - 1);
 		}
 
 		@Override

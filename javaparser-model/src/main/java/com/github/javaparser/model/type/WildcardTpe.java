@@ -40,7 +40,12 @@ public class WildcardTpe extends TpeMirror implements WildcardType {
 
 	@Override
 	public String toString() {
-		// TODO add bounds
-		return "?";
+		if (extendsBound != null) {
+			return "? extends " + extendsBound;
+		} else if (superBound != null) {
+			return "? super " + superBound;
+		} else {
+			return "?";
+		}
 	}
 }

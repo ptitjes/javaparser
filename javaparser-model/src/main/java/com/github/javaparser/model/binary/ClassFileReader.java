@@ -6,6 +6,8 @@ import com.github.javaparser.model.element.PackageElem;
 import com.github.javaparser.model.element.TypeElem;
 import com.github.javaparser.model.scope.EltName;
 import com.github.javaparser.model.scope.Scope;
+import com.github.javaparser.model.type.NoTpe;
+import com.github.javaparser.model.type.TpeMirror;
 import org.objectweb.asm.*;
 
 import javax.lang.model.element.ElementKind;
@@ -13,7 +15,9 @@ import javax.lang.model.element.Modifier;
 import javax.lang.model.element.NestingKind;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.EnumSet;
+import java.util.List;
 
 import static org.objectweb.asm.Opcodes.*;
 
@@ -81,12 +85,32 @@ public class ClassFileReader implements Registry.Participant {
 
 		@Override
 		public void visit(int version, int access, String name, String signature, String superName, String[] interfaces) {
+			ElementKind kind = buildTypeElementKind(access);
 			elem = new TypeElem(new BinaryOrigin(name), scope, enclosing,
 					buildModifiers(access),
 					qualifiedName, qualifiedName.simpleName(),
-					buildTypeElementKind(access),
+					kind,
 					enclosing.getKind() == ElementKind.PACKAGE ? NestingKind.TOP_LEVEL : NestingKind.MEMBER);
 
+			if (signature != null) {
+				typeBuilder.feedClassType(signature, elem);
+			} else {
+				if (superName != null) {
+					elem.setSuperClass(typeBuilder.buildType(Type.getType(superName)));
+				} else {
+					elem.setSuperClass(NoTpe.NONE);
+				}
+				if (interfaces != null) {
+					List<TpeMirror> interfaceMirrors = new ArrayList<TpeMirror>();
+					for (String anInterface : interfaces) {
+						interfaceMirrors.add(typeBuilder.buildType(Type.getType(anInterface)));
+					}
+					elem.setInterfaces(interfaceMirrors);
+				}
+			}
+			if (kind == ElementKind.INTERFACE || kind == ElementKind.ANNOTATION_TYPE) {
+				elem.setSuperClass(NoTpe.NONE);
+			}
 		}
 
 		private ElementKind buildTypeElementKind(int access) {

@@ -31,7 +31,7 @@ public class EltQualifiedName extends EltName {
 
 	@Override
 	public EltName withoutRoot() {
-		EltName qualifierWithoutRoot = qualifier.withoutRoot();
+		EltName qualifierWithoutRoot = qualifier.isQualified() ? qualifier.withoutRoot() : EltNames.empty;
 		return new EltQualifiedName(
 				qualifierWithoutRoot.toString() + '.' + simple.toString(),
 				qualifierWithoutRoot, simple);

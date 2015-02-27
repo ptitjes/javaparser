@@ -256,7 +256,7 @@ public class SurfaceTyping2 implements Registry.Participant {
 	}
 
 	private Object buildConstantValue(Expression init) {
-		return init.accept(constantValueBuilder, null);
+		return init == null ? null : init.accept(constantValueBuilder, null);
 	}
 
 	private GenericVisitor<Object, Void> constantValueBuilder = new GenericVisitorAdapter<Object, Void>() {
@@ -278,7 +278,8 @@ public class SurfaceTyping2 implements Registry.Participant {
 
 		@Override
 		public Object visit(LongLiteralExpr n, Void arg) {
-			return Long.parseLong(n.getValue());
+			String value = n.getValue();
+			return Long.parseLong(value.substring(0, value.length() - 1));
 		}
 
 		@Override

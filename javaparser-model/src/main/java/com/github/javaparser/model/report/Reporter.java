@@ -12,6 +12,8 @@ public interface Reporter {
 		INFO, WARNING, ERROR
 	}
 
+	public void report(String message, Exception exception);
+
 	public void report(ClasspathElement file, Exception exception);
 
 	public void report(Severity severity, String message, Origin origin);

@@ -8,6 +8,10 @@ import com.github.javaparser.model.element.Origin;
  */
 public class NullReporter implements Reporter {
 	@Override
+	public void report(String message, Exception exception) {
+	}
+
+	@Override
 	public void report(ClasspathElement file, Exception exception) {
 	}
 

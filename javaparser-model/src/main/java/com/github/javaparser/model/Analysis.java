@@ -5,7 +5,6 @@ import com.github.javaparser.ParseException;
 import com.github.javaparser.ast.CompilationUnit;
 import com.github.javaparser.model.classpath.Classpath;
 import com.github.javaparser.model.classpath.ClasspathElement;
-import com.github.javaparser.model.classpath.DirSourcesFinder;
 import com.github.javaparser.model.element.ElementUtils;
 import com.github.javaparser.model.phases.Scaffolding;
 import com.github.javaparser.model.phases.SurfaceTyping1;
@@ -47,8 +46,13 @@ public class Analysis {
 	}
 
 	public void proceed() {
-		Set<ClasspathElement> sourceFiles =
-				DirSourcesFinder.getAllElements(classpath.getSources(), ".java");
+		Set<ClasspathElement> sourceFiles;
+		try {
+			sourceFiles = Classpath.getElements(classpath.getSourceFileSources(), ".java");
+		} catch (IOException e) {
+			reporter.report("Can't retrieve source files", e);
+			return;
+		}
 
 		for (ClasspathElement sourceFile : sourceFiles) {
 			try {

@@ -3,7 +3,6 @@ package com.github.javaparser.model.binary;
 import com.github.javaparser.model.Registry;
 import com.github.javaparser.model.classpath.Classpath;
 import com.github.javaparser.model.classpath.ClasspathElement;
-import com.github.javaparser.model.classpath.DirSourcesFinder;
 import com.github.javaparser.model.element.Elem;
 import com.github.javaparser.model.element.ElemDereferenceException;
 import com.github.javaparser.model.element.ElemRef;
@@ -34,12 +33,11 @@ public class ClassRegistry implements Registry.Participant {
 		classpath = registry.get(Classpath.class);
 	}
 
-	public void indexClassFiles() {
+	public void indexClassFiles() throws IOException {
 		Set<ClasspathElement> classFiles = new HashSet<ClasspathElement>();
 
 		// Inspect all class file directories' content
-		classFiles.addAll(
-				DirSourcesFinder.getAllElements(classpath.getClassFileDirectories(), ".class"));
+		classFiles.addAll(Classpath.getElements(classpath.getClassFileSources(), ".class"));
 
 		// Inspect all jars' content
 		// ...

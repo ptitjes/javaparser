@@ -1,5 +1,6 @@
 package com.github.javaparser.model.classpath;
 
+import java.io.IOException;
 import java.util.Set;
 
 /**
@@ -11,12 +12,7 @@ import java.util.Set;
 public interface ClasspathSource {
 
 	/**
-	 * Elements of the tree which are not leaves.
-	 */
-	Set<ClasspathSource> getSubtrees();
-
-	/**
 	 * Leaves of the trees.
 	 */
-	Set<ClasspathElement> getElements(String extension);
+	Set<ClasspathElement> getElements(String extension) throws IOException;
 }

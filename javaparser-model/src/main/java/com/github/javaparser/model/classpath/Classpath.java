@@ -13,6 +13,9 @@ import javax.lang.model.element.ElementKind;
 import javax.lang.model.element.Modifier;
 import javax.lang.model.element.NestingKind;
 import javax.lang.model.element.PackageElement;
+import java.io.File;
+import java.io.FileFilter;
+import java.io.IOException;
 import java.util.*;
 
 /**
@@ -20,9 +23,8 @@ import java.util.*;
  */
 public class Classpath {
 
-	private final List<ClasspathSource> sourceDirectories = new ArrayList<ClasspathSource>();
-	private final List<ClasspathSource> classFileDirectories = new ArrayList<ClasspathSource>();
-	private final List<ClasspathElement> jarFiles = new ArrayList<ClasspathElement>();
+	private final List<ClasspathSource> sourceFileSources = new ArrayList<ClasspathSource>();
+	private final List<ClasspathSource> classFileSources = new ArrayList<ClasspathSource>();
 
 	private final List<CompilationUnit> compilationUnits = new ArrayList<CompilationUnit>();
 
@@ -50,34 +52,49 @@ public class Classpath {
 		addDependencyPackage(packageElem);
 	}
 
-	public void addSources(final ClasspathSource sourceDirectory) {
-		sourceDirectories.add(sourceDirectory);
+	public void addSourceFiles(final ClasspathSource classpathSource) {
+		sourceFileSources.add(classpathSource);
 	}
 
-	public void addClassFiles(final ClasspathSource classFileDirectory) {
-		classFileDirectories.add(classFileDirectory);
+	public void addClassFiles(final ClasspathSource classpathSource) {
+		classFileSources.add(classpathSource);
 	}
 
-	public void addJars(final ClasspathSource jarFileDirectory) {
-		for (ClasspathElement element : jarFileDirectory.getElements(".jar")) {
+	public void addSourceFileDirectory(final File directory) {
+		addSourceFiles(new DirectorySource(directory));
+	}
+
+	public void addClassFileDirectory(final File directory) {
+		addClassFiles(new DirectorySource(directory));
+	}
+
+	public void addJars(final File directory) {
+		if (!directory.exists())
+			throw new IllegalArgumentException("No such directory: " + directory.getAbsolutePath());
+
+		for (File element : directory.listFiles(jarFileFilter)) {
 			addJar(element);
 		}
 	}
 
-	public void addJar(final ClasspathElement jarFile) {
-		jarFiles.add(jarFile);
+	public void addJar(final File jarFile) {
+		addClassFiles(new JarFileSource(jarFile));
 	}
 
-	public List<ClasspathSource> getSources() {
-		return sourceDirectories;
+	public List<ClasspathSource> getSourceFileSources() {
+		return sourceFileSources;
 	}
 
-	public List<ClasspathSource> getClassFileDirectories() {
-		return classFileDirectories;
+	public List<ClasspathSource> getClassFileSources() {
+		return classFileSources;
 	}
 
-	public List<ClasspathElement> getJarFiles() {
-		return jarFiles;
+	public static Set<ClasspathElement> getElements(List<ClasspathSource> sources, String extension) throws IOException {
+		Set<ClasspathElement> elements = new HashSet<ClasspathElement>();
+		for (ClasspathSource source : sources) {
+			elements.addAll(source.getElements(extension));
+		}
+		return elements;
 	}
 
 	public void addCompilationUnit(CompilationUnit cu) {
@@ -151,6 +168,13 @@ public class Classpath {
 			PackageElem packageElem = sourcePackages.get(name);
 			if (packageElem == null) return dependencyScope.resolvePackages(name);
 			else return Collections.singletonList(packageElem);
+		}
+	};
+
+	private static FileFilter jarFileFilter = new FileFilter() {
+		@Override
+		public boolean accept(File pathname) {
+			return pathname.getName().endsWith(".jar");
 		}
 	};
 }

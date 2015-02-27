@@ -21,6 +21,12 @@ public class DumpReporter implements Reporter {
 	}
 
 	@Override
+	public void report(String message, Exception exception) {
+		errors = true;
+		report(Severity.ERROR, message, exception.getMessage());
+	}
+
+	@Override
 	public void report(ClasspathElement file, Exception exception) {
 		errors = true;
 		report(Severity.ERROR, file.getPath(), exception.getMessage());

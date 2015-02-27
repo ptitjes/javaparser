@@ -7,10 +7,7 @@ import com.github.javaparser.model.Registry;
 import com.github.javaparser.model.classpath.Classpath;
 import com.github.javaparser.model.element.TypeElem;
 import com.github.javaparser.model.element.TypeParameterElem;
-import com.github.javaparser.model.scope.EltNames;
-import com.github.javaparser.model.scope.EltSimpleName;
-import com.github.javaparser.model.scope.Scope;
-import com.github.javaparser.model.scope.ScopeException;
+import com.github.javaparser.model.scope.*;
 import com.github.javaparser.model.source.SourceOrigin;
 import com.github.javaparser.model.type.*;
 
@@ -94,6 +91,13 @@ public class TypeResolver implements Registry.Participant {
 				List<TpeMirror> tpeArgsMirrors = visitAll(this, arg, typeArgs);
 
 				if (typeScope != null) {
+					EltName maybePackageName = maybePackageName(typeScope);
+					if (maybePackageName != null) {
+						TypeElem typeElem = arg.resolveType(EltNames.make(maybePackageName, typeName));
+						if (typeElem != null)
+							return new DeclaredTpe(NoTpe.NONE, typeElem, tpeArgsMirrors);
+					}
+
 					DeclaredTpe typeScopeMirror = (DeclaredTpe) typeScope.accept(this, arg);
 					TypeElem typeScopeElem = typeScopeMirror.asElement();
 					TypeElem typeElem = findTypeElem(typeName, typeScopeElem.scope());
@@ -103,6 +107,18 @@ public class TypeResolver implements Registry.Participant {
 					return new DeclaredTpe(NoTpe.NONE, typeElem, tpeArgsMirrors);
 				}
 			}
+		}
+
+		private EltName maybePackageName(ClassOrInterfaceType type) {
+			List<Type> typeArgs = type.getTypeArgs();
+			if (typeArgs != null && !typeArgs.isEmpty()) return null;
+
+			ClassOrInterfaceType typeScope = type.getScope();
+			String typeName = type.getName();
+			if (typeScope != null) {
+				EltName qualifier = maybePackageName(typeScope);
+				return qualifier == null ? null : EltNames.make(qualifier, typeName);
+			} else return EltNames.makeSimple(typeName);
 		}
 
 		@Override

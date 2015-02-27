@@ -2,7 +2,9 @@ package com.github.javaparser.model.element;
 
 import com.github.javaparser.model.scope.EltSimpleName;
 import com.github.javaparser.model.scope.Scope;
+import com.github.javaparser.model.type.ExecutableTpe;
 import com.github.javaparser.model.type.TpeMirror;
+import com.github.javaparser.model.type.TpeVariable;
 
 import javax.lang.model.element.*;
 import javax.lang.model.type.TypeMirror;
@@ -54,7 +56,15 @@ public class ExecutableElem extends Elem implements ExecutableElement {
 
 	@Override
 	public TpeMirror asType() {
-		return null;
+		List<TpeVariable> typeVariables = new ArrayList<TpeVariable>();
+		for (TypeParameterElem typeParameter : typeParameters) {
+			typeVariables.add((TpeVariable) typeParameter.asType());
+		}
+		List<TpeMirror> parameterTypes = new ArrayList<TpeMirror>();
+		for (VariableElem parameter : parameters) {
+			parameterTypes.add(parameter.asType());
+		}
+		return new ExecutableTpe(typeVariables, receiverType, parameterTypes, returnType, thrownTypes);
 	}
 
 	@Override

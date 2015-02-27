@@ -4,6 +4,7 @@ import com.github.javaparser.model.scope.EltName;
 import com.github.javaparser.model.scope.EltSimpleName;
 import com.github.javaparser.model.scope.Scope;
 import com.github.javaparser.model.type.DeclaredTpe;
+import com.github.javaparser.model.type.NoTpe;
 import com.github.javaparser.model.type.TpeMirror;
 
 import javax.lang.model.element.*;
@@ -111,7 +112,10 @@ public class TypeElem extends QualifiedNameableElem implements TypeElement {
 		for (TypeParameterElem typeParameter : typeParameters) {
 			typeParametersAsTypes.add(typeParameter.asType());
 		}
-		return new DeclaredTpe(getEnclosingElement().asType(), this, typeParametersAsTypes);
+		Elem enclosingElement = getEnclosingElement();
+		TpeMirror enclosingType = enclosingElement.getKind() == ElementKind.PACKAGE ?
+				NoTpe.NONE : enclosingElement.asType();
+		return new DeclaredTpe(enclosingType, this, typeParametersAsTypes);
 	}
 
 	@Override

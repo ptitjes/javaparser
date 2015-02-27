@@ -14,6 +14,8 @@ import java.util.*;
  */
 public class ClassRegistry implements Registry.Participant {
 
+	public static final String CLASS_EXT = ".class";
+	public static final int CLASS_EXT_LENGTH = CLASS_EXT.length();
 	private ClassFileReader classFileReader;
 	private Classpath classpath;
 
@@ -36,14 +38,14 @@ public class ClassRegistry implements Registry.Participant {
 		Set<ClasspathElement> classFiles = new HashSet<ClasspathElement>();
 
 		// Inspect all class files
-		classFiles.addAll(Classpath.getElements(classpath.getClassFileSources(), ".class"));
+		classFiles.addAll(Classpath.getElements(classpath.getClassFileSources(), CLASS_EXT));
 
 		// Index all packages and class names
 		for (ClasspathElement classFile : classFiles) {
 			String path = classFile.getPath();
 			String packagePath = path.substring(0, path.lastIndexOf('/'));
 
-			EltName logicalName = toLogicalName(path);
+			EltName logicalName = toLogicalName(path.substring(0, path.length() - CLASS_EXT_LENGTH));
 			if (path.endsWith("package.class")) {
 				packages.put(logicalName, classFile);
 			} else {
@@ -92,10 +94,12 @@ public class ClassRegistry implements Registry.Participant {
 		PackageElem elem;
 		ClasspathElement classpathElement = packages.get(qualifiedName);
 		if (classpathElement != null) {
-			elem = classFileReader.readPackage(dependencyScope(), classpathElement.getInputStream());
+			elem = new PackageElem(dependencyScope, new BinaryOrigin(classpathElement.getPath()), qualifiedName);
+			// TODO Implement reading package.class files
+			// elem = classFileReader.readPackage(dependencyScope(), classpathElement.getInputStream());
 		} else {
 			// No package.class file
-			elem = new PackageElem(dependencyScope, new BinaryOrigin(qualifiedName), qualifiedName);
+			elem = new PackageElem(dependencyScope, new BinaryOrigin(toInternalName(qualifiedName)), qualifiedName);
 		}
 		loadedPackages.put(qualifiedName, elem);
 		return elem;
@@ -119,7 +123,8 @@ public class ClassRegistry implements Registry.Participant {
 		}
 
 		ClasspathElement classpathElement = classes.get(qualifiedName);
-		TypeElem elem = classFileReader.readClass(dependencyScope(), enclosing, classpathElement.getInputStream());
+		TypeElem elem = classFileReader.readClass(dependencyScope(), enclosing, qualifiedName,
+				classpathElement.getInputStream());
 		loadedClasses.put(qualifiedName, elem);
 		return elem;
 	}

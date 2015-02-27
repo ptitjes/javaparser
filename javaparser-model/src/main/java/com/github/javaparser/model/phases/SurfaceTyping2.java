@@ -10,7 +10,9 @@ import com.github.javaparser.ast.visitor.GenericVisitorAdapter;
 import com.github.javaparser.ast.visitor.VoidVisitorAdapter;
 import com.github.javaparser.model.Registry;
 import com.github.javaparser.model.classpath.Classpath;
+import com.github.javaparser.model.element.Elem;
 import com.github.javaparser.model.element.ExecutableElem;
+import com.github.javaparser.model.element.TypeElem;
 import com.github.javaparser.model.element.VariableElem;
 import com.github.javaparser.model.report.Reporter;
 import com.github.javaparser.model.scope.ScopeException;
@@ -59,9 +61,14 @@ public class SurfaceTyping2 implements Registry.Participant {
 			ElementAttr<ExecutableElem> attr = ElementAttr.get(n);
 			ExecutableElem elem = attr.element();
 
+			elem.setReceiverType(NoTpe.VOID);
+
 			elem.setReturnType(NoTpe.VOID);
+
 			elem.setThrownTypes(Collections.<TpeMirror>emptyList());
+
 			elem.setVarArgs(false);
+
 			elem.setDefaultValue(null);
 
 			super.visit(n, arg);
@@ -74,12 +81,29 @@ public class SurfaceTyping2 implements Registry.Participant {
 
 			try {
 				typeResolver.resolveTypeParameters(elem.getTypeParameters(), elem.scope());
+			} catch (ScopeException ex) {
+				reportResolutionError(elem, ex);
+			}
+
+			TypeElem enclosingElement = (TypeElem) elem.getEnclosingElement();
+			if (!enclosingElement.getNestingKind().isNested()
+					// TODO This next test seems logical but not in the doc
+					|| enclosingElement.getModifiers().contains(Modifier.STATIC)) {
+				elem.setReceiverType(NoTpe.VOID);
+			} else {
+				elem.setReceiverType(enclosingElement.asType());
+			}
+
+			elem.setReturnType(NoTpe.VOID);
+
+			try {
 				elem.setThrownTypes(typeResolver.resolveTypes(namesToTypes(n.getThrows()), elem.scope()));
 			} catch (ScopeException ex) {
-				reporter.report(Reporter.Severity.ERROR, ex.getMessage(), elem.origin());
+				reportResolutionError(elem, ex);
 			}
-			elem.setReturnType(NoTpe.VOID);
+
 			elem.setVarArgs(hasLastParameterVarArgs(n.getParameters()));
+
 			elem.setDefaultValue(null);
 
 			super.visit(n, arg);
@@ -92,12 +116,30 @@ public class SurfaceTyping2 implements Registry.Participant {
 
 			try {
 				typeResolver.resolveTypeParameters(elem.getTypeParameters(), elem.scope());
+			} catch (ScopeException ex) {
+				reportResolutionError(elem, ex);
+			}
+
+			if (elem.getModifiers().contains(Modifier.STATIC)) {
+				elem.setReceiverType(NoTpe.VOID);
+			} else {
+				elem.setReceiverType(elem.getEnclosingElement().asType());
+			}
+
+			try {
 				elem.setThrownTypes(typeResolver.resolveTypes(namesToTypes(n.getThrows()), elem.scope()));
+			} catch (ScopeException ex) {
+				reportResolutionError(elem, ex);
+			}
+
+			try {
 				elem.setReturnType(typeResolver.resolveType(n.getType(), elem.scope()));
 			} catch (ScopeException ex) {
-				reporter.report(Reporter.Severity.ERROR, ex.getMessage(), elem.origin());
+				reportResolutionError(elem, ex);
 			}
+
 			elem.setVarArgs(hasLastParameterVarArgs(n.getParameters()));
+
 			elem.setDefaultValue(null);
 
 			super.visit(n, arg);
@@ -108,13 +150,18 @@ public class SurfaceTyping2 implements Registry.Participant {
 			ElementAttr<ExecutableElem> attr = ElementAttr.get(n);
 			ExecutableElem elem = attr.element();
 
+			elem.setReceiverType(elem.getEnclosingElement().asType());
+
 			try {
 				elem.setReturnType(typeResolver.resolveType(n.getType(), elem.scope()));
 			} catch (ScopeException ex) {
-				reporter.report(Reporter.Severity.ERROR, ex.getMessage(), elem.origin());
+				reportResolutionError(elem, ex);
 			}
+
 			elem.setThrownTypes(Collections.<TpeMirror>emptyList());
+
 			elem.setVarArgs(false);
+
 			elem.setDefaultValue(buildDefaultValue(n.getDefaultValue()));
 
 			super.visit(n, arg);
@@ -157,6 +204,7 @@ public class SurfaceTyping2 implements Registry.Participant {
 			VariableElem elem = attr.element();
 
 			elem.setType(elem.getEnclosingElement().asType());
+
 			elem.setConstantValue(null);
 
 			super.visit(n, arg);
@@ -172,11 +220,16 @@ public class SurfaceTyping2 implements Registry.Participant {
 			} catch (ScopeException ex) {
 				reporter.report(Reporter.Severity.ERROR, ex.getMessage(), elem.origin());
 			}
+
 			elem.setConstantValue(null);
 
 			super.visit(n, arg);
 		}
 	};
+
+	private void reportResolutionError(Elem elem, ScopeException ex) {
+		reporter.report(Reporter.Severity.ERROR, ex.getMessage(), elem.origin());
+	}
 
 	/* This is a deviation to make do with MethodDeclaration.getThrows() returning a list of NameExpr */
 	private List<? extends Type> namesToTypes(List<NameExpr> nameExprs) {

@@ -58,7 +58,7 @@ public class ExecutableElem extends Elem implements ExecutableElement {
 	}
 
 	@Override
-	public final List<? extends TypeParameterElement> getTypeParameters() {
+	public final List<TypeParameterElem> getTypeParameters() {
 		return typeParameters;
 	}
 

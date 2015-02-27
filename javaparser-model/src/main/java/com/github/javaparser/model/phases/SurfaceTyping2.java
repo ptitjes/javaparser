@@ -72,12 +72,13 @@ public class SurfaceTyping2 implements Registry.Participant {
 			ElementAttr<ExecutableElem> attr = ElementAttr.get(n);
 			ExecutableElem elem = attr.element();
 
-			elem.setReturnType(NoTpe.VOID);
 			try {
+				typeResolver.resolveTypeParameters(elem.getTypeParameters(), elem.scope());
 				elem.setThrownTypes(typeResolver.resolveTypes(namesToTypes(n.getThrows()), elem.scope()));
 			} catch (ScopeException ex) {
 				reporter.report(Reporter.Severity.ERROR, ex.getMessage(), elem.origin());
 			}
+			elem.setReturnType(NoTpe.VOID);
 			elem.setVarArgs(hasLastParameterVarArgs(n.getParameters()));
 			elem.setDefaultValue(null);
 
@@ -90,8 +91,9 @@ public class SurfaceTyping2 implements Registry.Participant {
 			ExecutableElem elem = attr.element();
 
 			try {
-				elem.setReturnType(typeResolver.resolveType(n.getType(), elem.scope()));
+				typeResolver.resolveTypeParameters(elem.getTypeParameters(), elem.scope());
 				elem.setThrownTypes(typeResolver.resolveTypes(namesToTypes(n.getThrows()), elem.scope()));
+				elem.setReturnType(typeResolver.resolveType(n.getType(), elem.scope()));
 			} catch (ScopeException ex) {
 				reporter.report(Reporter.Severity.ERROR, ex.getMessage(), elem.origin());
 			}

@@ -2,8 +2,10 @@ package com.github.javaparser.model;
 
 import com.github.javaparser.ParseException;
 import com.github.javaparser.model.classpath.Classpath;
+import com.github.javaparser.model.classpath.ResourceHelper;
 import com.github.javaparser.model.element.ElementUtils;
 import com.github.javaparser.model.report.DumpReporter;
+import com.github.javaparser.model.utils.ElementTestWriter;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
@@ -32,103 +34,19 @@ public class DummyInitialTest {
 		Classpath classpath = new Classpath();
 		classpath.addSourceFileDirectory(new File("../javaparser-core/src/main/java"));
 		classpath.addSourceFileDirectory(new File("../javaparser-core/target/generated-sources/javacc"));
-		classpath.addJar(new File("/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/rt.jar"));
+		classpath.addClassFiles(ResourceHelper.findJavaRuntimeJar());
 
 		Analysis model = analyser.buildModel(classpath);
 		ElementUtils elementUtils = model.getElementUtils();
 
 		TypeElement enumTypeElem = elementUtils.getTypeElement("java.lang.Enum");
-		dumpScanner.scan(enumTypeElem);
+
+		System.out.println(System.getProperty("java.class.path"));
+
+		System.out.println(ElementTestWriter.toString(enumTypeElem));
 
 		if (!model.hasErrors()) {
-			for (PackageElement packageElement : model.getSourcePackages()) {
-				dumpScanner.scan(packageElement);
-			}
+//			System.out.println(ElementTestWriter.toString(javaparser-model-tests.getSourcePackages()));
 		}
 	}
-
-	private ElementScanner8<Void, Void> dumpScanner = new ElementScanner8<Void, Void>() {
-
-		private int indent = -1;
-
-		@Override
-		public Void visitPackage(PackageElement e, Void aVoid) {
-			printIndent();
-			System.out.println("Package: " + e.getQualifiedName());
-			return super.visitPackage(e, aVoid);
-		}
-
-		@Override
-		public Void visitType(TypeElement e, Void aVoid) {
-			printIndent();
-			System.out.print(e.getKind() + " " + e.getSimpleName());
-
-			printBounds(e);
-
-			System.out.print(" (superClass: " + e.getSuperclass() + ", interfaces: " + e.getInterfaces().toString() + ")");
-
-			System.out.println();
-			return super.visitType(e, aVoid);
-		}
-
-		private void printBounds(Parameterizable e) {
-			List<? extends TypeParameterElement> typeParameters = e.getTypeParameters();
-			if (typeParameters.isEmpty()) return;
-
-			System.out.print("<");
-			boolean first = true;
-			for (TypeParameterElement typeParameterElement : typeParameters) {
-				if (!first) System.out.print(",");
-				else first = false;
-				visit(typeParameterElement);
-			}
-			System.out.print(">");
-		}
-
-		@Override
-		public Void visitTypeParameter(TypeParameterElement e, Void aVoid) {
-			System.out.print(e.getSimpleName());
-			List<? extends TypeMirror> bounds = e.getBounds();
-			if (!bounds.isEmpty()) {
-				System.out.print(" extends ");
-				boolean first = true;
-				for (TypeMirror type : bounds) {
-					if (!first) System.out.print("&");
-					else first = false;
-					System.out.print(type.toString());
-				}
-			}
-			return null;
-		}
-
-		@Override
-		public Void visitVariable(VariableElement e, Void aVoid) {
-			printIndent();
-			System.out.println(e.getKind() + " " + e.getSimpleName() + ": " + e.asType());
-			return super.visitVariable(e, aVoid);
-		}
-
-		@Override
-		public Void visitExecutable(ExecutableElement e, Void aVoid) {
-			printIndent();
-			System.out.print(e.getKind() + " ");
-			printBounds(e);
-			System.out.println(e.getSimpleName() + ": " + e.asType());
-			return null; // super.visitExecutable(e, aVoid);
-		}
-
-		@Override
-		public Void scan(Element e, Void aVoid) {
-			indent++;
-			super.scan(e, aVoid);
-			indent--;
-			return null;
-		}
-
-		private void printIndent() {
-			for (int i = 0; i < indent; i++) {
-				System.out.print("  ");
-			}
-		}
-	};
 }

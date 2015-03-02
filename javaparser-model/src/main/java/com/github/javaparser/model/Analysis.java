@@ -93,7 +93,7 @@ public class Analysis {
 		return elementUtils;
 	}
 
-	boolean hasErrors() {
+	public boolean hasErrors() {
 		return reporter.hasErrors();
 	}
 

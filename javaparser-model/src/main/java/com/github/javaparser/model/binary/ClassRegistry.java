@@ -43,7 +43,8 @@ public class ClassRegistry implements Registry.Participant {
 		// Index all packages and class names
 		for (ClasspathElement classFile : classFiles) {
 			String path = classFile.getPath();
-			String packagePath = path.substring(0, path.lastIndexOf('/'));
+			int lastSlashIndex = path.lastIndexOf('/');
+			String packagePath = lastSlashIndex == -1 ? path : path.substring(0, lastSlashIndex);
 
 			EltName logicalName = toLogicalName(path.substring(0, path.length() - CLASS_EXT_LENGTH));
 			if (path.endsWith("package.class")) {

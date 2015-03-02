@@ -64,6 +64,17 @@ public class ResourceHelper {
 		return elements;
 	}
 
+	public static ClasspathSource findJavaRuntimeJar() throws IOException {
+		for (String classpathElement : System.getProperty("java.class.path").split(":")) {
+			if (!classpathElement.endsWith("/rt.jar")) {
+				continue;
+			}
+
+			return new JarFileSource(new File(URLDecoder.decode(classpathElement, "UTF-8")));
+		}
+		return null;
+	}
+
 	private Set<ClasspathElement> exploreJar(String jarPath, String path) throws IOException {
 		JarFile jar = new JarFile(URLDecoder.decode(jarPath, "UTF-8"));
 		Enumeration<JarEntry> entries = jar.entries(); //gives ALL entries in jar
@@ -103,4 +114,7 @@ public class ResourceHelper {
 		}
 	}
 
+	public ClasspathSource getSource(String path) {
+		return new ResourceSource(this, path);
+	}
 }

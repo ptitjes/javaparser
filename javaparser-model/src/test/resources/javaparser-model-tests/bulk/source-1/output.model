@@ -1,0 +1,28 @@
+[
+  {
+    kind: "PACKAGE",
+    qualifiedName: "acme",
+    simpleName: "acme",
+    enclosedElements: [
+      {
+        kind: "CLASS",
+        qualifiedName: "acme.A",
+        simpleName: "A",
+        typeParameters: [],
+        superClass: "_bottom_",
+        interfaces: [],
+        enclosedElements: [
+          {
+            kind: "CLASS",
+            qualifiedName: "acme.A.Test",
+            simpleName: "Test",
+            typeParameters: [],
+            superClass: "_bottom_",
+            interfaces: [],
+            enclosedElements: []
+          }
+        ]
+      }
+    ]
+  }
+]

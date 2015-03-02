@@ -150,7 +150,7 @@ public class BinaryTypeBuilder implements Registry.Participant {
 			for (Type argumentType : methodType.getArgumentTypes()) {
 				VariableElem parameter = new VariableElem(new BinaryOrigin(""), elem,
 						EnumSet.noneOf(Modifier.class),
-						EltNames.makeSimple("arg" + (parameterIndex + 1)),
+						EltNames.makeSimple("arg" + (parameterIndex++)),
 						ElementKind.PARAMETER);
 				parameter.setType(buildType(argumentType));
 			}
@@ -456,11 +456,9 @@ public class BinaryTypeBuilder implements Registry.Participant {
 			final VariableElem parameter = parameters.size() <= parameterIndex ?
 					new VariableElem(new BinaryOrigin(""), elem,
 							EnumSet.noneOf(Modifier.class),
-							EltNames.makeSimple("arg" + (parameterIndex + 1)),
+							EltNames.makeSimple("arg" + (parameterIndex ++)),
 							ElementKind.PARAMETER) :
-					(VariableElem) parameters.get(parameterIndex);
-
-			parameterIndex++;
+					(VariableElem) parameters.get(parameterIndex++);
 
 			return new TypeBuilder(elem.scope(), new TypeCallback() {
 				@Override

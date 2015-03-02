@@ -1,17 +1,21 @@
 package com.github.javaparser.model.binary;
 
 import com.github.javaparser.model.Registry;
-import com.github.javaparser.model.element.ElemRef;
-import com.github.javaparser.model.element.TypeElem;
-import com.github.javaparser.model.element.TypeParameterElem;
+import com.github.javaparser.model.element.*;
 import com.github.javaparser.model.scope.EltNames;
+import com.github.javaparser.model.scope.Scope;
 import com.github.javaparser.model.type.*;
 import org.objectweb.asm.Type;
 import org.objectweb.asm.signature.SignatureReader;
 import org.objectweb.asm.signature.SignatureVisitor;
 
+import javax.lang.model.element.ElementKind;
+import javax.lang.model.element.Modifier;
+import javax.lang.model.element.Parameterizable;
+import javax.lang.model.element.VariableElement;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.EnumSet;
 import java.util.List;
 
 import static org.objectweb.asm.Opcodes.ASM5;
@@ -22,10 +26,12 @@ import static org.objectweb.asm.Opcodes.ASM5;
 public class BinaryTypeBuilder implements Registry.Participant {
 
 	private ClassRegistry classRegistry;
+	private TypeUtils typeUtils;
 
 	@Override
 	public void configure(Registry registry) {
 		classRegistry = registry.get(ClassRegistry.class);
+		typeUtils = registry.get(TypeUtils.class);
 	}
 
 	private ElemRef<TypeElem> resolveType(String internalName) {
@@ -76,7 +82,6 @@ public class BinaryTypeBuilder implements Registry.Participant {
 				return new DeclaredTpe(NoTpe.NONE, elemRef, Collections.<TpeMirror>emptyList());
 
 			case Type.METHOD:
-				// Is this for method types in method calls ?
 				return null;
 
 			default:
@@ -91,11 +96,32 @@ public class BinaryTypeBuilder implements Registry.Participant {
 	 * @param signature the generic class type signature
 	 * @return the build mirror
 	 */
-	public void feedClassType(String signature, TypeElem elem) {
-		SignatureReader reader = new SignatureReader(signature);
-		ClassTypeBuilder builder = new ClassTypeBuilder(elem);
-		reader.accept(builder);
-		builder.visitEnd();
+	public void feedClassType(String signature, String superName, String[] interfaces, TypeElem elem) {
+		if (signature != null) {
+			SignatureReader reader = new SignatureReader(signature);
+
+			feedTypeParameters(elem, reader);
+
+			ClassTypeBuilder builder = new ClassTypeBuilder(elem);
+			reader.accept(builder);
+
+			builder.feedTypes();
+		} else {
+			if (superName != null) {
+				elem.setSuperClass(new DeclaredTpe(NoTpe.NONE, resolveType(superName), Collections.<TpeMirror>emptyList()));
+			} else {
+				elem.setSuperClass(NoTpe.NONE);
+			}
+			if (interfaces != null) {
+				List<TpeMirror> interfaceMirrors = new ArrayList<TpeMirror>();
+				for (String anInterface : interfaces) {
+					interfaceMirrors.add(new DeclaredTpe(NoTpe.NONE, resolveType(anInterface), Collections.<TpeMirror>emptyList()));
+				}
+				elem.setInterfaces(interfaceMirrors);
+			} else {
+				elem.setInterfaces(Collections.<TpeMirror>emptyList());
+			}
+		}
 	}
 
 	/**
@@ -104,11 +130,50 @@ public class BinaryTypeBuilder implements Registry.Participant {
 	 * @param signature the generic executable type signature
 	 * @return the build mirror
 	 */
-	public TpeMirror buildExecutableType(String signature) {
-		SignatureReader reader = new SignatureReader(signature);
-		TypeBuilder builder = new TypeBuilder();
-		reader.accept(builder);
-		return builder.getType();
+	public void feedExecutableType(String desc, String signature, String[] exceptions, ExecutableElem elem) {
+		if (signature != null) {
+			SignatureReader reader = new SignatureReader(signature);
+
+			feedTypeParameters(elem, reader);
+
+			ExecutableTypeBuilder builder = new ExecutableTypeBuilder(elem);
+			reader.accept(builder);
+
+			builder.feedTypes();
+		} else {
+			// TODO Read desc and feed parameters and return type
+			Type methodType = Type.getType(desc);
+
+			elem.setReturnType(buildType(methodType.getReturnType()));
+
+			int parameterIndex = 0;
+			for (Type argumentType : methodType.getArgumentTypes()) {
+				VariableElem parameter = new VariableElem(new BinaryOrigin(""), elem,
+						EnumSet.noneOf(Modifier.class),
+						EltNames.makeSimple("arg" + (parameterIndex + 1)),
+						ElementKind.PARAMETER);
+				parameter.setType(buildType(argumentType));
+			}
+
+			if (exceptions != null) {
+				List<TpeMirror> exceptionMirrors = new ArrayList<TpeMirror>();
+				for (String exception : exceptions) {
+					exceptionMirrors.add(new DeclaredTpe(NoTpe.NONE, resolveType(exception), Collections.<TpeMirror>emptyList()));
+				}
+				elem.setThrownTypes(exceptionMirrors);
+			} else {
+				elem.setThrownTypes(Collections.<TpeMirror>emptyList());
+			}
+		}
+	}
+
+	private <E extends Elem & Parameterizable> void feedTypeParameters(E elem, SignatureReader reader) {
+		TypeParametersBuilder typeParametersBuilder = new TypeParametersBuilder<E>(elem);
+		reader.accept(typeParametersBuilder);
+
+		TypeParameterBoundsFeeder typeParameterBoundsFeeder = new TypeParameterBoundsFeeder<E>(elem);
+		reader.accept(typeParameterBoundsFeeder);
+		typeParameterBoundsFeeder.finish();
 	}
 
 	/**
@@ -117,19 +182,45 @@ public class BinaryTypeBuilder implements Registry.Participant {
 	 * @param signature the generic variable type signature
 	 * @return the build mirror
 	 */
-	public TpeMirror buildType(String signature) {
+	public void feedVariableType(String desc, String signature, VariableElem elem) {
+		if (signature != null) {
+			elem.setType(buildType(signature, elem.scope()));
+		} else {
+			elem.setType(buildType(Type.getType(desc)));
+		}
+	}
+
+	/**
+	 * Builds a generic type mirror for a variable type signature.
+	 *
+	 * @param signature the generic variable type signature
+	 * @return the build mirror
+	 */
+	public TpeMirror buildType(String signature, Scope scope) {
 		SignatureReader reader = new SignatureReader(signature);
-		TypeBuilder builder = new TypeBuilder();
+		TypeBuilder builder = new TypeBuilder(scope, new TypeCallback() {
+			@Override
+			public void typeBuilt(TpeMirror type) {
+			}
+		});
 		reader.acceptType(builder);
 		return builder.getType();
 	}
 
+	interface TypeCallback {
+		void typeBuilt(TpeMirror type);
+	}
+
 	class TypeBuilder extends SignatureVisitor {
 
+		private final Scope scope;
+		private final TypeCallback callback;
 		private TpeMirror type;
 
-		public TypeBuilder() {
+		public TypeBuilder(Scope scope, TypeCallback callback) {
 			super(ASM5);
+			this.scope = scope;
+			this.callback = callback;
 		}
 
 		public TpeMirror getType() {
@@ -167,22 +258,24 @@ public class BinaryTypeBuilder implements Registry.Participant {
 					type = PrimitiveTpe.DOUBLE;
 					break;
 			}
+			callback.typeBuilt(type);
 		}
 
 		@Override
 		public void visitTypeVariable(String name) {
-			// Use scope
+			TypeParameterElem typeParameterElem = scope.resolveTypeParameter(EltNames.makeSimple(name));
+			callback.typeBuilt(new TpeVariable(typeParameterElem, typeUtils.objectType()));
 		}
 
 		@Override
 		public SignatureVisitor visitArrayType() {
-			return new TypeBuilder() {
+			return new TypeBuilder(scope, new TypeCallback() {
 				@Override
-				public void visitEnd() {
-					super.visitEnd();
+				public void typeBuilt(TpeMirror type) {
 					type = new ArrayTpe(getType());
+					callback.typeBuilt(type);
 				}
-			};
+			});
 		}
 
 		private TpeMirror enclosingType = NoTpe.NONE;
@@ -192,14 +285,14 @@ public class BinaryTypeBuilder implements Registry.Participant {
 		@Override
 		public void visitClassType(String name) {
 			typeElem = resolveType(name);
-			typeArgs.clear();
+			typeArgs = new ArrayList<TpeMirror>();
 		}
 
 		@Override
 		public void visitInnerClassType(String name) {
 			enclosingType = closeClassType();
 			typeElem = resolveType(name);
-			typeArgs.clear();
+			typeArgs = new ArrayList<TpeMirror>();
 		}
 
 		@Override
@@ -210,21 +303,19 @@ public class BinaryTypeBuilder implements Registry.Participant {
 		@Override
 		public SignatureVisitor visitTypeArgument(char wildcard) {
 			if (wildcard == '+') {
-				return new TypeBuilder() {
+				return new TypeBuilder(scope, new TypeCallback() {
 					@Override
-					public void visitEnd() {
-						super.visitEnd();
-						typeArgs.add(new WildcardTpe(getType(), null));
+					public void typeBuilt(TpeMirror type) {
+						typeArgs.add(type);
 					}
-				};
+				});
 			} else {
-				return new TypeBuilder() {
+				return new TypeBuilder(scope, new TypeCallback() {
 					@Override
-					public void visitEnd() {
-						super.visitEnd();
-						typeArgs.add(new WildcardTpe(null, getType()));
+					public void typeBuilt(TpeMirror type) {
+						typeArgs.add(type);
 					}
-				};
+				});
 			}
 		}
 
@@ -235,6 +326,75 @@ public class BinaryTypeBuilder implements Registry.Participant {
 		@Override
 		public void visitEnd() {
 			type = closeClassType();
+			callback.typeBuilt(type);
+		}
+	}
+
+	class TypeParametersBuilder<E extends Elem & Parameterizable> extends SignatureVisitor {
+
+		private E elem;
+
+		public TypeParametersBuilder(E elem) {
+			super(ASM5);
+			this.elem = elem;
+		}
+
+		@Override
+		public void visitFormalTypeParameter(String name) {
+			TypeParameterElem typeParameterElem =
+					new TypeParameterElem(new BinaryOrigin(""), elem, EltNames.makeSimple(name));
+			typeParameterElem.setType(new TpeVariable(typeParameterElem, typeUtils.objectType()));
+		}
+	}
+
+	class TypeParameterBoundsFeeder<E extends Elem & Parameterizable> extends SignatureVisitor {
+
+		private E elem;
+
+		public TypeParameterBoundsFeeder(E elem) {
+			super(ASM5);
+			this.elem = elem;
+		}
+
+		private TypeParameterElem typeParam = null;
+		private List<TpeMirror> bounds = new ArrayList<TpeMirror>();
+
+		@Override
+		public void visitFormalTypeParameter(String name) {
+			feedBounds();
+			typeParam = elem.scope().resolveTypeParameter(EltNames.makeSimple(name));
+		}
+
+		@Override
+		public SignatureVisitor visitClassBound() {
+			return new TypeBuilder(elem.scope(), new TypeCallback() {
+				@Override
+				public void typeBuilt(TpeMirror type) {
+					bounds.add(type);
+				}
+			});
+		}
+
+		@Override
+		public SignatureVisitor visitInterfaceBound() {
+			return new TypeBuilder(elem.scope(), new TypeCallback() {
+				@Override
+				public void typeBuilt(TpeMirror type) {
+					bounds.add(type);
+				}
+			});
+		}
+
+		private void feedBounds() {
+			if (typeParam != null) {
+				typeParam.setBounds(bounds);
+				bounds = new ArrayList<TpeMirror>();
+				typeParam = null;
+			}
+		}
+
+		public void finish() {
+			feedBounds();
 		}
 	}
 
@@ -247,75 +407,92 @@ public class BinaryTypeBuilder implements Registry.Participant {
 			this.elem = elem;
 		}
 
-		private TypeParameterElem typeParam = null;
-		private List<TpeMirror> bounds = new ArrayList<TpeMirror>();
-
-		@Override
-		public void visitFormalTypeParameter(String name) {
-			closeTypeParam();
-			typeParam = new TypeParameterElem(new BinaryOrigin(""), elem, EltNames.makeSimple(name));
-		}
-
-		private void closeTypeParam() {
-			if (typeParam != null) {
-				typeParam.setBounds(bounds);
-				bounds.clear();
-				typeParam = null;
-			}
-		}
-
-
-		@Override
-		public SignatureVisitor visitClassBound() {
-			return new TypeBuilder() {
-				@Override
-				public void visitEnd() {
-					super.visitEnd();
-					bounds.add(getType());
-				}
-			};
-		}
-
-		@Override
-		public SignatureVisitor visitInterfaceBound() {
-			return new TypeBuilder() {
-				@Override
-				public void visitEnd() {
-					super.visitEnd();
-					bounds.add(getType());
-				}
-			};
-		}
+		private TpeMirror superClass = NoTpe.NONE;
 
 		@Override
 		public SignatureVisitor visitSuperclass() {
-			closeTypeParam();
-
-			return new TypeBuilder() {
+			return new TypeBuilder(elem.scope(), new TypeCallback() {
 				@Override
-				public void visitEnd() {
-					super.visitEnd();
-					elem.setSuperClass(getType());
+				public void typeBuilt(TpeMirror type) {
+					superClass = type;
 				}
-			};
+			});
 		}
 
 		private List<TpeMirror> interfaces = new ArrayList<TpeMirror>();
 
 		@Override
 		public SignatureVisitor visitInterface() {
-			return new TypeBuilder() {
+			return new TypeBuilder(elem.scope(), new TypeCallback() {
 				@Override
-				public void visitEnd() {
-					super.visitEnd();
-					interfaces.add(getType());
+				public void typeBuilt(TpeMirror type) {
+					interfaces.add(type);
 				}
-			};
+			});
+		}
+
+		public void feedTypes() {
+			elem.setSuperClass(superClass);
+			elem.setInterfaces(interfaces);
+		}
+	}
+
+	class ExecutableTypeBuilder extends SignatureVisitor {
+
+		private ExecutableElem elem;
+
+		public ExecutableTypeBuilder(ExecutableElem elem) {
+			super(ASM5);
+			this.elem = elem;
+		}
+
+		private int parameterIndex = 0;
+		private TpeMirror returnType = NoTpe.NONE;
+		private List<TpeMirror> exceptions = new ArrayList<TpeMirror>();
+
+		@Override
+		public SignatureVisitor visitParameterType() {
+			List<? extends VariableElement> parameters = elem.getParameters();
+			final VariableElem parameter = parameters.size() <= parameterIndex ?
+					new VariableElem(new BinaryOrigin(""), elem,
+							EnumSet.noneOf(Modifier.class),
+							EltNames.makeSimple("arg" + (parameterIndex + 1)),
+							ElementKind.PARAMETER) :
+					(VariableElem) parameters.get(parameterIndex);
+
+			parameterIndex++;
+
+			return new TypeBuilder(elem.scope(), new TypeCallback() {
+				@Override
+				public void typeBuilt(TpeMirror type) {
+					parameter.setType(type);
+				}
+			});
 		}
 
 		@Override
-		public void visitEnd() {
-			elem.setInterfaces(interfaces);
+		public SignatureVisitor visitReturnType() {
+			return new TypeBuilder(elem.scope(), new TypeCallback() {
+				@Override
+				public void typeBuilt(TpeMirror type) {
+					returnType = type;
+				}
+			});
+		}
+
+		@Override
+		public SignatureVisitor visitExceptionType() {
+			return new TypeBuilder(elem.scope(), new TypeCallback() {
+				@Override
+				public void typeBuilt(TpeMirror type) {
+					exceptions.add(type);
+				}
+			});
+		}
+
+		public void feedTypes() {
+			elem.setReturnType(returnType);
+			elem.setThrownTypes(exceptions);
 		}
 	}
 }

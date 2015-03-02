@@ -192,9 +192,7 @@ public class TypeResolver implements Registry.Participant {
 				pendingResolution.put(typeParameterElem, new Object());
 				boundsMirrors = visitAll(this, scope, bounds);
 				typeParameterElem.setBounds(boundsMirrors);
-				typeParameterElem.setType(boundsMirrors.isEmpty() ?
-						new TpeVariable(typeParameterElem, typeUtils.objectType(), NullTpe.NULL) :
-						new TpeVariable(typeParameterElem, new IntersectionTpe(boundsMirrors), NullTpe.NULL));
+				typeParameterElem.setType(new TpeVariable(typeParameterElem, typeUtils.objectType()));
 				pendingResolution.remove(typeParameterElem);
 			}
 		}

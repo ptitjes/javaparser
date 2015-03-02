@@ -2,6 +2,7 @@ package com.github.javaparser.model;
 
 import com.github.javaparser.ParseException;
 import com.github.javaparser.model.classpath.Classpath;
+import com.github.javaparser.model.element.ElementUtils;
 import com.github.javaparser.model.report.DumpReporter;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -34,6 +35,11 @@ public class DummyInitialTest {
 		classpath.addJar(new File("/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/rt.jar"));
 
 		Analysis model = analyser.buildModel(classpath);
+		ElementUtils elementUtils = model.getElementUtils();
+
+		TypeElement enumTypeElem = elementUtils.getTypeElement("java.lang.Enum");
+		dumpScanner.scan(enumTypeElem);
+
 		if (!model.hasErrors()) {
 			for (PackageElement packageElement : model.getSourcePackages()) {
 				dumpScanner.scan(packageElement);

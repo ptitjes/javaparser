@@ -1,13 +1,10 @@
 package com.github.javaparser.model.binary;
 
 import com.github.javaparser.model.Registry;
-import com.github.javaparser.model.element.Elem;
-import com.github.javaparser.model.element.PackageElem;
-import com.github.javaparser.model.element.TypeElem;
+import com.github.javaparser.model.element.*;
 import com.github.javaparser.model.scope.EltName;
+import com.github.javaparser.model.scope.EltNames;
 import com.github.javaparser.model.scope.Scope;
-import com.github.javaparser.model.type.NoTpe;
-import com.github.javaparser.model.type.TpeMirror;
 import org.objectweb.asm.*;
 
 import javax.lang.model.element.ElementKind;
@@ -15,9 +12,7 @@ import javax.lang.model.element.Modifier;
 import javax.lang.model.element.NestingKind;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
 import java.util.EnumSet;
-import java.util.List;
 
 import static org.objectweb.asm.Opcodes.*;
 
@@ -92,46 +87,13 @@ public class ClassFileReader implements Registry.Participant {
 					kind,
 					enclosing.getKind() == ElementKind.PACKAGE ? NestingKind.TOP_LEVEL : NestingKind.MEMBER);
 
-			if (signature != null) {
-				typeBuilder.feedClassType(signature, elem);
-			} else {
-				if (superName != null) {
-					elem.setSuperClass(typeBuilder.buildType(Type.getType(superName)));
-				} else {
-					elem.setSuperClass(NoTpe.NONE);
-				}
-				if (interfaces != null) {
-					List<TpeMirror> interfaceMirrors = new ArrayList<TpeMirror>();
-					for (String anInterface : interfaces) {
-						interfaceMirrors.add(typeBuilder.buildType(Type.getType(anInterface)));
-					}
-					elem.setInterfaces(interfaceMirrors);
-				}
-			}
-			if (kind == ElementKind.INTERFACE || kind == ElementKind.ANNOTATION_TYPE) {
-				elem.setSuperClass(NoTpe.NONE);
-			}
+			typeBuilder.feedClassType(signature, superName, interfaces, elem);
 		}
 
 		private ElementKind buildTypeElementKind(int access) {
 			return hasFlags(access, ACC_INTERFACE, ACC_ANNOTATION) ? ElementKind.ANNOTATION_TYPE :
 					hasFlags(access, ACC_INTERFACE) ? ElementKind.INTERFACE :
 							ElementKind.CLASS;
-		}
-
-		private EnumSet<Modifier> buildModifiers(int access) {
-			EnumSet<Modifier> modifiers = EnumSet.noneOf(Modifier.class);
-			if (hasFlag(access, ACC_PUBLIC)) modifiers.add(Modifier.PUBLIC);
-			if (hasFlag(access, ACC_PUBLIC)) modifiers.add(Modifier.PROTECTED);
-			if (hasFlag(access, ACC_PRIVATE)) modifiers.add(Modifier.PRIVATE);
-			if (hasFlag(access, ACC_ABSTRACT)) modifiers.add(Modifier.ABSTRACT);
-			if (hasFlag(access, ACC_STATIC)) modifiers.add(Modifier.STATIC);
-			if (hasFlag(access, ACC_TRANSIENT)) modifiers.add(Modifier.TRANSIENT);
-			if (hasFlag(access, ACC_VOLATILE)) modifiers.add(Modifier.VOLATILE);
-			if (hasFlag(access, ACC_SYNCHRONIZED)) modifiers.add(Modifier.SYNCHRONIZED);
-			if (hasFlag(access, ACC_NATIVE)) modifiers.add(Modifier.NATIVE);
-			if (hasFlag(access, ACC_STRICT)) modifiers.add(Modifier.STRICTFP);
-			return modifiers;
 		}
 
 		@Override
@@ -155,17 +117,62 @@ public class ClassFileReader implements Registry.Participant {
 		}
 
 		@Override
+		public void visitAttribute(Attribute attr) {
+		}
+
+		@Override
 		public void visitInnerClass(String name, String outerName, String innerName, int access) {
 		}
 
 		@Override
 		public FieldVisitor visitField(int access, String name, String desc, String signature, Object value) {
-			return super.visitField(access, name, desc, signature, value);
+			VariableElem variable = new VariableElem(new BinaryOrigin(""),
+					elem,
+					buildModifiers(access),
+					EltNames.makeSimple(name),
+					elem.getKind() == ElementKind.ENUM ? ElementKind.ENUM_CONSTANT : ElementKind.FIELD);
+
+			typeBuilder.feedVariableType(desc, signature, variable);
+
+			// TODO Process constant value (value)
+
+			return new FieldElemBuilder(variable);
 		}
 
 		@Override
-		public MethodVisitor visitMethod(int access, String name, String desc, String signature, String[] exceptions) {
-			return super.visitMethod(access, name, desc, signature, exceptions);
+		public MethodVisitor visitMethod(int access, String name,
+		                                 final String desc, final String signature, final String[] exceptions) {
+			final ExecutableElem executable = new ExecutableElem(new BinaryOrigin(""),
+					elem,
+					buildModifiers(access),
+					EltNames.makeSimple(name),
+					name.equals("<init>") ? ElementKind.CONSTRUCTOR :
+							name.equals("<clinit>") ? ElementKind.STATIC_INIT :
+									ElementKind.METHOD);
+			// TODO How to recognize an instance initializer ?
+
+			return new MethodElemBuilder(executable) {
+				@Override
+				public void visitEnd() {
+					typeBuilder.feedExecutableType(desc, signature, exceptions, executable);
+				}
+			};
+		}
+
+		@Override
+		public void visitEnd() {
+		}
+	}
+
+	class FieldElemBuilder extends FieldVisitor {
+		public FieldElemBuilder(VariableElem elem) {
+			super(ASM5);
+		}
+
+		@Override
+		public AnnotationVisitor visitAnnotation(String desc, boolean visible) {
+			// TODO Implement
+			return null;
 		}
 
 		@Override
@@ -173,8 +180,79 @@ public class ClassFileReader implements Registry.Participant {
 		}
 
 		@Override
+		public AnnotationVisitor visitTypeAnnotation(int typeRef, TypePath typePath, String desc, boolean visible) {
+			// TODO Implement
+			return null;
+		}
+
+		@Override
 		public void visitEnd() {
 		}
+	}
+
+	class MethodElemBuilder extends MethodVisitor {
+
+		private final ExecutableElem elem;
+
+		public MethodElemBuilder(ExecutableElem elem) {
+			super(ASM5);
+			this.elem = elem;
+		}
+
+		@Override
+		public AnnotationVisitor visitAnnotation(String desc, boolean visible) {
+			// TODO Implement
+			return null;
+		}
+
+		@Override
+		public void visitAttribute(Attribute attr) {
+		}
+
+		@Override
+		public AnnotationVisitor visitTypeAnnotation(int typeRef, TypePath typePath, String desc, boolean visible) {
+			// TODO Implement
+			return null;
+		}
+
+		@Override
+		public void visitParameter(String name, int access) {
+			new VariableElem(new BinaryOrigin(""), elem,
+					buildModifiers(access),
+					EltNames.makeSimple(name),
+					ElementKind.PARAMETER);
+		}
+
+		@Override
+		public AnnotationVisitor visitParameterAnnotation(int parameter, String desc, boolean visible) {
+			// TODO Implement
+			return null;
+		}
+
+		@Override
+		public AnnotationVisitor visitAnnotationDefault() {
+			// TODO Implement
+			return null;
+		}
+
+		@Override
+		public void visitEnd() {
+		}
+	}
+
+	private EnumSet<Modifier> buildModifiers(int access) {
+		EnumSet<Modifier> modifiers = EnumSet.noneOf(Modifier.class);
+		if (hasFlag(access, ACC_PUBLIC)) modifiers.add(Modifier.PUBLIC);
+		if (hasFlag(access, ACC_PUBLIC)) modifiers.add(Modifier.PROTECTED);
+		if (hasFlag(access, ACC_PRIVATE)) modifiers.add(Modifier.PRIVATE);
+		if (hasFlag(access, ACC_ABSTRACT)) modifiers.add(Modifier.ABSTRACT);
+		if (hasFlag(access, ACC_STATIC)) modifiers.add(Modifier.STATIC);
+		if (hasFlag(access, ACC_TRANSIENT)) modifiers.add(Modifier.TRANSIENT);
+		if (hasFlag(access, ACC_VOLATILE)) modifiers.add(Modifier.VOLATILE);
+		if (hasFlag(access, ACC_SYNCHRONIZED)) modifiers.add(Modifier.SYNCHRONIZED);
+		if (hasFlag(access, ACC_NATIVE)) modifiers.add(Modifier.NATIVE);
+		if (hasFlag(access, ACC_STRICT)) modifiers.add(Modifier.STRICTFP);
+		return modifiers;
 	}
 
 	private boolean hasFlag(int flags, int flag) {

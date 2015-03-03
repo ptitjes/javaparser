@@ -35,9 +35,8 @@ public class Analysis {
 	private final TypeUtils typeUtils;
 	private final ElementUtils elementUtils;
 
-	public Analysis(AnalysisConfiguration configuration, Registry registry) {
-		this.configuration = configuration;
-
+	public Analysis(Registry registry) {
+		configuration = registry.get(AnalysisConfiguration.class);
 		reporter = registry.get(Reporter.class);
 
 		classpath = registry.get(Classpath.class);

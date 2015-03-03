@@ -46,6 +46,7 @@ public class JavaAnalyser {
 	public Analysis buildModel(final Classpath classpath) {
 		Registry registry = new Registry();
 
+		registry.register(configuration);
 		registry.register(classpath);
 		registry.register(Reporter.class, configuration.getReporter());
 		registry.register(new ClassRegistry());
@@ -59,7 +60,7 @@ public class JavaAnalyser {
 		registry.register(new ElementUtils());
 		registry.configure();
 
-		Analysis analysis = new Analysis(configuration, registry);
+		Analysis analysis = new Analysis(registry);
 		analysis.proceed();
 		return analysis;
 	}

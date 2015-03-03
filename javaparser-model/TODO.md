@@ -4,14 +4,22 @@ Todo List
 Source Model
 ------------
 
-- resolve types in executables' signatures and variables
+OK - resolve types in executables' signatures and variables
+
 - attaching attributes to statements and expressions
+
+- add a phase to check for
+  - inherited abstract methods not implemented
+  - invalid members (static, with body, ...) in interface
+  - final variables not initialized
+  - ...
+
 - expressions' type assignment and inference
 
 Binary Model
 ------------
 
-- ...
+- add tests
 
 User Helpers
 ------------

@@ -14,10 +14,12 @@ import java.io.PrintWriter;
 import java.io.StringWriter;
 
 /**
+ * Runs source surface tests, only comparing surface API model.
+ *
  * @author Didier Villevalois
  */
 @RunWith(BulkTestRunner.class)
-public class BulkTest implements BulkTestClass {
+public class SourceSurfaceTest implements BulkTestClass {
 
 	@Override
 	public String testResourcesPath() {

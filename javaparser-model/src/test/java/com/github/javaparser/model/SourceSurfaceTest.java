@@ -38,7 +38,7 @@ public class SourceSurfaceTest implements BulkTestClass {
 						.reporter(new DumpReporter(new PrintWriter(reportWriter)))
 						.analyseCode(false)
 		);
-		Analysis analysis = javaAnalyser.buildModel(classpath);
+		Analysis analysis = javaAnalyser.analyse(classpath);
 
 		String modelString = analysis.hasErrors() ? reportWriter.toString() :
 				ElementTestWriter.toString(analysis.getSourcePackages());

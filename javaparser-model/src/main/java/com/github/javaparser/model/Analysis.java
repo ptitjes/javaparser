@@ -18,6 +18,8 @@ import java.io.IOException;
 import java.util.*;
 
 /**
+ * The result of a java source code analysis.
+ *
  * @author Didier Villevalois
  */
 public class Analysis {
@@ -35,7 +37,7 @@ public class Analysis {
 	private final TypeUtils typeUtils;
 	private final ElementUtils elementUtils;
 
-	public Analysis(Registry registry) {
+	Analysis(Registry registry) {
 		configuration = registry.get(AnalysisConfiguration.class);
 		reporter = registry.get(Reporter.class);
 
@@ -50,7 +52,7 @@ public class Analysis {
 		elementUtils = registry.get(ElementUtils.class);
 	}
 
-	public void proceed() {
+	void proceed() {
 		Set<ClasspathElement> sourceFiles;
 		try {
 			sourceFiles = Classpath.getElements(classpath.getSourceFileSources(), ".java");

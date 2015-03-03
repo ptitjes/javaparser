@@ -17,32 +17,57 @@ import com.github.javaparser.model.type.TypeUtils;
 import java.io.File;
 
 /**
+ * The main entry point to JavaParser Model.
+ *
  * @author Didier Villevalois
  */
 public class JavaAnalyser {
 
 	private final AnalysisConfiguration configuration;
 
+	/**
+	 * Creates a java analyser with default configuration.
+	 */
 	public JavaAnalyser() {
 		this(new AnalysisConfiguration());
 	}
 
+	/**
+	 * Creates a java analyser with the specified configuration.
+	 *
+	 * @param configuration the configuration for the java analyser
+	 */
 	public JavaAnalyser(AnalysisConfiguration configuration) {
 		this.configuration = configuration;
 	}
 
-	public Analysis buildModel(File sourceDirectory) {
-		return buildModel(new DirectorySource(sourceDirectory));
+	/**
+	 * Analyse the source files in the specified directory.
+	 *
+	 * @param sourceDirectory the source directory
+	 */
+	public Analysis analyse(File sourceDirectory) {
+		return analyse(new DirectorySource(sourceDirectory));
 	}
 
-	public Analysis buildModel(ClasspathSource sourceDirectory) {
+	/**
+	 * Analyse the source files in the specified classpath source.
+	 *
+	 * @param sources the source classpath source
+	 */
+	public Analysis analyse(ClasspathSource sources) {
 		Classpath classpath = new Classpath();
-		classpath.addSourceFiles(sourceDirectory);
+		classpath.addSourceFiles(sources);
 
-		return buildModel(classpath);
+		return analyse(classpath);
 	}
 
-	public Analysis buildModel(final Classpath classpath) {
+	/**
+	 * Analyse the source files described by the specified classpath object.
+	 *
+	 * @param classpath the classpath descriptor object
+	 */
+	public Analysis analyse(final Classpath classpath) {
 		Registry registry = new Registry();
 
 		registry.register(configuration);

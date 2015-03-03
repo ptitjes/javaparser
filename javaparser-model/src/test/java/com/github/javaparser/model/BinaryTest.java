@@ -37,7 +37,7 @@ public class BinaryTest implements BulkTestClass {
 				new AnalysisConfiguration()
 						.reporter(new DumpReporter(new PrintWriter(reportWriter)))
 		);
-		Analysis analysis = javaAnalyser.buildModel(classpath);
+		Analysis analysis = javaAnalyser.analyse(classpath);
 
 		String modelString = analysis.hasErrors() ? reportWriter.toString() :
 				ElementTestWriter.toString(classpath.getDependencyPackages());

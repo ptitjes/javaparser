@@ -30,6 +30,28 @@
             returnType: "void",
             parameters: [],
             thrownTypes: []
+          },
+          {
+            kind: "METHOD",
+            modifiers: "[public, static]",
+            simpleName: "staticMethodWithArgs",
+            typeParameters: [],
+            returnType: "void",
+            parameters: [
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "intArg",
+                type: "int"
+              },
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "stringArg",
+                type: "java.lang.String"
+              }
+            ],
+            thrownTypes: []
           }
         ]
       },
@@ -46,6 +68,15 @@
             kind: "METHOD",
             modifiers: "[]",
             simpleName: "aMethod",
+            typeParameters: [],
+            returnType: "void",
+            parameters: [],
+            thrownTypes: []
+          },
+          {
+            kind: "METHOD",
+            modifiers: "[static]",
+            simpleName: "invalidStaticMethod",
             typeParameters: [],
             returnType: "void",
             parameters: [],

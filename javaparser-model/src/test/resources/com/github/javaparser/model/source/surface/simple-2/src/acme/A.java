@@ -8,9 +8,16 @@ public class A implements Interface1 {
 	// TODO Report that string is not initialized
 	public A() {
 	}
+
+	public static void staticMethodWithArgs(int intArg, String stringArg) {
+	}
 }
 
 public interface Interface1 {
 	// TODO Should modifiers contain public by default on interface methods ?
 	void aMethod();
+
+	// TODO Report invalid static method in interface
+	static void invalidStaticMethod() {
+	}
 }

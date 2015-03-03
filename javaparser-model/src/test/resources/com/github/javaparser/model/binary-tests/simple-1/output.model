@@ -1,13 +1,16 @@
 [
   {
     kind: "PACKAGE",
-    modifiers: "[]",
+    modifiers: [],
     qualifiedName: "java.lang",
     simpleName: "lang",
     enclosedElements: [
       {
         kind: "CLASS",
-        modifiers: "[public, synchronized]",
+        modifiers: [
+          "public",
+          "synchronized"
+        ],
         qualifiedName: "java.lang.String",
         simpleName: "String",
         typeParameters: [],
@@ -20,37 +23,52 @@
         enclosedElements: [
           {
             kind: "FIELD",
-            modifiers: "[private]",
+            modifiers: [
+              "private"
+            ],
             simpleName: "value",
             type: "char[]"
           },
           {
             kind: "FIELD",
-            modifiers: "[private]",
+            modifiers: [
+              "private"
+            ],
             simpleName: "hash",
             type: "int"
           },
           {
             kind: "FIELD",
-            modifiers: "[private, static]",
+            modifiers: [
+              "private",
+              "static"
+            ],
             simpleName: "serialVersionUID",
             type: "long"
           },
           {
             kind: "FIELD",
-            modifiers: "[private, static]",
+            modifiers: [
+              "private",
+              "static"
+            ],
             simpleName: "serialPersistentFields",
             type: "java.io.ObjectStreamField[]"
           },
           {
             kind: "FIELD",
-            modifiers: "[public, static]",
+            modifiers: [
+              "public",
+              "static"
+            ],
             simpleName: "CASE_INSENSITIVE_ORDER",
             type: "java.util.Comparator<java.lang.String>"
           },
           {
             kind: "CONSTRUCTOR",
-            modifiers: "[public]",
+            modifiers: [
+              "public"
+            ],
             simpleName: "<init>",
             typeParameters: [],
             returnType: "void",
@@ -59,14 +77,16 @@
           },
           {
             kind: "CONSTRUCTOR",
-            modifiers: "[public]",
+            modifiers: [
+              "public"
+            ],
             simpleName: "<init>",
             typeParameters: [],
             returnType: "void",
             parameters: [
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg0",
                 type: "java.lang.String"
               }
@@ -75,14 +95,16 @@
           },
           {
             kind: "CONSTRUCTOR",
-            modifiers: "[public]",
+            modifiers: [
+              "public"
+            ],
             simpleName: "<init>",
             typeParameters: [],
             returnType: "void",
             parameters: [
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg0",
                 type: "char[]"
               }
@@ -91,26 +113,28 @@
           },
           {
             kind: "CONSTRUCTOR",
-            modifiers: "[public]",
+            modifiers: [
+              "public"
+            ],
             simpleName: "<init>",
             typeParameters: [],
             returnType: "void",
             parameters: [
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg0",
                 type: "char[]"
               },
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg1",
                 type: "int"
               },
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg2",
                 type: "int"
               }
@@ -119,26 +143,28 @@
           },
           {
             kind: "CONSTRUCTOR",
-            modifiers: "[public]",
+            modifiers: [
+              "public"
+            ],
             simpleName: "<init>",
             typeParameters: [],
             returnType: "void",
             parameters: [
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg0",
                 type: "int[]"
               },
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg1",
                 type: "int"
               },
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg2",
                 type: "int"
               }
@@ -147,32 +173,34 @@
           },
           {
             kind: "CONSTRUCTOR",
-            modifiers: "[public]",
+            modifiers: [
+              "public"
+            ],
             simpleName: "<init>",
             typeParameters: [],
             returnType: "void",
             parameters: [
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg0",
                 type: "byte[]"
               },
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg1",
                 type: "int"
               },
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg2",
                 type: "int"
               },
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg3",
                 type: "int"
               }
@@ -181,20 +209,22 @@
           },
           {
             kind: "CONSTRUCTOR",
-            modifiers: "[public]",
+            modifiers: [
+              "public"
+            ],
             simpleName: "<init>",
             typeParameters: [],
             returnType: "void",
             parameters: [
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg0",
                 type: "byte[]"
               },
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg1",
                 type: "int"
               }
@@ -203,26 +233,29 @@
           },
           {
             kind: "METHOD",
-            modifiers: "[private, static]",
+            modifiers: [
+              "private",
+              "static"
+            ],
             simpleName: "checkBounds",
             typeParameters: [],
             returnType: "void",
             parameters: [
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg0",
                 type: "byte[]"
               },
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg1",
                 type: "int"
               },
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg2",
                 type: "int"
               }
@@ -231,32 +264,34 @@
           },
           {
             kind: "CONSTRUCTOR",
-            modifiers: "[public]",
+            modifiers: [
+              "public"
+            ],
             simpleName: "<init>",
             typeParameters: [],
             returnType: "void",
             parameters: [
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg0",
                 type: "byte[]"
               },
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg1",
                 type: "int"
               },
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg2",
                 type: "int"
               },
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg3",
                 type: "java.lang.String"
               }
@@ -267,32 +302,34 @@
           },
           {
             kind: "CONSTRUCTOR",
-            modifiers: "[public]",
+            modifiers: [
+              "public"
+            ],
             simpleName: "<init>",
             typeParameters: [],
             returnType: "void",
             parameters: [
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg0",
                 type: "byte[]"
               },
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg1",
                 type: "int"
               },
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg2",
                 type: "int"
               },
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg3",
                 type: "java.nio.charset.Charset"
               }
@@ -301,20 +338,22 @@
           },
           {
             kind: "CONSTRUCTOR",
-            modifiers: "[public]",
+            modifiers: [
+              "public"
+            ],
             simpleName: "<init>",
             typeParameters: [],
             returnType: "void",
             parameters: [
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg0",
                 type: "byte[]"
               },
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg1",
                 type: "java.lang.String"
               }
@@ -325,20 +364,22 @@
           },
           {
             kind: "CONSTRUCTOR",
-            modifiers: "[public]",
+            modifiers: [
+              "public"
+            ],
             simpleName: "<init>",
             typeParameters: [],
             returnType: "void",
             parameters: [
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg0",
                 type: "byte[]"
               },
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg1",
                 type: "java.nio.charset.Charset"
               }
@@ -347,26 +388,28 @@
           },
           {
             kind: "CONSTRUCTOR",
-            modifiers: "[public]",
+            modifiers: [
+              "public"
+            ],
             simpleName: "<init>",
             typeParameters: [],
             returnType: "void",
             parameters: [
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg0",
                 type: "byte[]"
               },
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg1",
                 type: "int"
               },
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg2",
                 type: "int"
               }
@@ -375,14 +418,16 @@
           },
           {
             kind: "CONSTRUCTOR",
-            modifiers: "[public]",
+            modifiers: [
+              "public"
+            ],
             simpleName: "<init>",
             typeParameters: [],
             returnType: "void",
             parameters: [
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg0",
                 type: "byte[]"
               }
@@ -391,14 +436,16 @@
           },
           {
             kind: "CONSTRUCTOR",
-            modifiers: "[public]",
+            modifiers: [
+              "public"
+            ],
             simpleName: "<init>",
             typeParameters: [],
             returnType: "void",
             parameters: [
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg0",
                 type: "java.lang.StringBuffer"
               }
@@ -407,14 +454,16 @@
           },
           {
             kind: "CONSTRUCTOR",
-            modifiers: "[public]",
+            modifiers: [
+              "public"
+            ],
             simpleName: "<init>",
             typeParameters: [],
             returnType: "void",
             parameters: [
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg0",
                 type: "java.lang.StringBuilder"
               }
@@ -423,20 +472,20 @@
           },
           {
             kind: "CONSTRUCTOR",
-            modifiers: "[]",
+            modifiers: [],
             simpleName: "<init>",
             typeParameters: [],
             returnType: "void",
             parameters: [
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg0",
                 type: "char[]"
               },
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg1",
                 type: "boolean"
               }
@@ -445,7 +494,9 @@
           },
           {
             kind: "METHOD",
-            modifiers: "[public]",
+            modifiers: [
+              "public"
+            ],
             simpleName: "length",
             typeParameters: [],
             returnType: "int",
@@ -454,7 +505,9 @@
           },
           {
             kind: "METHOD",
-            modifiers: "[public]",
+            modifiers: [
+              "public"
+            ],
             simpleName: "isEmpty",
             typeParameters: [],
             returnType: "boolean",
@@ -463,14 +516,16 @@
           },
           {
             kind: "METHOD",
-            modifiers: "[public]",
+            modifiers: [
+              "public"
+            ],
             simpleName: "charAt",
             typeParameters: [],
             returnType: "char",
             parameters: [
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg0",
                 type: "int"
               }
@@ -479,14 +534,16 @@
           },
           {
             kind: "METHOD",
-            modifiers: "[public]",
+            modifiers: [
+              "public"
+            ],
             simpleName: "codePointAt",
             typeParameters: [],
             returnType: "int",
             parameters: [
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg0",
                 type: "int"
               }
@@ -495,14 +552,16 @@
           },
           {
             kind: "METHOD",
-            modifiers: "[public]",
+            modifiers: [
+              "public"
+            ],
             simpleName: "codePointBefore",
             typeParameters: [],
             returnType: "int",
             parameters: [
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg0",
                 type: "int"
               }
@@ -511,20 +570,22 @@
           },
           {
             kind: "METHOD",
-            modifiers: "[public]",
+            modifiers: [
+              "public"
+            ],
             simpleName: "codePointCount",
             typeParameters: [],
             returnType: "int",
             parameters: [
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg0",
                 type: "int"
               },
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg1",
                 type: "int"
               }
@@ -533,20 +594,22 @@
           },
           {
             kind: "METHOD",
-            modifiers: "[public]",
+            modifiers: [
+              "public"
+            ],
             simpleName: "offsetByCodePoints",
             typeParameters: [],
             returnType: "int",
             parameters: [
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg0",
                 type: "int"
               },
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg1",
                 type: "int"
               }
@@ -555,20 +618,20 @@
           },
           {
             kind: "METHOD",
-            modifiers: "[]",
+            modifiers: [],
             simpleName: "getChars",
             typeParameters: [],
             returnType: "void",
             parameters: [
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg0",
                 type: "char[]"
               },
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg1",
                 type: "int"
               }
@@ -577,32 +640,34 @@
           },
           {
             kind: "METHOD",
-            modifiers: "[public]",
+            modifiers: [
+              "public"
+            ],
             simpleName: "getChars",
             typeParameters: [],
             returnType: "void",
             parameters: [
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg0",
                 type: "int"
               },
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg1",
                 type: "int"
               },
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg2",
                 type: "char[]"
               },
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg3",
                 type: "int"
               }
@@ -611,32 +676,34 @@
           },
           {
             kind: "METHOD",
-            modifiers: "[public]",
+            modifiers: [
+              "public"
+            ],
             simpleName: "getBytes",
             typeParameters: [],
             returnType: "void",
             parameters: [
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg0",
                 type: "int"
               },
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg1",
                 type: "int"
               },
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg2",
                 type: "byte[]"
               },
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg3",
                 type: "int"
               }
@@ -645,14 +712,16 @@
           },
           {
             kind: "METHOD",
-            modifiers: "[public]",
+            modifiers: [
+              "public"
+            ],
             simpleName: "getBytes",
             typeParameters: [],
             returnType: "byte[]",
             parameters: [
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg0",
                 type: "java.lang.String"
               }
@@ -663,14 +732,16 @@
           },
           {
             kind: "METHOD",
-            modifiers: "[public]",
+            modifiers: [
+              "public"
+            ],
             simpleName: "getBytes",
             typeParameters: [],
             returnType: "byte[]",
             parameters: [
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg0",
                 type: "java.nio.charset.Charset"
               }
@@ -679,7 +750,9 @@
           },
           {
             kind: "METHOD",
-            modifiers: "[public]",
+            modifiers: [
+              "public"
+            ],
             simpleName: "getBytes",
             typeParameters: [],
             returnType: "byte[]",
@@ -688,14 +761,16 @@
           },
           {
             kind: "METHOD",
-            modifiers: "[public]",
+            modifiers: [
+              "public"
+            ],
             simpleName: "equals",
             typeParameters: [],
             returnType: "boolean",
             parameters: [
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg0",
                 type: "java.lang.Object"
               }
@@ -704,14 +779,16 @@
           },
           {
             kind: "METHOD",
-            modifiers: "[public]",
+            modifiers: [
+              "public"
+            ],
             simpleName: "contentEquals",
             typeParameters: [],
             returnType: "boolean",
             parameters: [
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg0",
                 type: "java.lang.StringBuffer"
               }
@@ -720,14 +797,16 @@
           },
           {
             kind: "METHOD",
-            modifiers: "[private]",
+            modifiers: [
+              "private"
+            ],
             simpleName: "nonSyncContentEquals",
             typeParameters: [],
             returnType: "boolean",
             parameters: [
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg0",
                 type: "java.lang.AbstractStringBuilder"
               }
@@ -736,14 +815,16 @@
           },
           {
             kind: "METHOD",
-            modifiers: "[public]",
+            modifiers: [
+              "public"
+            ],
             simpleName: "contentEquals",
             typeParameters: [],
             returnType: "boolean",
             parameters: [
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg0",
                 type: "java.lang.CharSequence"
               }
@@ -752,14 +833,16 @@
           },
           {
             kind: "METHOD",
-            modifiers: "[public]",
+            modifiers: [
+              "public"
+            ],
             simpleName: "equalsIgnoreCase",
             typeParameters: [],
             returnType: "boolean",
             parameters: [
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg0",
                 type: "java.lang.String"
               }
@@ -768,14 +851,16 @@
           },
           {
             kind: "METHOD",
-            modifiers: "[public]",
+            modifiers: [
+              "public"
+            ],
             simpleName: "compareTo",
             typeParameters: [],
             returnType: "int",
             parameters: [
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg0",
                 type: "java.lang.String"
               }
@@ -784,14 +869,16 @@
           },
           {
             kind: "METHOD",
-            modifiers: "[public]",
+            modifiers: [
+              "public"
+            ],
             simpleName: "compareToIgnoreCase",
             typeParameters: [],
             returnType: "int",
             parameters: [
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg0",
                 type: "java.lang.String"
               }
@@ -800,32 +887,34 @@
           },
           {
             kind: "METHOD",
-            modifiers: "[public]",
+            modifiers: [
+              "public"
+            ],
             simpleName: "regionMatches",
             typeParameters: [],
             returnType: "boolean",
             parameters: [
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg0",
                 type: "int"
               },
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg1",
                 type: "java.lang.String"
               },
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg2",
                 type: "int"
               },
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg3",
                 type: "int"
               }
@@ -834,38 +923,40 @@
           },
           {
             kind: "METHOD",
-            modifiers: "[public]",
+            modifiers: [
+              "public"
+            ],
             simpleName: "regionMatches",
             typeParameters: [],
             returnType: "boolean",
             parameters: [
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg0",
                 type: "boolean"
               },
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg1",
                 type: "int"
               },
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg2",
                 type: "java.lang.String"
               },
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg3",
                 type: "int"
               },
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg4",
                 type: "int"
               }
@@ -874,20 +965,22 @@
           },
           {
             kind: "METHOD",
-            modifiers: "[public]",
+            modifiers: [
+              "public"
+            ],
             simpleName: "startsWith",
             typeParameters: [],
             returnType: "boolean",
             parameters: [
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg0",
                 type: "java.lang.String"
               },
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg1",
                 type: "int"
               }
@@ -896,14 +989,16 @@
           },
           {
             kind: "METHOD",
-            modifiers: "[public]",
+            modifiers: [
+              "public"
+            ],
             simpleName: "startsWith",
             typeParameters: [],
             returnType: "boolean",
             parameters: [
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg0",
                 type: "java.lang.String"
               }
@@ -912,14 +1007,16 @@
           },
           {
             kind: "METHOD",
-            modifiers: "[public]",
+            modifiers: [
+              "public"
+            ],
             simpleName: "endsWith",
             typeParameters: [],
             returnType: "boolean",
             parameters: [
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg0",
                 type: "java.lang.String"
               }
@@ -928,7 +1025,9 @@
           },
           {
             kind: "METHOD",
-            modifiers: "[public]",
+            modifiers: [
+              "public"
+            ],
             simpleName: "hashCode",
             typeParameters: [],
             returnType: "int",
@@ -937,14 +1036,16 @@
           },
           {
             kind: "METHOD",
-            modifiers: "[public]",
+            modifiers: [
+              "public"
+            ],
             simpleName: "indexOf",
             typeParameters: [],
             returnType: "int",
             parameters: [
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg0",
                 type: "int"
               }
@@ -953,20 +1054,22 @@
           },
           {
             kind: "METHOD",
-            modifiers: "[public]",
+            modifiers: [
+              "public"
+            ],
             simpleName: "indexOf",
             typeParameters: [],
             returnType: "int",
             parameters: [
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg0",
                 type: "int"
               },
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg1",
                 type: "int"
               }
@@ -975,20 +1078,22 @@
           },
           {
             kind: "METHOD",
-            modifiers: "[private]",
+            modifiers: [
+              "private"
+            ],
             simpleName: "indexOfSupplementary",
             typeParameters: [],
             returnType: "int",
             parameters: [
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg0",
                 type: "int"
               },
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg1",
                 type: "int"
               }
@@ -997,14 +1102,16 @@
           },
           {
             kind: "METHOD",
-            modifiers: "[public]",
+            modifiers: [
+              "public"
+            ],
             simpleName: "lastIndexOf",
             typeParameters: [],
             returnType: "int",
             parameters: [
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg0",
                 type: "int"
               }
@@ -1013,20 +1120,22 @@
           },
           {
             kind: "METHOD",
-            modifiers: "[public]",
+            modifiers: [
+              "public"
+            ],
             simpleName: "lastIndexOf",
             typeParameters: [],
             returnType: "int",
             parameters: [
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg0",
                 type: "int"
               },
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg1",
                 type: "int"
               }
@@ -1035,20 +1144,22 @@
           },
           {
             kind: "METHOD",
-            modifiers: "[private]",
+            modifiers: [
+              "private"
+            ],
             simpleName: "lastIndexOfSupplementary",
             typeParameters: [],
             returnType: "int",
             parameters: [
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg0",
                 type: "int"
               },
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg1",
                 type: "int"
               }
@@ -1057,14 +1168,16 @@
           },
           {
             kind: "METHOD",
-            modifiers: "[public]",
+            modifiers: [
+              "public"
+            ],
             simpleName: "indexOf",
             typeParameters: [],
             returnType: "int",
             parameters: [
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg0",
                 type: "java.lang.String"
               }
@@ -1073,20 +1186,22 @@
           },
           {
             kind: "METHOD",
-            modifiers: "[public]",
+            modifiers: [
+              "public"
+            ],
             simpleName: "indexOf",
             typeParameters: [],
             returnType: "int",
             parameters: [
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg0",
                 type: "java.lang.String"
               },
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg1",
                 type: "int"
               }
@@ -1095,38 +1210,40 @@
           },
           {
             kind: "METHOD",
-            modifiers: "[static]",
+            modifiers: [
+              "static"
+            ],
             simpleName: "indexOf",
             typeParameters: [],
             returnType: "int",
             parameters: [
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg0",
                 type: "char[]"
               },
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg1",
                 type: "int"
               },
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg2",
                 type: "int"
               },
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg3",
                 type: "java.lang.String"
               },
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg4",
                 type: "int"
               }
@@ -1135,50 +1252,52 @@
           },
           {
             kind: "METHOD",
-            modifiers: "[static]",
+            modifiers: [
+              "static"
+            ],
             simpleName: "indexOf",
             typeParameters: [],
             returnType: "int",
             parameters: [
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg0",
                 type: "char[]"
               },
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg1",
                 type: "int"
               },
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg2",
                 type: "int"
               },
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg3",
                 type: "char[]"
               },
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg4",
                 type: "int"
               },
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg5",
                 type: "int"
               },
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg6",
                 type: "int"
               }
@@ -1187,14 +1306,16 @@
           },
           {
             kind: "METHOD",
-            modifiers: "[public]",
+            modifiers: [
+              "public"
+            ],
             simpleName: "lastIndexOf",
             typeParameters: [],
             returnType: "int",
             parameters: [
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg0",
                 type: "java.lang.String"
               }
@@ -1203,20 +1324,22 @@
           },
           {
             kind: "METHOD",
-            modifiers: "[public]",
+            modifiers: [
+              "public"
+            ],
             simpleName: "lastIndexOf",
             typeParameters: [],
             returnType: "int",
             parameters: [
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg0",
                 type: "java.lang.String"
               },
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg1",
                 type: "int"
               }
@@ -1225,38 +1348,40 @@
           },
           {
             kind: "METHOD",
-            modifiers: "[static]",
+            modifiers: [
+              "static"
+            ],
             simpleName: "lastIndexOf",
             typeParameters: [],
             returnType: "int",
             parameters: [
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg0",
                 type: "char[]"
               },
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg1",
                 type: "int"
               },
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg2",
                 type: "int"
               },
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg3",
                 type: "java.lang.String"
               },
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg4",
                 type: "int"
               }
@@ -1265,50 +1390,52 @@
           },
           {
             kind: "METHOD",
-            modifiers: "[static]",
+            modifiers: [
+              "static"
+            ],
             simpleName: "lastIndexOf",
             typeParameters: [],
             returnType: "int",
             parameters: [
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg0",
                 type: "char[]"
               },
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg1",
                 type: "int"
               },
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg2",
                 type: "int"
               },
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg3",
                 type: "char[]"
               },
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg4",
                 type: "int"
               },
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg5",
                 type: "int"
               },
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg6",
                 type: "int"
               }
@@ -1317,14 +1444,16 @@
           },
           {
             kind: "METHOD",
-            modifiers: "[public]",
+            modifiers: [
+              "public"
+            ],
             simpleName: "substring",
             typeParameters: [],
             returnType: "java.lang.String",
             parameters: [
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg0",
                 type: "int"
               }
@@ -1333,20 +1462,22 @@
           },
           {
             kind: "METHOD",
-            modifiers: "[public]",
+            modifiers: [
+              "public"
+            ],
             simpleName: "substring",
             typeParameters: [],
             returnType: "java.lang.String",
             parameters: [
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg0",
                 type: "int"
               },
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg1",
                 type: "int"
               }
@@ -1355,20 +1486,22 @@
           },
           {
             kind: "METHOD",
-            modifiers: "[public]",
+            modifiers: [
+              "public"
+            ],
             simpleName: "subSequence",
             typeParameters: [],
             returnType: "java.lang.CharSequence",
             parameters: [
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg0",
                 type: "int"
               },
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg1",
                 type: "int"
               }
@@ -1377,14 +1510,16 @@
           },
           {
             kind: "METHOD",
-            modifiers: "[public]",
+            modifiers: [
+              "public"
+            ],
             simpleName: "concat",
             typeParameters: [],
             returnType: "java.lang.String",
             parameters: [
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg0",
                 type: "java.lang.String"
               }
@@ -1393,20 +1528,22 @@
           },
           {
             kind: "METHOD",
-            modifiers: "[public]",
+            modifiers: [
+              "public"
+            ],
             simpleName: "replace",
             typeParameters: [],
             returnType: "java.lang.String",
             parameters: [
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg0",
                 type: "char"
               },
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg1",
                 type: "char"
               }
@@ -1415,14 +1552,16 @@
           },
           {
             kind: "METHOD",
-            modifiers: "[public]",
+            modifiers: [
+              "public"
+            ],
             simpleName: "matches",
             typeParameters: [],
             returnType: "boolean",
             parameters: [
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg0",
                 type: "java.lang.String"
               }
@@ -1431,14 +1570,16 @@
           },
           {
             kind: "METHOD",
-            modifiers: "[public]",
+            modifiers: [
+              "public"
+            ],
             simpleName: "contains",
             typeParameters: [],
             returnType: "boolean",
             parameters: [
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg0",
                 type: "java.lang.CharSequence"
               }
@@ -1447,20 +1588,22 @@
           },
           {
             kind: "METHOD",
-            modifiers: "[public]",
+            modifiers: [
+              "public"
+            ],
             simpleName: "replaceFirst",
             typeParameters: [],
             returnType: "java.lang.String",
             parameters: [
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg0",
                 type: "java.lang.String"
               },
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg1",
                 type: "java.lang.String"
               }
@@ -1469,20 +1612,22 @@
           },
           {
             kind: "METHOD",
-            modifiers: "[public]",
+            modifiers: [
+              "public"
+            ],
             simpleName: "replaceAll",
             typeParameters: [],
             returnType: "java.lang.String",
             parameters: [
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg0",
                 type: "java.lang.String"
               },
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg1",
                 type: "java.lang.String"
               }
@@ -1491,20 +1636,22 @@
           },
           {
             kind: "METHOD",
-            modifiers: "[public]",
+            modifiers: [
+              "public"
+            ],
             simpleName: "replace",
             typeParameters: [],
             returnType: "java.lang.String",
             parameters: [
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg0",
                 type: "java.lang.CharSequence"
               },
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg1",
                 type: "java.lang.CharSequence"
               }
@@ -1513,20 +1660,22 @@
           },
           {
             kind: "METHOD",
-            modifiers: "[public]",
+            modifiers: [
+              "public"
+            ],
             simpleName: "split",
             typeParameters: [],
             returnType: "java.lang.String[]",
             parameters: [
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg0",
                 type: "java.lang.String"
               },
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg1",
                 type: "int"
               }
@@ -1535,14 +1684,16 @@
           },
           {
             kind: "METHOD",
-            modifiers: "[public]",
+            modifiers: [
+              "public"
+            ],
             simpleName: "split",
             typeParameters: [],
             returnType: "java.lang.String[]",
             parameters: [
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg0",
                 type: "java.lang.String"
               }
@@ -1551,20 +1702,24 @@
           },
           {
             kind: "METHOD",
-            modifiers: "[public, static, transient]",
+            modifiers: [
+              "public",
+              "static",
+              "transient"
+            ],
             simpleName: "join",
             typeParameters: [],
             returnType: "java.lang.String",
             parameters: [
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg0",
                 type: "java.lang.CharSequence"
               },
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg1",
                 type: "java.lang.CharSequence[]"
               }
@@ -1573,20 +1728,23 @@
           },
           {
             kind: "METHOD",
-            modifiers: "[public, static]",
+            modifiers: [
+              "public",
+              "static"
+            ],
             simpleName: "join",
             typeParameters: [],
             returnType: "java.lang.String",
             parameters: [
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg0",
                 type: "java.lang.CharSequence"
               },
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg1",
                 type: "java.lang.Iterable<java.lang.CharSequence>"
               }
@@ -1595,14 +1753,16 @@
           },
           {
             kind: "METHOD",
-            modifiers: "[public]",
+            modifiers: [
+              "public"
+            ],
             simpleName: "toLowerCase",
             typeParameters: [],
             returnType: "java.lang.String",
             parameters: [
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg0",
                 type: "java.util.Locale"
               }
@@ -1611,7 +1771,9 @@
           },
           {
             kind: "METHOD",
-            modifiers: "[public]",
+            modifiers: [
+              "public"
+            ],
             simpleName: "toLowerCase",
             typeParameters: [],
             returnType: "java.lang.String",
@@ -1620,14 +1782,16 @@
           },
           {
             kind: "METHOD",
-            modifiers: "[public]",
+            modifiers: [
+              "public"
+            ],
             simpleName: "toUpperCase",
             typeParameters: [],
             returnType: "java.lang.String",
             parameters: [
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg0",
                 type: "java.util.Locale"
               }
@@ -1636,7 +1800,9 @@
           },
           {
             kind: "METHOD",
-            modifiers: "[public]",
+            modifiers: [
+              "public"
+            ],
             simpleName: "toUpperCase",
             typeParameters: [],
             returnType: "java.lang.String",
@@ -1645,7 +1811,9 @@
           },
           {
             kind: "METHOD",
-            modifiers: "[public]",
+            modifiers: [
+              "public"
+            ],
             simpleName: "trim",
             typeParameters: [],
             returnType: "java.lang.String",
@@ -1654,7 +1822,9 @@
           },
           {
             kind: "METHOD",
-            modifiers: "[public]",
+            modifiers: [
+              "public"
+            ],
             simpleName: "toString",
             typeParameters: [],
             returnType: "java.lang.String",
@@ -1663,7 +1833,9 @@
           },
           {
             kind: "METHOD",
-            modifiers: "[public]",
+            modifiers: [
+              "public"
+            ],
             simpleName: "toCharArray",
             typeParameters: [],
             returnType: "char[]",
@@ -1672,20 +1844,24 @@
           },
           {
             kind: "METHOD",
-            modifiers: "[public, static, transient]",
+            modifiers: [
+              "public",
+              "static",
+              "transient"
+            ],
             simpleName: "format",
             typeParameters: [],
             returnType: "java.lang.String",
             parameters: [
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg0",
                 type: "java.lang.String"
               },
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg1",
                 type: "java.lang.Object[]"
               }
@@ -1694,26 +1870,30 @@
           },
           {
             kind: "METHOD",
-            modifiers: "[public, static, transient]",
+            modifiers: [
+              "public",
+              "static",
+              "transient"
+            ],
             simpleName: "format",
             typeParameters: [],
             returnType: "java.lang.String",
             parameters: [
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg0",
                 type: "java.util.Locale"
               },
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg1",
                 type: "java.lang.String"
               },
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg2",
                 type: "java.lang.Object[]"
               }
@@ -1722,14 +1902,17 @@
           },
           {
             kind: "METHOD",
-            modifiers: "[public, static]",
+            modifiers: [
+              "public",
+              "static"
+            ],
             simpleName: "valueOf",
             typeParameters: [],
             returnType: "java.lang.String",
             parameters: [
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg0",
                 type: "java.lang.Object"
               }
@@ -1738,14 +1921,17 @@
           },
           {
             kind: "METHOD",
-            modifiers: "[public, static]",
+            modifiers: [
+              "public",
+              "static"
+            ],
             simpleName: "valueOf",
             typeParameters: [],
             returnType: "java.lang.String",
             parameters: [
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg0",
                 type: "char[]"
               }
@@ -1754,26 +1940,29 @@
           },
           {
             kind: "METHOD",
-            modifiers: "[public, static]",
+            modifiers: [
+              "public",
+              "static"
+            ],
             simpleName: "valueOf",
             typeParameters: [],
             returnType: "java.lang.String",
             parameters: [
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg0",
                 type: "char[]"
               },
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg1",
                 type: "int"
               },
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg2",
                 type: "int"
               }
@@ -1782,26 +1971,29 @@
           },
           {
             kind: "METHOD",
-            modifiers: "[public, static]",
+            modifiers: [
+              "public",
+              "static"
+            ],
             simpleName: "copyValueOf",
             typeParameters: [],
             returnType: "java.lang.String",
             parameters: [
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg0",
                 type: "char[]"
               },
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg1",
                 type: "int"
               },
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg2",
                 type: "int"
               }
@@ -1810,14 +2002,17 @@
           },
           {
             kind: "METHOD",
-            modifiers: "[public, static]",
+            modifiers: [
+              "public",
+              "static"
+            ],
             simpleName: "copyValueOf",
             typeParameters: [],
             returnType: "java.lang.String",
             parameters: [
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg0",
                 type: "char[]"
               }
@@ -1826,14 +2021,17 @@
           },
           {
             kind: "METHOD",
-            modifiers: "[public, static]",
+            modifiers: [
+              "public",
+              "static"
+            ],
             simpleName: "valueOf",
             typeParameters: [],
             returnType: "java.lang.String",
             parameters: [
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg0",
                 type: "boolean"
               }
@@ -1842,14 +2040,17 @@
           },
           {
             kind: "METHOD",
-            modifiers: "[public, static]",
+            modifiers: [
+              "public",
+              "static"
+            ],
             simpleName: "valueOf",
             typeParameters: [],
             returnType: "java.lang.String",
             parameters: [
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg0",
                 type: "char"
               }
@@ -1858,14 +2059,17 @@
           },
           {
             kind: "METHOD",
-            modifiers: "[public, static]",
+            modifiers: [
+              "public",
+              "static"
+            ],
             simpleName: "valueOf",
             typeParameters: [],
             returnType: "java.lang.String",
             parameters: [
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg0",
                 type: "int"
               }
@@ -1874,14 +2078,17 @@
           },
           {
             kind: "METHOD",
-            modifiers: "[public, static]",
+            modifiers: [
+              "public",
+              "static"
+            ],
             simpleName: "valueOf",
             typeParameters: [],
             returnType: "java.lang.String",
             parameters: [
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg0",
                 type: "long"
               }
@@ -1890,14 +2097,17 @@
           },
           {
             kind: "METHOD",
-            modifiers: "[public, static]",
+            modifiers: [
+              "public",
+              "static"
+            ],
             simpleName: "valueOf",
             typeParameters: [],
             returnType: "java.lang.String",
             parameters: [
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg0",
                 type: "float"
               }
@@ -1906,14 +2116,17 @@
           },
           {
             kind: "METHOD",
-            modifiers: "[public, static]",
+            modifiers: [
+              "public",
+              "static"
+            ],
             simpleName: "valueOf",
             typeParameters: [],
             returnType: "java.lang.String",
             parameters: [
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg0",
                 type: "double"
               }
@@ -1922,7 +2135,10 @@
           },
           {
             kind: "METHOD",
-            modifiers: "[public, native]",
+            modifiers: [
+              "public",
+              "native"
+            ],
             simpleName: "intern",
             typeParameters: [],
             returnType: "java.lang.String",
@@ -1931,14 +2147,17 @@
           },
           {
             kind: "METHOD",
-            modifiers: "[public, volatile]",
+            modifiers: [
+              "public",
+              "volatile"
+            ],
             simpleName: "compareTo",
             typeParameters: [],
             returnType: "int",
             parameters: [
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg0",
                 type: "java.lang.Object"
               }
@@ -1947,7 +2166,9 @@
           },
           {
             kind: "STATIC_INIT",
-            modifiers: "[static]",
+            modifiers: [
+              "static"
+            ],
             simpleName: "<clinit>",
             typeParameters: [],
             returnType: "void",
@@ -1958,7 +2179,10 @@
       },
       {
         kind: "CLASS",
-        modifiers: "[public, synchronized]",
+        modifiers: [
+          "public",
+          "synchronized"
+        ],
         qualifiedName: "java.lang.Boolean",
         simpleName: "Boolean",
         typeParameters: [],
@@ -1970,44 +2194,60 @@
         enclosedElements: [
           {
             kind: "FIELD",
-            modifiers: "[public, static]",
+            modifiers: [
+              "public",
+              "static"
+            ],
             simpleName: "TRUE",
             type: "java.lang.Boolean"
           },
           {
             kind: "FIELD",
-            modifiers: "[public, static]",
+            modifiers: [
+              "public",
+              "static"
+            ],
             simpleName: "FALSE",
             type: "java.lang.Boolean"
           },
           {
             kind: "FIELD",
-            modifiers: "[public, static]",
+            modifiers: [
+              "public",
+              "static"
+            ],
             simpleName: "TYPE",
             type: "java.lang.Class<java.lang.Boolean>"
           },
           {
             kind: "FIELD",
-            modifiers: "[private]",
+            modifiers: [
+              "private"
+            ],
             simpleName: "value",
             type: "boolean"
           },
           {
             kind: "FIELD",
-            modifiers: "[private, static]",
+            modifiers: [
+              "private",
+              "static"
+            ],
             simpleName: "serialVersionUID",
             type: "long"
           },
           {
             kind: "CONSTRUCTOR",
-            modifiers: "[public]",
+            modifiers: [
+              "public"
+            ],
             simpleName: "<init>",
             typeParameters: [],
             returnType: "void",
             parameters: [
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg0",
                 type: "boolean"
               }
@@ -2016,14 +2256,16 @@
           },
           {
             kind: "CONSTRUCTOR",
-            modifiers: "[public]",
+            modifiers: [
+              "public"
+            ],
             simpleName: "<init>",
             typeParameters: [],
             returnType: "void",
             parameters: [
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg0",
                 type: "java.lang.String"
               }
@@ -2032,14 +2274,17 @@
           },
           {
             kind: "METHOD",
-            modifiers: "[public, static]",
+            modifiers: [
+              "public",
+              "static"
+            ],
             simpleName: "parseBoolean",
             typeParameters: [],
             returnType: "boolean",
             parameters: [
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg0",
                 type: "java.lang.String"
               }
@@ -2048,7 +2293,9 @@
           },
           {
             kind: "METHOD",
-            modifiers: "[public]",
+            modifiers: [
+              "public"
+            ],
             simpleName: "booleanValue",
             typeParameters: [],
             returnType: "boolean",
@@ -2057,14 +2304,17 @@
           },
           {
             kind: "METHOD",
-            modifiers: "[public, static]",
+            modifiers: [
+              "public",
+              "static"
+            ],
             simpleName: "valueOf",
             typeParameters: [],
             returnType: "java.lang.Boolean",
             parameters: [
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg0",
                 type: "boolean"
               }
@@ -2073,14 +2323,17 @@
           },
           {
             kind: "METHOD",
-            modifiers: "[public, static]",
+            modifiers: [
+              "public",
+              "static"
+            ],
             simpleName: "valueOf",
             typeParameters: [],
             returnType: "java.lang.Boolean",
             parameters: [
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg0",
                 type: "java.lang.String"
               }
@@ -2089,14 +2342,17 @@
           },
           {
             kind: "METHOD",
-            modifiers: "[public, static]",
+            modifiers: [
+              "public",
+              "static"
+            ],
             simpleName: "toString",
             typeParameters: [],
             returnType: "java.lang.String",
             parameters: [
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg0",
                 type: "boolean"
               }
@@ -2105,7 +2361,9 @@
           },
           {
             kind: "METHOD",
-            modifiers: "[public]",
+            modifiers: [
+              "public"
+            ],
             simpleName: "toString",
             typeParameters: [],
             returnType: "java.lang.String",
@@ -2114,7 +2372,9 @@
           },
           {
             kind: "METHOD",
-            modifiers: "[public]",
+            modifiers: [
+              "public"
+            ],
             simpleName: "hashCode",
             typeParameters: [],
             returnType: "int",
@@ -2123,14 +2383,17 @@
           },
           {
             kind: "METHOD",
-            modifiers: "[public, static]",
+            modifiers: [
+              "public",
+              "static"
+            ],
             simpleName: "hashCode",
             typeParameters: [],
             returnType: "int",
             parameters: [
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg0",
                 type: "boolean"
               }
@@ -2139,14 +2402,16 @@
           },
           {
             kind: "METHOD",
-            modifiers: "[public]",
+            modifiers: [
+              "public"
+            ],
             simpleName: "equals",
             typeParameters: [],
             returnType: "boolean",
             parameters: [
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg0",
                 type: "java.lang.Object"
               }
@@ -2155,14 +2420,17 @@
           },
           {
             kind: "METHOD",
-            modifiers: "[public, static]",
+            modifiers: [
+              "public",
+              "static"
+            ],
             simpleName: "getBoolean",
             typeParameters: [],
             returnType: "boolean",
             parameters: [
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg0",
                 type: "java.lang.String"
               }
@@ -2171,14 +2439,16 @@
           },
           {
             kind: "METHOD",
-            modifiers: "[public]",
+            modifiers: [
+              "public"
+            ],
             simpleName: "compareTo",
             typeParameters: [],
             returnType: "int",
             parameters: [
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg0",
                 type: "java.lang.Boolean"
               }
@@ -2187,20 +2457,23 @@
           },
           {
             kind: "METHOD",
-            modifiers: "[public, static]",
+            modifiers: [
+              "public",
+              "static"
+            ],
             simpleName: "compare",
             typeParameters: [],
             returnType: "int",
             parameters: [
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg0",
                 type: "boolean"
               },
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg1",
                 type: "boolean"
               }
@@ -2209,20 +2482,23 @@
           },
           {
             kind: "METHOD",
-            modifiers: "[public, static]",
+            modifiers: [
+              "public",
+              "static"
+            ],
             simpleName: "logicalAnd",
             typeParameters: [],
             returnType: "boolean",
             parameters: [
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg0",
                 type: "boolean"
               },
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg1",
                 type: "boolean"
               }
@@ -2231,20 +2507,23 @@
           },
           {
             kind: "METHOD",
-            modifiers: "[public, static]",
+            modifiers: [
+              "public",
+              "static"
+            ],
             simpleName: "logicalOr",
             typeParameters: [],
             returnType: "boolean",
             parameters: [
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg0",
                 type: "boolean"
               },
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg1",
                 type: "boolean"
               }
@@ -2253,20 +2532,23 @@
           },
           {
             kind: "METHOD",
-            modifiers: "[public, static]",
+            modifiers: [
+              "public",
+              "static"
+            ],
             simpleName: "logicalXor",
             typeParameters: [],
             returnType: "boolean",
             parameters: [
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg0",
                 type: "boolean"
               },
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg1",
                 type: "boolean"
               }
@@ -2275,14 +2557,17 @@
           },
           {
             kind: "METHOD",
-            modifiers: "[public, volatile]",
+            modifiers: [
+              "public",
+              "volatile"
+            ],
             simpleName: "compareTo",
             typeParameters: [],
             returnType: "int",
             parameters: [
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg0",
                 type: "java.lang.Object"
               }
@@ -2291,7 +2576,9 @@
           },
           {
             kind: "STATIC_INIT",
-            modifiers: "[static]",
+            modifiers: [
+              "static"
+            ],
             simpleName: "<clinit>",
             typeParameters: [],
             returnType: "void",
@@ -2302,7 +2589,10 @@
       },
       {
         kind: "CLASS",
-        modifiers: "[public, synchronized]",
+        modifiers: [
+          "public",
+          "synchronized"
+        ],
         qualifiedName: "java.lang.Throwable",
         simpleName: "Throwable",
         typeParameters: [],
@@ -2313,91 +2603,130 @@
         enclosedElements: [
           {
             kind: "FIELD",
-            modifiers: "[private, static]",
+            modifiers: [
+              "private",
+              "static"
+            ],
             simpleName: "serialVersionUID",
             type: "long"
           },
           {
             kind: "FIELD",
-            modifiers: "[private, transient]",
+            modifiers: [
+              "private",
+              "transient"
+            ],
             simpleName: "backtrace",
             type: "java.lang.Object"
           },
           {
             kind: "FIELD",
-            modifiers: "[private]",
+            modifiers: [
+              "private"
+            ],
             simpleName: "detailMessage",
             type: "java.lang.String"
           },
           {
             kind: "FIELD",
-            modifiers: "[private, static]",
+            modifiers: [
+              "private",
+              "static"
+            ],
             simpleName: "UNASSIGNED_STACK",
             type: "java.lang.StackTraceElement[]"
           },
           {
             kind: "FIELD",
-            modifiers: "[private]",
+            modifiers: [
+              "private"
+            ],
             simpleName: "cause",
             type: "java.lang.Throwable"
           },
           {
             kind: "FIELD",
-            modifiers: "[private]",
+            modifiers: [
+              "private"
+            ],
             simpleName: "stackTrace",
             type: "java.lang.StackTraceElement[]"
           },
           {
             kind: "FIELD",
-            modifiers: "[private, static]",
+            modifiers: [
+              "private",
+              "static"
+            ],
             simpleName: "SUPPRESSED_SENTINEL",
             type: "java.util.List<java.lang.Throwable>"
           },
           {
             kind: "FIELD",
-            modifiers: "[private]",
+            modifiers: [
+              "private"
+            ],
             simpleName: "suppressedExceptions",
             type: "java.util.List<java.lang.Throwable>"
           },
           {
             kind: "FIELD",
-            modifiers: "[private, static]",
+            modifiers: [
+              "private",
+              "static"
+            ],
             simpleName: "NULL_CAUSE_MESSAGE",
             type: "java.lang.String"
           },
           {
             kind: "FIELD",
-            modifiers: "[private, static]",
+            modifiers: [
+              "private",
+              "static"
+            ],
             simpleName: "SELF_SUPPRESSION_MESSAGE",
             type: "java.lang.String"
           },
           {
             kind: "FIELD",
-            modifiers: "[private, static]",
+            modifiers: [
+              "private",
+              "static"
+            ],
             simpleName: "CAUSE_CAPTION",
             type: "java.lang.String"
           },
           {
             kind: "FIELD",
-            modifiers: "[private, static]",
+            modifiers: [
+              "private",
+              "static"
+            ],
             simpleName: "SUPPRESSED_CAPTION",
             type: "java.lang.String"
           },
           {
             kind: "FIELD",
-            modifiers: "[private, static]",
+            modifiers: [
+              "private",
+              "static"
+            ],
             simpleName: "EMPTY_THROWABLE_ARRAY",
             type: "java.lang.Throwable[]"
           },
           {
             kind: "FIELD",
-            modifiers: "[static]",
+            modifiers: [
+              "static"
+            ],
             simpleName: "$assertionsDisabled",
             type: "boolean"
           },
           {
             kind: "CONSTRUCTOR",
-            modifiers: "[public]",
+            modifiers: [
+              "public"
+            ],
             simpleName: "<init>",
             typeParameters: [],
             returnType: "void",
@@ -2406,14 +2735,16 @@
           },
           {
             kind: "CONSTRUCTOR",
-            modifiers: "[public]",
+            modifiers: [
+              "public"
+            ],
             simpleName: "<init>",
             typeParameters: [],
             returnType: "void",
             parameters: [
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg0",
                 type: "java.lang.String"
               }
@@ -2422,20 +2753,22 @@
           },
           {
             kind: "CONSTRUCTOR",
-            modifiers: "[public]",
+            modifiers: [
+              "public"
+            ],
             simpleName: "<init>",
             typeParameters: [],
             returnType: "void",
             parameters: [
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg0",
                 type: "java.lang.String"
               },
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg1",
                 type: "java.lang.Throwable"
               }
@@ -2444,14 +2777,16 @@
           },
           {
             kind: "CONSTRUCTOR",
-            modifiers: "[public]",
+            modifiers: [
+              "public"
+            ],
             simpleName: "<init>",
             typeParameters: [],
             returnType: "void",
             parameters: [
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg0",
                 type: "java.lang.Throwable"
               }
@@ -2460,32 +2795,34 @@
           },
           {
             kind: "CONSTRUCTOR",
-            modifiers: "[protected]",
+            modifiers: [
+              "protected"
+            ],
             simpleName: "<init>",
             typeParameters: [],
             returnType: "void",
             parameters: [
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg0",
                 type: "java.lang.String"
               },
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg1",
                 type: "java.lang.Throwable"
               },
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg2",
                 type: "boolean"
               },
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg3",
                 type: "boolean"
               }
@@ -2494,7 +2831,9 @@
           },
           {
             kind: "METHOD",
-            modifiers: "[public]",
+            modifiers: [
+              "public"
+            ],
             simpleName: "getMessage",
             typeParameters: [],
             returnType: "java.lang.String",
@@ -2503,7 +2842,9 @@
           },
           {
             kind: "METHOD",
-            modifiers: "[public]",
+            modifiers: [
+              "public"
+            ],
             simpleName: "getLocalizedMessage",
             typeParameters: [],
             returnType: "java.lang.String",
@@ -2512,7 +2853,10 @@
           },
           {
             kind: "METHOD",
-            modifiers: "[public, synchronized]",
+            modifiers: [
+              "public",
+              "synchronized"
+            ],
             simpleName: "getCause",
             typeParameters: [],
             returnType: "java.lang.Throwable",
@@ -2521,14 +2865,17 @@
           },
           {
             kind: "METHOD",
-            modifiers: "[public, synchronized]",
+            modifiers: [
+              "public",
+              "synchronized"
+            ],
             simpleName: "initCause",
             typeParameters: [],
             returnType: "java.lang.Throwable",
             parameters: [
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg0",
                 type: "java.lang.Throwable"
               }
@@ -2537,7 +2884,9 @@
           },
           {
             kind: "METHOD",
-            modifiers: "[public]",
+            modifiers: [
+              "public"
+            ],
             simpleName: "toString",
             typeParameters: [],
             returnType: "java.lang.String",
@@ -2546,7 +2895,9 @@
           },
           {
             kind: "METHOD",
-            modifiers: "[public]",
+            modifiers: [
+              "public"
+            ],
             simpleName: "printStackTrace",
             typeParameters: [],
             returnType: "void",
@@ -2555,14 +2906,16 @@
           },
           {
             kind: "METHOD",
-            modifiers: "[public]",
+            modifiers: [
+              "public"
+            ],
             simpleName: "printStackTrace",
             typeParameters: [],
             returnType: "void",
             parameters: [
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg0",
                 type: "java.io.PrintStream"
               }
@@ -2571,14 +2924,16 @@
           },
           {
             kind: "METHOD",
-            modifiers: "[private]",
+            modifiers: [
+              "private"
+            ],
             simpleName: "printStackTrace",
             typeParameters: [],
             returnType: "void",
             parameters: [
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg0",
                 type: "PrintStreamOrWriter"
               }
@@ -2587,38 +2942,40 @@
           },
           {
             kind: "METHOD",
-            modifiers: "[private]",
+            modifiers: [
+              "private"
+            ],
             simpleName: "printEnclosedStackTrace",
             typeParameters: [],
             returnType: "void",
             parameters: [
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg0",
                 type: "PrintStreamOrWriter"
               },
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg1",
                 type: "java.lang.StackTraceElement[]"
               },
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg2",
                 type: "java.lang.String"
               },
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg3",
                 type: "java.lang.String"
               },
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg4",
                 type: "java.util.Set<java.lang.Throwable>"
               }
@@ -2627,14 +2984,16 @@
           },
           {
             kind: "METHOD",
-            modifiers: "[public]",
+            modifiers: [
+              "public"
+            ],
             simpleName: "printStackTrace",
             typeParameters: [],
             returnType: "void",
             parameters: [
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg0",
                 type: "java.io.PrintWriter"
               }
@@ -2643,7 +3002,10 @@
           },
           {
             kind: "METHOD",
-            modifiers: "[public, synchronized]",
+            modifiers: [
+              "public",
+              "synchronized"
+            ],
             simpleName: "fillInStackTrace",
             typeParameters: [],
             returnType: "java.lang.Throwable",
@@ -2652,14 +3014,17 @@
           },
           {
             kind: "METHOD",
-            modifiers: "[private, native]",
+            modifiers: [
+              "private",
+              "native"
+            ],
             simpleName: "fillInStackTrace",
             typeParameters: [],
             returnType: "java.lang.Throwable",
             parameters: [
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg0",
                 type: "int"
               }
@@ -2668,7 +3033,9 @@
           },
           {
             kind: "METHOD",
-            modifiers: "[public]",
+            modifiers: [
+              "public"
+            ],
             simpleName: "getStackTrace",
             typeParameters: [],
             returnType: "java.lang.StackTraceElement[]",
@@ -2677,7 +3044,10 @@
           },
           {
             kind: "METHOD",
-            modifiers: "[private, synchronized]",
+            modifiers: [
+              "private",
+              "synchronized"
+            ],
             simpleName: "getOurStackTrace",
             typeParameters: [],
             returnType: "java.lang.StackTraceElement[]",
@@ -2686,14 +3056,16 @@
           },
           {
             kind: "METHOD",
-            modifiers: "[public]",
+            modifiers: [
+              "public"
+            ],
             simpleName: "setStackTrace",
             typeParameters: [],
             returnType: "void",
             parameters: [
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg0",
                 type: "java.lang.StackTraceElement[]"
               }
@@ -2702,7 +3074,9 @@
           },
           {
             kind: "METHOD",
-            modifiers: "[native]",
+            modifiers: [
+              "native"
+            ],
             simpleName: "getStackTraceDepth",
             typeParameters: [],
             returnType: "int",
@@ -2711,14 +3085,16 @@
           },
           {
             kind: "METHOD",
-            modifiers: "[native]",
+            modifiers: [
+              "native"
+            ],
             simpleName: "getStackTraceElement",
             typeParameters: [],
             returnType: "java.lang.StackTraceElement",
             parameters: [
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg0",
                 type: "int"
               }
@@ -2727,14 +3103,16 @@
           },
           {
             kind: "METHOD",
-            modifiers: "[private]",
+            modifiers: [
+              "private"
+            ],
             simpleName: "readObject",
             typeParameters: [],
             returnType: "void",
             parameters: [
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg0",
                 type: "java.io.ObjectInputStream"
               }
@@ -2746,14 +3124,17 @@
           },
           {
             kind: "METHOD",
-            modifiers: "[private, synchronized]",
+            modifiers: [
+              "private",
+              "synchronized"
+            ],
             simpleName: "writeObject",
             typeParameters: [],
             returnType: "void",
             parameters: [
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg0",
                 type: "java.io.ObjectOutputStream"
               }
@@ -2764,14 +3145,17 @@
           },
           {
             kind: "METHOD",
-            modifiers: "[public, synchronized]",
+            modifiers: [
+              "public",
+              "synchronized"
+            ],
             simpleName: "addSuppressed",
             typeParameters: [],
             returnType: "void",
             parameters: [
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg0",
                 type: "java.lang.Throwable"
               }
@@ -2780,7 +3164,10 @@
           },
           {
             kind: "METHOD",
-            modifiers: "[public, synchronized]",
+            modifiers: [
+              "public",
+              "synchronized"
+            ],
             simpleName: "getSuppressed",
             typeParameters: [],
             returnType: "java.lang.Throwable[]",
@@ -2789,7 +3176,9 @@
           },
           {
             kind: "STATIC_INIT",
-            modifiers: "[static]",
+            modifiers: [
+              "static"
+            ],
             simpleName: "<clinit>",
             typeParameters: [],
             returnType: "void",
@@ -2800,7 +3189,10 @@
       },
       {
         kind: "CLASS",
-        modifiers: "[public, synchronized]",
+        modifiers: [
+          "public",
+          "synchronized"
+        ],
         qualifiedName: "java.lang.Object",
         simpleName: "Object",
         typeParameters: [],
@@ -2809,7 +3201,9 @@
         enclosedElements: [
           {
             kind: "CONSTRUCTOR",
-            modifiers: "[public]",
+            modifiers: [
+              "public"
+            ],
             simpleName: "<init>",
             typeParameters: [],
             returnType: "void",
@@ -2818,7 +3212,11 @@
           },
           {
             kind: "METHOD",
-            modifiers: "[private, static, native]",
+            modifiers: [
+              "private",
+              "static",
+              "native"
+            ],
             simpleName: "registerNatives",
             typeParameters: [],
             returnType: "void",
@@ -2827,7 +3225,10 @@
           },
           {
             kind: "METHOD",
-            modifiers: "[public, native]",
+            modifiers: [
+              "public",
+              "native"
+            ],
             simpleName: "getClass",
             typeParameters: [],
             returnType: "java.lang.Class<?>",
@@ -2836,7 +3237,10 @@
           },
           {
             kind: "METHOD",
-            modifiers: "[public, native]",
+            modifiers: [
+              "public",
+              "native"
+            ],
             simpleName: "hashCode",
             typeParameters: [],
             returnType: "int",
@@ -2845,14 +3249,16 @@
           },
           {
             kind: "METHOD",
-            modifiers: "[public]",
+            modifiers: [
+              "public"
+            ],
             simpleName: "equals",
             typeParameters: [],
             returnType: "boolean",
             parameters: [
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg0",
                 type: "java.lang.Object"
               }
@@ -2861,7 +3267,10 @@
           },
           {
             kind: "METHOD",
-            modifiers: "[protected, native]",
+            modifiers: [
+              "protected",
+              "native"
+            ],
             simpleName: "clone",
             typeParameters: [],
             returnType: "java.lang.Object",
@@ -2872,7 +3281,9 @@
           },
           {
             kind: "METHOD",
-            modifiers: "[public]",
+            modifiers: [
+              "public"
+            ],
             simpleName: "toString",
             typeParameters: [],
             returnType: "java.lang.String",
@@ -2881,7 +3292,10 @@
           },
           {
             kind: "METHOD",
-            modifiers: "[public, native]",
+            modifiers: [
+              "public",
+              "native"
+            ],
             simpleName: "notify",
             typeParameters: [],
             returnType: "void",
@@ -2890,7 +3304,10 @@
           },
           {
             kind: "METHOD",
-            modifiers: "[public, native]",
+            modifiers: [
+              "public",
+              "native"
+            ],
             simpleName: "notifyAll",
             typeParameters: [],
             returnType: "void",
@@ -2899,14 +3316,17 @@
           },
           {
             kind: "METHOD",
-            modifiers: "[public, native]",
+            modifiers: [
+              "public",
+              "native"
+            ],
             simpleName: "wait",
             typeParameters: [],
             returnType: "void",
             parameters: [
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg0",
                 type: "long"
               }
@@ -2917,20 +3337,22 @@
           },
           {
             kind: "METHOD",
-            modifiers: "[public]",
+            modifiers: [
+              "public"
+            ],
             simpleName: "wait",
             typeParameters: [],
             returnType: "void",
             parameters: [
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg0",
                 type: "long"
               },
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg1",
                 type: "int"
               }
@@ -2941,7 +3363,9 @@
           },
           {
             kind: "METHOD",
-            modifiers: "[public]",
+            modifiers: [
+              "public"
+            ],
             simpleName: "wait",
             typeParameters: [],
             returnType: "void",
@@ -2952,7 +3376,9 @@
           },
           {
             kind: "METHOD",
-            modifiers: "[protected]",
+            modifiers: [
+              "protected"
+            ],
             simpleName: "finalize",
             typeParameters: [],
             returnType: "void",
@@ -2963,7 +3389,9 @@
           },
           {
             kind: "STATIC_INIT",
-            modifiers: "[static]",
+            modifiers: [
+              "static"
+            ],
             simpleName: "<clinit>",
             typeParameters: [],
             returnType: "void",
@@ -2974,13 +3402,17 @@
       },
       {
         kind: "CLASS",
-        modifiers: "[public, abstract, synchronized]",
+        modifiers: [
+          "public",
+          "abstract",
+          "synchronized"
+        ],
         qualifiedName: "java.lang.Enum",
         simpleName: "Enum",
         typeParameters: [
           {
             kind: "TYPE_PARAMETER",
-            modifiers: "[]",
+            modifiers: [],
             simpleName: "E",
             bounds: [
               "java.lang.Enum<E>"
@@ -2995,19 +3427,25 @@
         enclosedElements: [
           {
             kind: "FIELD",
-            modifiers: "[private]",
+            modifiers: [
+              "private"
+            ],
             simpleName: "name",
             type: "java.lang.String"
           },
           {
             kind: "FIELD",
-            modifiers: "[private]",
+            modifiers: [
+              "private"
+            ],
             simpleName: "ordinal",
             type: "int"
           },
           {
             kind: "METHOD",
-            modifiers: "[public]",
+            modifiers: [
+              "public"
+            ],
             simpleName: "name",
             typeParameters: [],
             returnType: "java.lang.String",
@@ -3016,7 +3454,9 @@
           },
           {
             kind: "METHOD",
-            modifiers: "[public]",
+            modifiers: [
+              "public"
+            ],
             simpleName: "ordinal",
             typeParameters: [],
             returnType: "int",
@@ -3025,20 +3465,22 @@
           },
           {
             kind: "CONSTRUCTOR",
-            modifiers: "[protected]",
+            modifiers: [
+              "protected"
+            ],
             simpleName: "<init>",
             typeParameters: [],
             returnType: "void",
             parameters: [
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg0",
                 type: "java.lang.String"
               },
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg1",
                 type: "int"
               }
@@ -3047,7 +3489,9 @@
           },
           {
             kind: "METHOD",
-            modifiers: "[public]",
+            modifiers: [
+              "public"
+            ],
             simpleName: "toString",
             typeParameters: [],
             returnType: "java.lang.String",
@@ -3056,14 +3500,16 @@
           },
           {
             kind: "METHOD",
-            modifiers: "[public]",
+            modifiers: [
+              "public"
+            ],
             simpleName: "equals",
             typeParameters: [],
             returnType: "boolean",
             parameters: [
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg0",
                 type: "java.lang.Object"
               }
@@ -3072,7 +3518,9 @@
           },
           {
             kind: "METHOD",
-            modifiers: "[public]",
+            modifiers: [
+              "public"
+            ],
             simpleName: "hashCode",
             typeParameters: [],
             returnType: "int",
@@ -3081,7 +3529,9 @@
           },
           {
             kind: "METHOD",
-            modifiers: "[protected]",
+            modifiers: [
+              "protected"
+            ],
             simpleName: "clone",
             typeParameters: [],
             returnType: "java.lang.Object",
@@ -3092,14 +3542,16 @@
           },
           {
             kind: "METHOD",
-            modifiers: "[public]",
+            modifiers: [
+              "public"
+            ],
             simpleName: "compareTo",
             typeParameters: [],
             returnType: "int",
             parameters: [
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg0",
                 type: "E"
               }
@@ -3108,7 +3560,9 @@
           },
           {
             kind: "METHOD",
-            modifiers: "[public]",
+            modifiers: [
+              "public"
+            ],
             simpleName: "getDeclaringClass",
             typeParameters: [],
             returnType: "java.lang.Class<E>",
@@ -3117,12 +3571,15 @@
           },
           {
             kind: "METHOD",
-            modifiers: "[public, static]",
+            modifiers: [
+              "public",
+              "static"
+            ],
             simpleName: "valueOf",
             typeParameters: [
               {
                 kind: "TYPE_PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "T",
                 bounds: [
                   "java.lang.Enum<T>"
@@ -3133,13 +3590,13 @@
             parameters: [
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg0",
                 type: "java.lang.Class<T>"
               },
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg1",
                 type: "java.lang.String"
               }
@@ -3148,7 +3605,9 @@
           },
           {
             kind: "METHOD",
-            modifiers: "[protected]",
+            modifiers: [
+              "protected"
+            ],
             simpleName: "finalize",
             typeParameters: [],
             returnType: "void",
@@ -3157,14 +3616,16 @@
           },
           {
             kind: "METHOD",
-            modifiers: "[private]",
+            modifiers: [
+              "private"
+            ],
             simpleName: "readObject",
             typeParameters: [],
             returnType: "void",
             parameters: [
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg0",
                 type: "java.io.ObjectInputStream"
               }
@@ -3176,7 +3637,9 @@
           },
           {
             kind: "METHOD",
-            modifiers: "[private]",
+            modifiers: [
+              "private"
+            ],
             simpleName: "readObjectNoData",
             typeParameters: [],
             returnType: "void",
@@ -3187,14 +3650,17 @@
           },
           {
             kind: "METHOD",
-            modifiers: "[public, volatile]",
+            modifiers: [
+              "public",
+              "volatile"
+            ],
             simpleName: "compareTo",
             typeParameters: [],
             returnType: "int",
             parameters: [
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "arg0",
                 type: "java.lang.Object"
               }

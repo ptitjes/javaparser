@@ -1,13 +1,15 @@
 [
   {
     kind: "PACKAGE",
-    modifiers: "[]",
+    modifiers: [],
     qualifiedName: "acme",
     simpleName: "acme",
     enclosedElements: [
       {
         kind: "CLASS",
-        modifiers: "[public]",
+        modifiers: [
+          "public"
+        ],
         qualifiedName: "acme.A",
         simpleName: "A",
         typeParameters: [],
@@ -18,13 +20,18 @@
         enclosedElements: [
           {
             kind: "FIELD",
-            modifiers: "[private, final]",
+            modifiers: [
+              "private",
+              "final"
+            ],
             simpleName: "string",
             type: "java.lang.String"
           },
           {
             kind: "CONSTRUCTOR",
-            modifiers: "[public]",
+            modifiers: [
+              "public"
+            ],
             simpleName: "A",
             typeParameters: [],
             returnType: "void",
@@ -33,20 +40,23 @@
           },
           {
             kind: "METHOD",
-            modifiers: "[public, static]",
+            modifiers: [
+              "public",
+              "static"
+            ],
             simpleName: "staticMethodWithArgs",
             typeParameters: [],
             returnType: "void",
             parameters: [
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "intArg",
                 type: "int"
               },
               {
                 kind: "PARAMETER",
-                modifiers: "[]",
+                modifiers: [],
                 simpleName: "stringArg",
                 type: "java.lang.String"
               }
@@ -59,7 +69,9 @@
       },
       {
         kind: "INTERFACE",
-        modifiers: "[public]",
+        modifiers: [
+          "public"
+        ],
         qualifiedName: "acme.Interface1",
         simpleName: "Interface1",
         typeParameters: [],
@@ -68,7 +80,7 @@
         enclosedElements: [
           {
             kind: "METHOD",
-            modifiers: "[]",
+            modifiers: [],
             simpleName: "aMethod",
             typeParameters: [],
             returnType: "void",
@@ -77,7 +89,9 @@
           },
           {
             kind: "METHOD",
-            modifiers: "[static]",
+            modifiers: [
+              "static"
+            ],
             simpleName: "invalidStaticMethod",
             typeParameters: [],
             returnType: "void",
@@ -88,13 +102,15 @@
       },
       {
         kind: "INTERFACE",
-        modifiers: "[public]",
+        modifiers: [
+          "public"
+        ],
         qualifiedName: "acme.Interface2",
         simpleName: "Interface2",
         typeParameters: [
           {
             kind: "TYPE_PARAMETER",
-            modifiers: "[]",
+            modifiers: [],
             simpleName: "I",
             bounds: [
               "acme.Interface2<I>"

@@ -3,6 +3,7 @@ package com.github.javaparser.model.utils;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -25,7 +26,7 @@ public abstract class CannonicalJsonWriter<T> {
 		write(Arrays.asList(objects));
 	}
 
-	public void write(List<? extends T> objects) {
+	public void write(Collection<? extends T> objects) {
 		if (objects.isEmpty()) {
 			print('[');
 			print(']');
@@ -171,7 +172,7 @@ public abstract class CannonicalJsonWriter<T> {
 		printNewLine();
 	}
 
-	protected void nameValue(String name, List<? extends T> value) {
+	protected void nameValue(String name, Collection<? extends T> value) {
 		nameHeader(name);
 		write(value);
 		printNewLine();
@@ -185,7 +186,7 @@ public abstract class CannonicalJsonWriter<T> {
 		printNewLine();
 	}
 
-	protected void nameValueString(String name, List<? extends Object> value) {
+	protected void nameValueString(String name, Collection<? extends Object> value) {
 		nameHeader(name);
 		if (value.isEmpty()) {
 			print('[');

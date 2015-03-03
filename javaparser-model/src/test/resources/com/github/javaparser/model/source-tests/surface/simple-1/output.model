@@ -1,13 +1,13 @@
 [
   {
     kind: "PACKAGE",
-    modifiers: "[]",
+    modifiers: [],
     qualifiedName: "acme",
     simpleName: "acme",
     enclosedElements: [
       {
         kind: "CLASS",
-        modifiers: "[]",
+        modifiers: [],
         qualifiedName: "acme.A",
         simpleName: "A",
         typeParameters: [],
@@ -16,7 +16,9 @@
         enclosedElements: [
           {
             kind: "CLASS",
-            modifiers: "[static]",
+            modifiers: [
+              "static"
+            ],
             qualifiedName: "acme.A.Test",
             simpleName: "Test",
             typeParameters: [],

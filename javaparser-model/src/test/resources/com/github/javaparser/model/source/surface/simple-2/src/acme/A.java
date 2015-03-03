@@ -21,3 +21,7 @@ public interface Interface1 {
 	static void invalidStaticMethod() {
 	}
 }
+
+public interface Interface2<I extends Interface2<I>> {
+
+}

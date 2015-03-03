@@ -83,6 +83,25 @@
             thrownTypes: []
           }
         ]
+      },
+      {
+        kind: "INTERFACE",
+        modifiers: "[public]",
+        qualifiedName: "acme.Interface2",
+        simpleName: "Interface2",
+        typeParameters: [
+          {
+            kind: "TYPE_PARAMETER",
+            modifiers: "[]",
+            simpleName: "I",
+            bounds: [
+              "acme.Interface2<I>"
+            ]
+          }
+        ],
+        superClass: "_bottom_",
+        interfaces: [],
+        enclosedElements: []
       }
     ]
   }

@@ -176,24 +176,46 @@ public class TypeResolver implements Registry.Participant {
 
 	class CycleDetectingTypeVisitor extends TypeVisitor {
 
+		Map<TypeParameterElem, Object> cycleMarkers = new IdentityHashMap<TypeParameterElem, Object>();
 		Map<TypeParameterElem, Object> pendingResolution = new IdentityHashMap<TypeParameterElem, Object>();
 
 		@Override
 		public void resolveBounds(TypeParameterElem typeParameterElem, Scope scope) {
+			if (pendingResolution.containsKey(typeParameterElem)) return;
+
 			List<TpeMirror> boundsMirrors = typeParameterElem.getBounds();
 			if (boundsMirrors == null) {
 				SourceOrigin origin = (SourceOrigin) typeParameterElem.origin();
 				TypeParameter node = (TypeParameter) origin.getNode();
 				List<ClassOrInterfaceType> bounds = node.getTypeBound();
 
-				if (pendingResolution.containsKey(typeParameterElem))
-					throw new ScopeException("Circular type parameter definition", node);
+				if (cycleMarkers.containsKey(typeParameterElem))
+					throw new ScopeException("Cyclic inheritance involving " +
+							typeParameterElem.getSimpleName(), node);
 
-				pendingResolution.put(typeParameterElem, new Object());
-				boundsMirrors = visitAll(this, scope, bounds);
-				typeParameterElem.setBounds(boundsMirrors);
 				typeParameterElem.setType(new TpeVariable(typeParameterElem, typeUtils.objectType()));
-				pendingResolution.remove(typeParameterElem);
+
+				boundsMirrors = new ArrayList<TpeMirror>();
+				for (ClassOrInterfaceType bound : bounds) {
+					ClassOrInterfaceType typeScope = bound.getScope();
+					EltSimpleName typeName = EltNames.makeSimple(bound.getName());
+					List<Type> typeArgs = bound.getTypeArgs();
+					if (typeScope == null && (typeArgs == null || typeArgs.isEmpty())) {
+						TypeParameterElem otherTypeParameter = scope.resolveTypeParameter(typeName);
+						if (otherTypeParameter != null) {
+							cycleMarkers.put(typeParameterElem, new Object());
+							resolveBounds(otherTypeParameter, scope);
+							cycleMarkers.remove(typeParameterElem);
+							boundsMirrors.add(otherTypeParameter.asType());
+							continue;
+						}
+					}
+
+					pendingResolution.put(typeParameterElem, new Object());
+					boundsMirrors.add(bound.accept(this, scope));
+					pendingResolution.remove(typeParameterElem);
+				}
+				typeParameterElem.setBounds(boundsMirrors);
 			}
 		}
 	}

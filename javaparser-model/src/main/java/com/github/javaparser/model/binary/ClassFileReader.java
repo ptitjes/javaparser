@@ -243,7 +243,7 @@ public class ClassFileReader implements Registry.Participant {
 	private EnumSet<Modifier> buildModifiers(int access) {
 		EnumSet<Modifier> modifiers = EnumSet.noneOf(Modifier.class);
 		if (hasFlag(access, ACC_PUBLIC)) modifiers.add(Modifier.PUBLIC);
-		if (hasFlag(access, ACC_PUBLIC)) modifiers.add(Modifier.PROTECTED);
+		if (hasFlag(access, ACC_PROTECTED)) modifiers.add(Modifier.PROTECTED);
 		if (hasFlag(access, ACC_PRIVATE)) modifiers.add(Modifier.PRIVATE);
 		if (hasFlag(access, ACC_ABSTRACT)) modifiers.add(Modifier.ABSTRACT);
 		if (hasFlag(access, ACC_STATIC)) modifiers.add(Modifier.STATIC);

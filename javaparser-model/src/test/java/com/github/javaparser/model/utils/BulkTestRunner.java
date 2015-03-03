@@ -75,6 +75,8 @@ public class BulkTestRunner extends Runner {
 				notifier.fireTestAssumptionFailed(new Failure(description, e));
 			} catch (IOException e) {
 				notifier.fireTestFailure(new Failure(description, e));
+			} catch (Throwable e) {
+				notifier.fireTestFailure(new Failure(description, e));
 			}
 		}
 		notifier.fireTestFinished(rootDescription);

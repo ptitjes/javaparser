@@ -21,7 +21,7 @@ public class BulkTest implements BulkTestClass {
 
 	@Override
 	public String testResourcesPath() {
-		return "javaparser-model-tests/bulk";
+		return "com/github/javaparser/model/source/surface";
 	}
 
 	@Override

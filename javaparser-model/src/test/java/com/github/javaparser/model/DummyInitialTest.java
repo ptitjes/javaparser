@@ -46,7 +46,7 @@ public class DummyInitialTest {
 //		System.out.println(ElementTestWriter.toString(enumTypeElem));
 
 //		if (!model.hasErrors()) {
-//			System.out.println(ElementTestWriter.toString(javaparser-model-tests.getSourcePackages()));
+//			System.out.println(ElementTestWriter.toString(com.getSourcePackages()));
 //		}
 	}
 }

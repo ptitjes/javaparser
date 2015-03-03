@@ -43,7 +43,11 @@ public class TestResources {
 	}
 
 	public InputStream getResourceAsStream(String path) {
-		return ClassLoader.getSystemResourceAsStream(testResourcesPath + directory + path);
+		String fullPath = testResourcesPath + directory + path;
+		InputStream inputStream = ClassLoader.getSystemResourceAsStream(fullPath);
+		if (inputStream == null)
+			throw new IllegalArgumentException("No such resource " + fullPath);
+		return inputStream;
 	}
 
 	private String fromStream(InputStream inputStream, String encoding)

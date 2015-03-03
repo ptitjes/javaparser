@@ -17,6 +17,12 @@
         ],
         enclosedElements: [
           {
+            kind: "FIELD",
+            modifiers: "[private, final]",
+            simpleName: "string",
+            type: "java.lang.String"
+          },
+          {
             kind: "CONSTRUCTOR",
             modifiers: "[public]",
             simpleName: "A",

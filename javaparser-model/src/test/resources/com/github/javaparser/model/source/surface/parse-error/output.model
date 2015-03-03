@@ -1,4 +1,4 @@
-Error: com/github/javaparser/model/source/surface/failing-1/src/acme/A.java
+Error: com/github/javaparser/model/source/surface/parse-error/src/acme/A.java
     Encountered " "package" "package "" at line 1, column 1.
     Was expecting one of:
         <EOF> 

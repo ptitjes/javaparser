@@ -38,6 +38,7 @@ public class ElementTestWriter extends CannonicalJsonWriter<Element> {
 		public Void visitPackage(PackageElement e, Void aVoid) {
 			beginObject();
 			nameValueString("kind", e.getKind());
+			nameValueString("modifiers", e.getModifiers());
 			nameValueString("qualifiedName", e.getQualifiedName());
 			nameValueString("simpleName", e.getSimpleName());
 			nameValue("enclosedElements", e.getEnclosedElements());
@@ -49,6 +50,7 @@ public class ElementTestWriter extends CannonicalJsonWriter<Element> {
 		public Void visitType(TypeElement e, Void aVoid) {
 			beginObject();
 			nameValueString("kind", e.getKind());
+			nameValueString("modifiers", e.getModifiers());
 			nameValueString("qualifiedName", e.getQualifiedName());
 			nameValueString("simpleName", e.getSimpleName());
 			nameValue("typeParameters", e.getTypeParameters());
@@ -63,6 +65,7 @@ public class ElementTestWriter extends CannonicalJsonWriter<Element> {
 		public Void visitTypeParameter(TypeParameterElement e, Void aVoid) {
 			beginObject();
 			nameValueString("kind", e.getKind());
+			nameValueString("modifiers", e.getModifiers());
 			nameValueString("simpleName", e.getSimpleName());
 			nameValueString("bounds", e.getBounds());
 			endObject();
@@ -73,6 +76,7 @@ public class ElementTestWriter extends CannonicalJsonWriter<Element> {
 		public Void visitVariable(VariableElement e, Void aVoid) {
 			beginObject();
 			nameValueString("kind", e.getKind());
+			nameValueString("modifiers", e.getModifiers());
 			nameValueString("simpleName", e.getSimpleName());
 			nameValueString("type", e.asType());
 			endObject();
@@ -83,6 +87,7 @@ public class ElementTestWriter extends CannonicalJsonWriter<Element> {
 		public Void visitExecutable(ExecutableElement e, Void aVoid) {
 			beginObject();
 			nameValueString("kind", e.getKind());
+			nameValueString("modifiers", e.getModifiers());
 			nameValueString("simpleName", e.getSimpleName());
 			nameValue("typeParameters", e.getTypeParameters());
 			nameValueString("returnType", e.getReturnType());

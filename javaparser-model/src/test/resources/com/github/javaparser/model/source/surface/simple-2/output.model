@@ -1,0 +1,52 @@
+[
+  {
+    kind: "PACKAGE",
+    modifiers: "[]",
+    qualifiedName: "acme",
+    simpleName: "acme",
+    enclosedElements: [
+      {
+        kind: "CLASS",
+        modifiers: "[public]",
+        qualifiedName: "acme.A",
+        simpleName: "A",
+        typeParameters: [],
+        superClass: "_bottom_",
+        interfaces: [
+          "acme.Interface1"
+        ],
+        enclosedElements: [
+          {
+            kind: "CONSTRUCTOR",
+            modifiers: "[public]",
+            simpleName: "A",
+            typeParameters: [],
+            returnType: "void",
+            parameters: [],
+            thrownTypes: []
+          }
+        ]
+      },
+      {
+        kind: "INTERFACE",
+        modifiers: "[public]",
+        qualifiedName: "acme.Interface1",
+        simpleName: "Interface1",
+        typeParameters: [],
+        superClass: "_bottom_",
+        interfaces: [],
+        enclosedElements: [
+          {
+            kind: "METHOD",
+            modifiers: "[]",
+            simpleName: "aMethod",
+            typeParameters: [],
+            returnType: "void",
+            parameters: [],
+            thrownTypes: []
+          }
+        ]
+      }
+    ]
+  }
+]

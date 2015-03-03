@@ -6,6 +6,8 @@ Source Model
 
 OK - resolve types in executables' signatures and variables
 
+- introduce an ErrorTpe to set for unresolved names
+
 - attaching attributes to statements and expressions
 
 - add a phase to check for
@@ -43,4 +45,5 @@ User Helpers
 Finishing Works
 ------------
 
+- split analysis result data from Classpath in its own class
 - add checks at various places according to JLS

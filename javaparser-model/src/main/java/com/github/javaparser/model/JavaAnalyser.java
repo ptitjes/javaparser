@@ -15,7 +15,6 @@ import com.github.javaparser.model.report.Reporter;
 import com.github.javaparser.model.type.TypeUtils;
 
 import java.io.File;
-import java.io.IOException;
 
 /**
  * @author Didier Villevalois
@@ -48,7 +47,7 @@ public class JavaAnalyser {
 
 		registry.register(configuration);
 		registry.register(classpath);
-		registry.register(Reporter.class, configuration.getReporter());
+		registry.register(Reporter.class, configuration.reporter());
 		registry.register(new ClassRegistry());
 		registry.register(new ClassFileReader());
 		registry.register(new BinaryTypeBuilder());

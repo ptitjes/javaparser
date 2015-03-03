@@ -69,8 +69,8 @@ public class Analysis {
 		for (ClasspathElement sourceFile : sourceFiles) {
 			try {
 				CompilationUnit cu = JavaParser.parse(sourceFile.getInputStream(),
-						configuration.getEncoding(),
-						configuration.isConsideringComments());
+						configuration.encoding(),
+						configuration.considerComments());
 				classpath.addCompilationUnit(cu);
 				scaffolding.process(sourceFile, cu);
 			} catch (ParseException e) {

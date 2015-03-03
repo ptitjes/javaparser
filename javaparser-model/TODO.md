@@ -32,6 +32,7 @@ Annotation Support
 - add instance in Elem and setters
 - read annotations from binary (plus deprecated opcode flag)
 - read annotations from source
+- handle package sharing and annotations (dig in spec...)
 
 User Helpers
 ------------

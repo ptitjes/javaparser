@@ -89,9 +89,11 @@ public class BulkTestRunner extends Runner {
 	}
 
 	private void runTest(String directory) throws IOException {
+		TestResources resources = new TestResources(resourceHelper, testResourcesPath, directory);
+
 		Classpath classpath = new Classpath();
-		classpath.addClassFiles(ResourceHelper.getJarResourceSource(ClassLoader.getSystemResource("rt-striped.jar")));
-		classpath.addSourceFiles(resourceHelper.getSource(testResourcesPath + directory + "/src/"));
+		classpath.addClassFiles(resources.getStrippedRtJar());
+		classpath.addSourceFiles(resources.getSource("src"));
 
 		StringWriter reportWriter = new StringWriter();
 		JavaAnalyser javaAnalyser = new JavaAnalyser(
@@ -103,26 +105,8 @@ public class BulkTestRunner extends Runner {
 		String modelString = analysis.hasErrors() ? reportWriter.toString() :
 				ElementTestWriter.toString(analysis.getSourcePackages());
 
-		String expectedModelString = fromStream(
-				ClassLoader.getSystemResourceAsStream(testResourcesPath + directory + "/output.model"),
-				"UTF-8");
+		String expectedModelString = resources.getResourceAsString("output.model");
 
 		Assert.assertEquals(expectedModelString, modelString);
-	}
-
-	public String fromStream(InputStream inputStream, String encoding)
-			throws IOException {
-		return new String(readFully(inputStream), encoding);
-	}
-
-	private byte[] readFully(InputStream inputStream)
-			throws IOException {
-		ByteArrayOutputStream baos = new ByteArrayOutputStream();
-		byte[] buffer = new byte[1024];
-		int length = 0;
-		while ((length = inputStream.read(buffer)) != -1) {
-			baos.write(buffer, 0, length);
-		}
-		return baos.toByteArray();
 	}
 }

@@ -6,6 +6,7 @@ import java.net.URL;
 import java.net.URLDecoder;
 import java.util.Enumeration;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Set;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
@@ -75,7 +76,7 @@ public class ResourceHelper {
 	}
 
 	private <E> Set<E> list(String packageName, Mapper<E> mapper) throws IOException {
-		Set<E> elements = new HashSet<E>();
+		Set<E> elements = new LinkedHashSet<E>();
 		for (String classpathElement : System.getProperty("java.class.path").split(":")) {
 			boolean skip = false;
 			for (Pattern classpathToAvoid : classpathsToAvoids) {
@@ -140,7 +141,7 @@ public class ResourceHelper {
 	private <E> Set<E> exploreJar(String jarPath, String path, Mapper<E> mapper) throws IOException {
 		JarFile jar = new JarFile(URLDecoder.decode(jarPath, "UTF-8"));
 		Enumeration<JarEntry> entries = jar.entries(); //gives ALL entries in jar
-		Set<E> result = new HashSet<E>(); //ignore duplicates in case it is a subdirectory
+		Set<E> result = new LinkedHashSet<E>(); //ignore duplicates in case it is a subdirectory
 		while (entries.hasMoreElements()) {
 			JarEntry jarEntry = entries.nextElement();
 			String name = jarEntry.getName();
@@ -158,7 +159,7 @@ public class ResourceHelper {
 	}
 
 	private <E> Set<E> exploreDir(File dir, String path, Mapper<E> mapper) throws IOException {
-		Set<E> set = new HashSet<E>();
+		Set<E> set = new LinkedHashSet<E>();
 		exploreDir(dir, path, "", set, mapper);
 		return set;
 	}

@@ -23,7 +23,7 @@ public class SourceSurfaceTest implements BulkTestClass {
 
 	@Override
 	public String testResourcesPath() {
-		return "com/github/javaparser/model/source/surface";
+		return "com/github/javaparser/model/source-tests/surface";
 	}
 
 	@Override

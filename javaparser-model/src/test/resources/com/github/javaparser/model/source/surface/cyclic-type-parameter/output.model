@@ -1,2 +1,0 @@
-Error: com/github/javaparser/model/source/surface/cyclic-type-parameter/src/acme/A.java(4,1)
-    Cyclic inheritance involving E

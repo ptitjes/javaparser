@@ -1,2 +1,0 @@
-Error: com/github/javaparser/model/source/surface/unknown-name/src/acme/A.java(4,1)
-    Can't resolve super-types '[B]' - Can't find type 'B'

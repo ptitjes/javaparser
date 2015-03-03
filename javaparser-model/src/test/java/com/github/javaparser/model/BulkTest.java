@@ -1,17 +1,47 @@
 package com.github.javaparser.model;
 
+import com.github.javaparser.model.classpath.Classpath;
+import com.github.javaparser.model.report.DumpReporter;
+import com.github.javaparser.model.utils.BulkTestClass;
 import com.github.javaparser.model.utils.BulkTestRunner;
-import com.github.javaparser.model.utils.BulkTestRunner.BulkTestClass;
+import com.github.javaparser.model.utils.ElementTestWriter;
+import com.github.javaparser.model.utils.TestResources;
+import org.junit.Assert;
 import org.junit.runner.RunWith;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 
 /**
  * @author Didier Villevalois
  */
 @RunWith(BulkTestRunner.class)
-public class BulkTest extends BulkTestClass {
+public class BulkTest implements BulkTestClass {
 
 	@Override
 	public String testResourcesPath() {
 		return "javaparser-model-tests/bulk";
+	}
+
+	@Override
+	public void runTest(TestResources resources) throws IOException {
+		Classpath classpath = new Classpath();
+		classpath.addClassFiles(resources.getStrippedRtJar());
+		classpath.addSourceFiles(resources.getSource("src"));
+
+		StringWriter reportWriter = new StringWriter();
+		JavaAnalyser javaAnalyser = new JavaAnalyser(
+				new AnalysisConfiguration()
+						.reporter(new DumpReporter(new PrintWriter(reportWriter)))
+		);
+		Analysis analysis = javaAnalyser.buildModel(classpath);
+
+		String modelString = analysis.hasErrors() ? reportWriter.toString() :
+				ElementTestWriter.toString(analysis.getSourcePackages());
+
+		String expectedModelString = resources.getResourceAsString("output.model");
+
+		Assert.assertEquals(expectedModelString, modelString);
 	}
 }

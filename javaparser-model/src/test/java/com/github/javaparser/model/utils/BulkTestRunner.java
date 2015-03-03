@@ -1,20 +1,14 @@
 package com.github.javaparser.model.utils;
 
-import com.github.javaparser.model.Analysis;
-import com.github.javaparser.model.AnalysisConfiguration;
-import com.github.javaparser.model.JavaAnalyser;
-import com.github.javaparser.model.classpath.Classpath;
 import com.github.javaparser.model.classpath.ClasspathElement;
 import com.github.javaparser.model.classpath.ResourceHelper;
-import com.github.javaparser.model.report.DumpReporter;
 import junit.framework.AssertionFailedError;
-import org.junit.Assert;
 import org.junit.runner.Description;
 import org.junit.runner.Runner;
 import org.junit.runner.notification.Failure;
 import org.junit.runner.notification.RunNotifier;
 
-import java.io.*;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -24,11 +18,6 @@ import java.util.Set;
  * @author Didier Villevalois
  */
 public class BulkTestRunner extends Runner {
-
-	public abstract static class BulkTestClass {
-
-		public abstract String testResourcesPath();
-	}
 
 	private final BulkTestClass bulkTest;
 	private final String testResourcesPath;
@@ -77,7 +66,10 @@ public class BulkTestRunner extends Runner {
 			Description description = scenariDescriptions.get(i);
 			try {
 				notifier.fireTestStarted(description);
-				runTest(directory);
+
+				TestResources resources = new TestResources(resourceHelper, testResourcesPath, directory);
+				bulkTest.runTest(resources);
+
 				notifier.fireTestFinished(description);
 			} catch (AssertionFailedError e) {
 				notifier.fireTestAssumptionFailed(new Failure(description, e));
@@ -86,27 +78,5 @@ public class BulkTestRunner extends Runner {
 			}
 		}
 		notifier.fireTestFinished(rootDescription);
-	}
-
-	private void runTest(String directory) throws IOException {
-		TestResources resources = new TestResources(resourceHelper, testResourcesPath, directory);
-
-		Classpath classpath = new Classpath();
-		classpath.addClassFiles(resources.getStrippedRtJar());
-		classpath.addSourceFiles(resources.getSource("src"));
-
-		StringWriter reportWriter = new StringWriter();
-		JavaAnalyser javaAnalyser = new JavaAnalyser(
-				new AnalysisConfiguration()
-						.reporter(new DumpReporter(new PrintWriter(reportWriter)))
-		);
-		Analysis analysis = javaAnalyser.buildModel(classpath);
-
-		String modelString = analysis.hasErrors() ? reportWriter.toString() :
-				ElementTestWriter.toString(analysis.getSourcePackages());
-
-		String expectedModelString = resources.getResourceAsString("output.model");
-
-		Assert.assertEquals(expectedModelString, modelString);
 	}
 }

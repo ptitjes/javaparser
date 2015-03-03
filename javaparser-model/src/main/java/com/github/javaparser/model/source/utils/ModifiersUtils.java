@@ -19,7 +19,6 @@ public abstract class ModifiersUtils {
 		if (ModifierSet.isPublic(modifiers)) converted.add(Modifier.PUBLIC);
 		else if (ModifierSet.isPrivate(modifiers)) converted.add(Modifier.PRIVATE);
 		else if (ModifierSet.isProtected(modifiers)) converted.add(Modifier.PROTECTED);
-		else converted.add(Modifier.DEFAULT);
 		if (ModifierSet.isStatic(modifiers)) converted.add(Modifier.STATIC);
 		if (ModifierSet.isStrictfp(modifiers)) converted.add(Modifier.STRICTFP);
 		if (ModifierSet.isSynchronized(modifiers)) converted.add(Modifier.SYNCHRONIZED);

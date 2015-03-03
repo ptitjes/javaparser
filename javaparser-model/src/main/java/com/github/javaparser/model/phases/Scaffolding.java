@@ -8,6 +8,7 @@ import com.github.javaparser.ast.body.*;
 import com.github.javaparser.ast.expr.*;
 import com.github.javaparser.ast.stmt.*;
 import com.github.javaparser.ast.visitor.VoidVisitorAdapter;
+import com.github.javaparser.model.AnalysisConfiguration;
 import com.github.javaparser.model.Registry;
 import com.github.javaparser.model.classpath.Classpath;
 import com.github.javaparser.model.classpath.ClasspathElement;
@@ -23,6 +24,7 @@ import javax.lang.model.element.ElementKind;
 import javax.lang.model.element.Modifier;
 import javax.lang.model.element.NestingKind;
 import java.util.EnumSet;
+import java.util.List;
 import java.util.Set;
 
 import static com.github.javaparser.model.source.utils.ModifiersUtils.convert;
@@ -35,10 +37,12 @@ import static com.github.javaparser.model.source.utils.SrcNameUtils.asName;
 public class Scaffolding implements Registry.Participant {
 
 	private Classpath classpath;
+	private boolean analyseCode;
 
 	@Override
 	public void configure(Registry registry) {
 		classpath = registry.get(Classpath.class);
+		analyseCode = registry.get(AnalysisConfiguration.class).analyseCode();
 	}
 
 	public void process(ClasspathElement file, CompilationUnit cu) {
@@ -61,6 +65,11 @@ public class Scaffolding implements Registry.Participant {
 		private void recurse(Node n, Elem elem, Context arg) {
 			Context inside = arg.inside(elem);
 			visitAll(this, inside, n.getChildrenNodes());
+		}
+
+		private void recurse(List<? extends Node> nodes, Elem elem, Context arg) {
+			Context inside = arg.inside(elem);
+			visitAll(this, inside, nodes);
 		}
 
 		/* Declarations */
@@ -119,7 +128,7 @@ public class Scaffolding implements Registry.Participant {
 					n.isStatic() ? ElementKind.STATIC_INIT : ElementKind.INSTANCE_INIT);
 			arg.setElemAttributes(n, elem);
 
-			recurse(n, elem, arg);
+			if (analyseCode) recurse(n, elem, arg);
 		}
 
 		@Override
@@ -130,7 +139,8 @@ public class Scaffolding implements Registry.Participant {
 					ElementKind.CONSTRUCTOR);
 			arg.setElemAttributes(n, elem);
 
-			recurse(n, elem, arg);
+			if (analyseCode) recurse(n, elem, arg);
+			else recurse(n.getParameters(), elem, arg);
 		}
 
 		@Override
@@ -141,7 +151,8 @@ public class Scaffolding implements Registry.Participant {
 					ElementKind.METHOD);
 			arg.setElemAttributes(n, elem);
 
-			recurse(n, elem, arg);
+			if (analyseCode) recurse(n, elem, arg);
+			else recurse(n.getParameters(), elem, arg);
 		}
 
 		@Override
@@ -151,8 +162,6 @@ public class Scaffolding implements Registry.Participant {
 					EltNames.makeSimple(n.getId().getName()),
 					ElementKind.PARAMETER);
 			arg.setElemAttributes(n, elem);
-
-			recurse(n, elem, arg);
 		}
 
 		@Override
@@ -162,8 +171,6 @@ public class Scaffolding implements Registry.Participant {
 					EltNames.makeSimple(n.getId().getName()),
 					ElementKind.EXCEPTION_PARAMETER);
 			arg.setElemAttributes(n, elem);
-
-			recurse(n, elem, arg);
 		}
 
 		@Override
@@ -173,8 +180,6 @@ public class Scaffolding implements Registry.Participant {
 					EltNames.makeSimple(n.getName()),
 					ElementKind.METHOD);
 			arg.setElemAttributes(n, elem);
-
-			recurse(n, elem, arg);
 		}
 
 		@Override
@@ -188,7 +193,7 @@ public class Scaffolding implements Registry.Participant {
 						ElementKind.FIELD);
 				arg.setElemAttributes(n, elem);
 
-				recurse(n, elem, arg);
+				if (analyseCode) recurse(n, elem, arg);
 			}
 		}
 
@@ -200,7 +205,7 @@ public class Scaffolding implements Registry.Participant {
 					ElementKind.ENUM_CONSTANT);
 			arg.setElemAttributes(n, elem);
 
-			recurse(n, elem, arg);
+			if (analyseCode) recurse(n, elem, arg);
 		}
 
 		/* Statements */

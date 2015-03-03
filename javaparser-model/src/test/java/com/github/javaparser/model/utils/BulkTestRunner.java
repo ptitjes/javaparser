@@ -1,6 +1,5 @@
 package com.github.javaparser.model.utils;
 
-import com.github.javaparser.model.classpath.ClasspathElement;
 import com.github.javaparser.model.classpath.ResourceHelper;
 import junit.framework.AssertionFailedError;
 import org.junit.runner.Description;
@@ -10,9 +9,7 @@ import org.junit.runner.notification.RunNotifier;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 /**
  * @author Didier Villevalois
@@ -33,18 +30,8 @@ public class BulkTestRunner extends Runner {
 
 		String path = bulkTest.testResourcesPath();
 		testResourcesPath = path + (path.endsWith("/") ? "" : "/");
-		Set<ClasspathElement> elements = resourceHelper.listElements(testResourcesPath);
 
-		Set<String> directorieSet = new HashSet<String>();
-		for (ClasspathElement element : elements) {
-			String subPath = element.getPath().substring(testResourcesPath.length());
-			int slashIndex = subPath.indexOf('/');
-			subPath = slashIndex == -1 ? subPath : subPath.substring(0, slashIndex);
-			directorieSet.add(subPath);
-		}
-
-		this.directories = new ArrayList<String>();
-		this.directories.addAll(directorieSet);
+		directories = new ArrayList<String>(resourceHelper.listDirectories(testResourcesPath));
 
 		rootDescription = Description.createSuiteDescription(bulkTest.getClass());
 		for (String directory : directories) {

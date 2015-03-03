@@ -103,6 +103,7 @@ public class ClassRegistry implements Registry.Participant {
 			elem = new PackageElem(dependencyScope, new BinaryOrigin(toInternalName(qualifiedName)), qualifiedName);
 		}
 		loadedPackages.put(qualifiedName, elem);
+		classpath.addDependencyPackage(elem);
 		return elem;
 	}
 

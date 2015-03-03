@@ -19,18 +19,20 @@ public abstract class RootScope extends Scope {
 		if (name.isEmpty())
 			return null;
 
-		List<PackageElem> packageElems = resolvePackages(name.qualifier());
-		if (packageElems != null) {
-			for (PackageElem packageElem : packageElems) {
-				TypeElem typeElem = packageElem.scope().resolveType(name.simpleName());
+		if (name.isQualified()) {
+			List<PackageElem> packageElems = resolvePackages(name.qualifier());
+			if (packageElems != null) {
+				for (PackageElem packageElem : packageElems) {
+					TypeElem typeElem = packageElem.scope().resolveLocalType(name.simpleName());
+					if (typeElem != null) return typeElem;
+				}
+			}
+
+			TypeElem parentTypeElem = resolveType(name.qualifier());
+			if (parentTypeElem != null) {
+				TypeElem typeElem = parentTypeElem.scope().resolveType(name.simpleName());
 				if (typeElem != null) return typeElem;
 			}
-		}
-
-		TypeElem parentTypeElem = resolveType(name.qualifier());
-		if (parentTypeElem != null) {
-			TypeElem typeElem = parentTypeElem.scope().resolveType(name.simpleName());
-			if (typeElem != null) return typeElem;
 		}
 
 		return super.resolveType(name);

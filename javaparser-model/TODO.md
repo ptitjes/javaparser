@@ -12,6 +12,7 @@ OK - resolve types in executables' signatures and variables
   - inherited abstract methods not implemented
   - invalid members (static, with body, ...) in interface
   - final variables not initialized
+  - thrown types not extending java.lang.Throwable
   - ...
 
 - expressions' type assignment and inference

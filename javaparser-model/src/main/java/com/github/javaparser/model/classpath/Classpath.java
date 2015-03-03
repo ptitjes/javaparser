@@ -3,17 +3,11 @@ package com.github.javaparser.model.classpath;
 import com.github.javaparser.ast.CompilationUnit;
 import com.github.javaparser.model.Registry;
 import com.github.javaparser.model.binary.ClassRegistry;
-import com.github.javaparser.model.element.Origin;
 import com.github.javaparser.model.element.PackageElem;
-import com.github.javaparser.model.element.TypeElem;
 import com.github.javaparser.model.scope.EltName;
-import com.github.javaparser.model.scope.EltNames;
 import com.github.javaparser.model.scope.RootScope;
 import com.github.javaparser.model.scope.Scope;
 
-import javax.lang.model.element.ElementKind;
-import javax.lang.model.element.Modifier;
-import javax.lang.model.element.NestingKind;
 import javax.lang.model.element.PackageElement;
 import java.io.File;
 import java.io.FileFilter;
@@ -112,6 +106,14 @@ public class Classpath implements Registry.Participant {
 			dependencyPackages.put(name, packageElems);
 		}
 		packageElems.add(packageElem);
+	}
+
+	public List<? extends PackageElement> getDependencyPackages() {
+		ArrayList<PackageElement> allPackageElements = new ArrayList<PackageElement>();
+		for (List<PackageElem> packageElements : dependencyPackages.values()) {
+			allPackageElements.addAll(packageElements);
+		}
+		return allPackageElements;
 	}
 
 	public PackageElem getSourcePackage(EltName name) {

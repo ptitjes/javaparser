@@ -1,0 +1,3208 @@
+[
+  {
+    kind: "PACKAGE",
+    modifiers: "[]",
+    qualifiedName: "java.lang",
+    simpleName: "lang",
+    enclosedElements: [
+      {
+        kind: "CLASS",
+        modifiers: "[public, protected, synchronized]",
+        qualifiedName: "java.lang.String",
+        simpleName: "String",
+        typeParameters: [],
+        superClass: "java.lang.Object",
+        interfaces: [
+          "java.io.Serializable",
+          "java.lang.Comparable<java.lang.String>",
+          "java.lang.CharSequence"
+        ],
+        enclosedElements: [
+          {
+            kind: "FIELD",
+            modifiers: "[private]",
+            simpleName: "value",
+            type: "char[]"
+          },
+          {
+            kind: "FIELD",
+            modifiers: "[private]",
+            simpleName: "hash",
+            type: "int"
+          },
+          {
+            kind: "FIELD",
+            modifiers: "[private, static]",
+            simpleName: "serialVersionUID",
+            type: "long"
+          },
+          {
+            kind: "FIELD",
+            modifiers: "[private, static]",
+            simpleName: "serialPersistentFields",
+            type: "java.io.ObjectStreamField[]"
+          },
+          {
+            kind: "FIELD",
+            modifiers: "[public, protected, static]",
+            simpleName: "CASE_INSENSITIVE_ORDER",
+            type: "java.util.Comparator<java.lang.String>"
+          },
+          {
+            kind: "CONSTRUCTOR",
+            modifiers: "[public, protected]",
+            simpleName: "<init>",
+            typeParameters: [],
+            returnType: "void",
+            parameters: [],
+            thrownTypes: []
+          },
+          {
+            kind: "CONSTRUCTOR",
+            modifiers: "[public, protected]",
+            simpleName: "<init>",
+            typeParameters: [],
+            returnType: "void",
+            parameters: [
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg0",
+                type: "java.lang.String"
+              }
+            ],
+            thrownTypes: []
+          },
+          {
+            kind: "CONSTRUCTOR",
+            modifiers: "[public, protected]",
+            simpleName: "<init>",
+            typeParameters: [],
+            returnType: "void",
+            parameters: [
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg0",
+                type: "char[]"
+              }
+            ],
+            thrownTypes: []
+          },
+          {
+            kind: "CONSTRUCTOR",
+            modifiers: "[public, protected]",
+            simpleName: "<init>",
+            typeParameters: [],
+            returnType: "void",
+            parameters: [
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg0",
+                type: "char[]"
+              },
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg1",
+                type: "int"
+              },
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg2",
+                type: "int"
+              }
+            ],
+            thrownTypes: []
+          },
+          {
+            kind: "CONSTRUCTOR",
+            modifiers: "[public, protected]",
+            simpleName: "<init>",
+            typeParameters: [],
+            returnType: "void",
+            parameters: [
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg0",
+                type: "int[]"
+              },
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg1",
+                type: "int"
+              },
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg2",
+                type: "int"
+              }
+            ],
+            thrownTypes: []
+          },
+          {
+            kind: "CONSTRUCTOR",
+            modifiers: "[public, protected]",
+            simpleName: "<init>",
+            typeParameters: [],
+            returnType: "void",
+            parameters: [
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg0",
+                type: "byte[]"
+              },
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg1",
+                type: "int"
+              },
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg2",
+                type: "int"
+              },
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg3",
+                type: "int"
+              }
+            ],
+            thrownTypes: []
+          },
+          {
+            kind: "CONSTRUCTOR",
+            modifiers: "[public, protected]",
+            simpleName: "<init>",
+            typeParameters: [],
+            returnType: "void",
+            parameters: [
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg0",
+                type: "byte[]"
+              },
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg1",
+                type: "int"
+              }
+            ],
+            thrownTypes: []
+          },
+          {
+            kind: "METHOD",
+            modifiers: "[private, static]",
+            simpleName: "checkBounds",
+            typeParameters: [],
+            returnType: "void",
+            parameters: [
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg0",
+                type: "byte[]"
+              },
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg1",
+                type: "int"
+              },
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg2",
+                type: "int"
+              }
+            ],
+            thrownTypes: []
+          },
+          {
+            kind: "CONSTRUCTOR",
+            modifiers: "[public, protected]",
+            simpleName: "<init>",
+            typeParameters: [],
+            returnType: "void",
+            parameters: [
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg0",
+                type: "byte[]"
+              },
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg1",
+                type: "int"
+              },
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg2",
+                type: "int"
+              },
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg3",
+                type: "java.lang.String"
+              }
+            ],
+            thrownTypes: [
+              "java.io.UnsupportedEncodingException"
+            ]
+          },
+          {
+            kind: "CONSTRUCTOR",
+            modifiers: "[public, protected]",
+            simpleName: "<init>",
+            typeParameters: [],
+            returnType: "void",
+            parameters: [
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg0",
+                type: "byte[]"
+              },
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg1",
+                type: "int"
+              },
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg2",
+                type: "int"
+              },
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg3",
+                type: "java.nio.charset.Charset"
+              }
+            ],
+            thrownTypes: []
+          },
+          {
+            kind: "CONSTRUCTOR",
+            modifiers: "[public, protected]",
+            simpleName: "<init>",
+            typeParameters: [],
+            returnType: "void",
+            parameters: [
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg0",
+                type: "byte[]"
+              },
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg1",
+                type: "java.lang.String"
+              }
+            ],
+            thrownTypes: [
+              "java.io.UnsupportedEncodingException"
+            ]
+          },
+          {
+            kind: "CONSTRUCTOR",
+            modifiers: "[public, protected]",
+            simpleName: "<init>",
+            typeParameters: [],
+            returnType: "void",
+            parameters: [
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg0",
+                type: "byte[]"
+              },
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg1",
+                type: "java.nio.charset.Charset"
+              }
+            ],
+            thrownTypes: []
+          },
+          {
+            kind: "CONSTRUCTOR",
+            modifiers: "[public, protected]",
+            simpleName: "<init>",
+            typeParameters: [],
+            returnType: "void",
+            parameters: [
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg0",
+                type: "byte[]"
+              },
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg1",
+                type: "int"
+              },
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg2",
+                type: "int"
+              }
+            ],
+            thrownTypes: []
+          },
+          {
+            kind: "CONSTRUCTOR",
+            modifiers: "[public, protected]",
+            simpleName: "<init>",
+            typeParameters: [],
+            returnType: "void",
+            parameters: [
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg0",
+                type: "byte[]"
+              }
+            ],
+            thrownTypes: []
+          },
+          {
+            kind: "CONSTRUCTOR",
+            modifiers: "[public, protected]",
+            simpleName: "<init>",
+            typeParameters: [],
+            returnType: "void",
+            parameters: [
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg0",
+                type: "java.lang.StringBuffer"
+              }
+            ],
+            thrownTypes: []
+          },
+          {
+            kind: "CONSTRUCTOR",
+            modifiers: "[public, protected]",
+            simpleName: "<init>",
+            typeParameters: [],
+            returnType: "void",
+            parameters: [
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg0",
+                type: "java.lang.StringBuilder"
+              }
+            ],
+            thrownTypes: []
+          },
+          {
+            kind: "CONSTRUCTOR",
+            modifiers: "[]",
+            simpleName: "<init>",
+            typeParameters: [],
+            returnType: "void",
+            parameters: [
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg0",
+                type: "char[]"
+              },
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg1",
+                type: "boolean"
+              }
+            ],
+            thrownTypes: []
+          },
+          {
+            kind: "METHOD",
+            modifiers: "[public, protected]",
+            simpleName: "length",
+            typeParameters: [],
+            returnType: "int",
+            parameters: [],
+            thrownTypes: []
+          },
+          {
+            kind: "METHOD",
+            modifiers: "[public, protected]",
+            simpleName: "isEmpty",
+            typeParameters: [],
+            returnType: "boolean",
+            parameters: [],
+            thrownTypes: []
+          },
+          {
+            kind: "METHOD",
+            modifiers: "[public, protected]",
+            simpleName: "charAt",
+            typeParameters: [],
+            returnType: "char",
+            parameters: [
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg0",
+                type: "int"
+              }
+            ],
+            thrownTypes: []
+          },
+          {
+            kind: "METHOD",
+            modifiers: "[public, protected]",
+            simpleName: "codePointAt",
+            typeParameters: [],
+            returnType: "int",
+            parameters: [
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg0",
+                type: "int"
+              }
+            ],
+            thrownTypes: []
+          },
+          {
+            kind: "METHOD",
+            modifiers: "[public, protected]",
+            simpleName: "codePointBefore",
+            typeParameters: [],
+            returnType: "int",
+            parameters: [
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg0",
+                type: "int"
+              }
+            ],
+            thrownTypes: []
+          },
+          {
+            kind: "METHOD",
+            modifiers: "[public, protected]",
+            simpleName: "codePointCount",
+            typeParameters: [],
+            returnType: "int",
+            parameters: [
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg0",
+                type: "int"
+              },
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg1",
+                type: "int"
+              }
+            ],
+            thrownTypes: []
+          },
+          {
+            kind: "METHOD",
+            modifiers: "[public, protected]",
+            simpleName: "offsetByCodePoints",
+            typeParameters: [],
+            returnType: "int",
+            parameters: [
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg0",
+                type: "int"
+              },
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg1",
+                type: "int"
+              }
+            ],
+            thrownTypes: []
+          },
+          {
+            kind: "METHOD",
+            modifiers: "[]",
+            simpleName: "getChars",
+            typeParameters: [],
+            returnType: "void",
+            parameters: [
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg0",
+                type: "char[]"
+              },
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg1",
+                type: "int"
+              }
+            ],
+            thrownTypes: []
+          },
+          {
+            kind: "METHOD",
+            modifiers: "[public, protected]",
+            simpleName: "getChars",
+            typeParameters: [],
+            returnType: "void",
+            parameters: [
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg0",
+                type: "int"
+              },
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg1",
+                type: "int"
+              },
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg2",
+                type: "char[]"
+              },
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg3",
+                type: "int"
+              }
+            ],
+            thrownTypes: []
+          },
+          {
+            kind: "METHOD",
+            modifiers: "[public, protected]",
+            simpleName: "getBytes",
+            typeParameters: [],
+            returnType: "void",
+            parameters: [
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg0",
+                type: "int"
+              },
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg1",
+                type: "int"
+              },
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg2",
+                type: "byte[]"
+              },
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg3",
+                type: "int"
+              }
+            ],
+            thrownTypes: []
+          },
+          {
+            kind: "METHOD",
+            modifiers: "[public, protected]",
+            simpleName: "getBytes",
+            typeParameters: [],
+            returnType: "byte[]",
+            parameters: [
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg0",
+                type: "java.lang.String"
+              }
+            ],
+            thrownTypes: [
+              "java.io.UnsupportedEncodingException"
+            ]
+          },
+          {
+            kind: "METHOD",
+            modifiers: "[public, protected]",
+            simpleName: "getBytes",
+            typeParameters: [],
+            returnType: "byte[]",
+            parameters: [
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg0",
+                type: "java.nio.charset.Charset"
+              }
+            ],
+            thrownTypes: []
+          },
+          {
+            kind: "METHOD",
+            modifiers: "[public, protected]",
+            simpleName: "getBytes",
+            typeParameters: [],
+            returnType: "byte[]",
+            parameters: [],
+            thrownTypes: []
+          },
+          {
+            kind: "METHOD",
+            modifiers: "[public, protected]",
+            simpleName: "equals",
+            typeParameters: [],
+            returnType: "boolean",
+            parameters: [
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg0",
+                type: "java.lang.Object"
+              }
+            ],
+            thrownTypes: []
+          },
+          {
+            kind: "METHOD",
+            modifiers: "[public, protected]",
+            simpleName: "contentEquals",
+            typeParameters: [],
+            returnType: "boolean",
+            parameters: [
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg0",
+                type: "java.lang.StringBuffer"
+              }
+            ],
+            thrownTypes: []
+          },
+          {
+            kind: "METHOD",
+            modifiers: "[private]",
+            simpleName: "nonSyncContentEquals",
+            typeParameters: [],
+            returnType: "boolean",
+            parameters: [
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg0",
+                type: "java.lang.AbstractStringBuilder"
+              }
+            ],
+            thrownTypes: []
+          },
+          {
+            kind: "METHOD",
+            modifiers: "[public, protected]",
+            simpleName: "contentEquals",
+            typeParameters: [],
+            returnType: "boolean",
+            parameters: [
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg0",
+                type: "java.lang.CharSequence"
+              }
+            ],
+            thrownTypes: []
+          },
+          {
+            kind: "METHOD",
+            modifiers: "[public, protected]",
+            simpleName: "equalsIgnoreCase",
+            typeParameters: [],
+            returnType: "boolean",
+            parameters: [
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg0",
+                type: "java.lang.String"
+              }
+            ],
+            thrownTypes: []
+          },
+          {
+            kind: "METHOD",
+            modifiers: "[public, protected]",
+            simpleName: "compareTo",
+            typeParameters: [],
+            returnType: "int",
+            parameters: [
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg0",
+                type: "java.lang.String"
+              }
+            ],
+            thrownTypes: []
+          },
+          {
+            kind: "METHOD",
+            modifiers: "[public, protected]",
+            simpleName: "compareToIgnoreCase",
+            typeParameters: [],
+            returnType: "int",
+            parameters: [
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg0",
+                type: "java.lang.String"
+              }
+            ],
+            thrownTypes: []
+          },
+          {
+            kind: "METHOD",
+            modifiers: "[public, protected]",
+            simpleName: "regionMatches",
+            typeParameters: [],
+            returnType: "boolean",
+            parameters: [
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg0",
+                type: "int"
+              },
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg1",
+                type: "java.lang.String"
+              },
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg2",
+                type: "int"
+              },
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg3",
+                type: "int"
+              }
+            ],
+            thrownTypes: []
+          },
+          {
+            kind: "METHOD",
+            modifiers: "[public, protected]",
+            simpleName: "regionMatches",
+            typeParameters: [],
+            returnType: "boolean",
+            parameters: [
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg0",
+                type: "boolean"
+              },
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg1",
+                type: "int"
+              },
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg2",
+                type: "java.lang.String"
+              },
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg3",
+                type: "int"
+              },
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg4",
+                type: "int"
+              }
+            ],
+            thrownTypes: []
+          },
+          {
+            kind: "METHOD",
+            modifiers: "[public, protected]",
+            simpleName: "startsWith",
+            typeParameters: [],
+            returnType: "boolean",
+            parameters: [
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg0",
+                type: "java.lang.String"
+              },
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg1",
+                type: "int"
+              }
+            ],
+            thrownTypes: []
+          },
+          {
+            kind: "METHOD",
+            modifiers: "[public, protected]",
+            simpleName: "startsWith",
+            typeParameters: [],
+            returnType: "boolean",
+            parameters: [
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg0",
+                type: "java.lang.String"
+              }
+            ],
+            thrownTypes: []
+          },
+          {
+            kind: "METHOD",
+            modifiers: "[public, protected]",
+            simpleName: "endsWith",
+            typeParameters: [],
+            returnType: "boolean",
+            parameters: [
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg0",
+                type: "java.lang.String"
+              }
+            ],
+            thrownTypes: []
+          },
+          {
+            kind: "METHOD",
+            modifiers: "[public, protected]",
+            simpleName: "hashCode",
+            typeParameters: [],
+            returnType: "int",
+            parameters: [],
+            thrownTypes: []
+          },
+          {
+            kind: "METHOD",
+            modifiers: "[public, protected]",
+            simpleName: "indexOf",
+            typeParameters: [],
+            returnType: "int",
+            parameters: [
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg0",
+                type: "int"
+              }
+            ],
+            thrownTypes: []
+          },
+          {
+            kind: "METHOD",
+            modifiers: "[public, protected]",
+            simpleName: "indexOf",
+            typeParameters: [],
+            returnType: "int",
+            parameters: [
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg0",
+                type: "int"
+              },
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg1",
+                type: "int"
+              }
+            ],
+            thrownTypes: []
+          },
+          {
+            kind: "METHOD",
+            modifiers: "[private]",
+            simpleName: "indexOfSupplementary",
+            typeParameters: [],
+            returnType: "int",
+            parameters: [
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg0",
+                type: "int"
+              },
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg1",
+                type: "int"
+              }
+            ],
+            thrownTypes: []
+          },
+          {
+            kind: "METHOD",
+            modifiers: "[public, protected]",
+            simpleName: "lastIndexOf",
+            typeParameters: [],
+            returnType: "int",
+            parameters: [
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg0",
+                type: "int"
+              }
+            ],
+            thrownTypes: []
+          },
+          {
+            kind: "METHOD",
+            modifiers: "[public, protected]",
+            simpleName: "lastIndexOf",
+            typeParameters: [],
+            returnType: "int",
+            parameters: [
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg0",
+                type: "int"
+              },
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg1",
+                type: "int"
+              }
+            ],
+            thrownTypes: []
+          },
+          {
+            kind: "METHOD",
+            modifiers: "[private]",
+            simpleName: "lastIndexOfSupplementary",
+            typeParameters: [],
+            returnType: "int",
+            parameters: [
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg0",
+                type: "int"
+              },
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg1",
+                type: "int"
+              }
+            ],
+            thrownTypes: []
+          },
+          {
+            kind: "METHOD",
+            modifiers: "[public, protected]",
+            simpleName: "indexOf",
+            typeParameters: [],
+            returnType: "int",
+            parameters: [
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg0",
+                type: "java.lang.String"
+              }
+            ],
+            thrownTypes: []
+          },
+          {
+            kind: "METHOD",
+            modifiers: "[public, protected]",
+            simpleName: "indexOf",
+            typeParameters: [],
+            returnType: "int",
+            parameters: [
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg0",
+                type: "java.lang.String"
+              },
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg1",
+                type: "int"
+              }
+            ],
+            thrownTypes: []
+          },
+          {
+            kind: "METHOD",
+            modifiers: "[static]",
+            simpleName: "indexOf",
+            typeParameters: [],
+            returnType: "int",
+            parameters: [
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg0",
+                type: "char[]"
+              },
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg1",
+                type: "int"
+              },
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg2",
+                type: "int"
+              },
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg3",
+                type: "java.lang.String"
+              },
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg4",
+                type: "int"
+              }
+            ],
+            thrownTypes: []
+          },
+          {
+            kind: "METHOD",
+            modifiers: "[static]",
+            simpleName: "indexOf",
+            typeParameters: [],
+            returnType: "int",
+            parameters: [
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg0",
+                type: "char[]"
+              },
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg1",
+                type: "int"
+              },
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg2",
+                type: "int"
+              },
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg3",
+                type: "char[]"
+              },
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg4",
+                type: "int"
+              },
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg5",
+                type: "int"
+              },
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg6",
+                type: "int"
+              }
+            ],
+            thrownTypes: []
+          },
+          {
+            kind: "METHOD",
+            modifiers: "[public, protected]",
+            simpleName: "lastIndexOf",
+            typeParameters: [],
+            returnType: "int",
+            parameters: [
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg0",
+                type: "java.lang.String"
+              }
+            ],
+            thrownTypes: []
+          },
+          {
+            kind: "METHOD",
+            modifiers: "[public, protected]",
+            simpleName: "lastIndexOf",
+            typeParameters: [],
+            returnType: "int",
+            parameters: [
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg0",
+                type: "java.lang.String"
+              },
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg1",
+                type: "int"
+              }
+            ],
+            thrownTypes: []
+          },
+          {
+            kind: "METHOD",
+            modifiers: "[static]",
+            simpleName: "lastIndexOf",
+            typeParameters: [],
+            returnType: "int",
+            parameters: [
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg0",
+                type: "char[]"
+              },
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg1",
+                type: "int"
+              },
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg2",
+                type: "int"
+              },
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg3",
+                type: "java.lang.String"
+              },
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg4",
+                type: "int"
+              }
+            ],
+            thrownTypes: []
+          },
+          {
+            kind: "METHOD",
+            modifiers: "[static]",
+            simpleName: "lastIndexOf",
+            typeParameters: [],
+            returnType: "int",
+            parameters: [
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg0",
+                type: "char[]"
+              },
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg1",
+                type: "int"
+              },
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg2",
+                type: "int"
+              },
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg3",
+                type: "char[]"
+              },
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg4",
+                type: "int"
+              },
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg5",
+                type: "int"
+              },
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg6",
+                type: "int"
+              }
+            ],
+            thrownTypes: []
+          },
+          {
+            kind: "METHOD",
+            modifiers: "[public, protected]",
+            simpleName: "substring",
+            typeParameters: [],
+            returnType: "java.lang.String",
+            parameters: [
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg0",
+                type: "int"
+              }
+            ],
+            thrownTypes: []
+          },
+          {
+            kind: "METHOD",
+            modifiers: "[public, protected]",
+            simpleName: "substring",
+            typeParameters: [],
+            returnType: "java.lang.String",
+            parameters: [
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg0",
+                type: "int"
+              },
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg1",
+                type: "int"
+              }
+            ],
+            thrownTypes: []
+          },
+          {
+            kind: "METHOD",
+            modifiers: "[public, protected]",
+            simpleName: "subSequence",
+            typeParameters: [],
+            returnType: "java.lang.CharSequence",
+            parameters: [
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg0",
+                type: "int"
+              },
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg1",
+                type: "int"
+              }
+            ],
+            thrownTypes: []
+          },
+          {
+            kind: "METHOD",
+            modifiers: "[public, protected]",
+            simpleName: "concat",
+            typeParameters: [],
+            returnType: "java.lang.String",
+            parameters: [
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg0",
+                type: "java.lang.String"
+              }
+            ],
+            thrownTypes: []
+          },
+          {
+            kind: "METHOD",
+            modifiers: "[public, protected]",
+            simpleName: "replace",
+            typeParameters: [],
+            returnType: "java.lang.String",
+            parameters: [
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg0",
+                type: "char"
+              },
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg1",
+                type: "char"
+              }
+            ],
+            thrownTypes: []
+          },
+          {
+            kind: "METHOD",
+            modifiers: "[public, protected]",
+            simpleName: "matches",
+            typeParameters: [],
+            returnType: "boolean",
+            parameters: [
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg0",
+                type: "java.lang.String"
+              }
+            ],
+            thrownTypes: []
+          },
+          {
+            kind: "METHOD",
+            modifiers: "[public, protected]",
+            simpleName: "contains",
+            typeParameters: [],
+            returnType: "boolean",
+            parameters: [
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg0",
+                type: "java.lang.CharSequence"
+              }
+            ],
+            thrownTypes: []
+          },
+          {
+            kind: "METHOD",
+            modifiers: "[public, protected]",
+            simpleName: "replaceFirst",
+            typeParameters: [],
+            returnType: "java.lang.String",
+            parameters: [
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg0",
+                type: "java.lang.String"
+              },
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg1",
+                type: "java.lang.String"
+              }
+            ],
+            thrownTypes: []
+          },
+          {
+            kind: "METHOD",
+            modifiers: "[public, protected]",
+            simpleName: "replaceAll",
+            typeParameters: [],
+            returnType: "java.lang.String",
+            parameters: [
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg0",
+                type: "java.lang.String"
+              },
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg1",
+                type: "java.lang.String"
+              }
+            ],
+            thrownTypes: []
+          },
+          {
+            kind: "METHOD",
+            modifiers: "[public, protected]",
+            simpleName: "replace",
+            typeParameters: [],
+            returnType: "java.lang.String",
+            parameters: [
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg0",
+                type: "java.lang.CharSequence"
+              },
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg1",
+                type: "java.lang.CharSequence"
+              }
+            ],
+            thrownTypes: []
+          },
+          {
+            kind: "METHOD",
+            modifiers: "[public, protected]",
+            simpleName: "split",
+            typeParameters: [],
+            returnType: "java.lang.String[]",
+            parameters: [
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg0",
+                type: "java.lang.String"
+              },
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg1",
+                type: "int"
+              }
+            ],
+            thrownTypes: []
+          },
+          {
+            kind: "METHOD",
+            modifiers: "[public, protected]",
+            simpleName: "split",
+            typeParameters: [],
+            returnType: "java.lang.String[]",
+            parameters: [
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg0",
+                type: "java.lang.String"
+              }
+            ],
+            thrownTypes: []
+          },
+          {
+            kind: "METHOD",
+            modifiers: "[public, protected, static, transient]",
+            simpleName: "join",
+            typeParameters: [],
+            returnType: "java.lang.String",
+            parameters: [
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg0",
+                type: "java.lang.CharSequence"
+              },
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg1",
+                type: "java.lang.CharSequence[]"
+              }
+            ],
+            thrownTypes: []
+          },
+          {
+            kind: "METHOD",
+            modifiers: "[public, protected, static]",
+            simpleName: "join",
+            typeParameters: [],
+            returnType: "java.lang.String",
+            parameters: [
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg0",
+                type: "java.lang.CharSequence"
+              },
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg1",
+                type: "java.lang.Iterable<java.lang.CharSequence>"
+              }
+            ],
+            thrownTypes: []
+          },
+          {
+            kind: "METHOD",
+            modifiers: "[public, protected]",
+            simpleName: "toLowerCase",
+            typeParameters: [],
+            returnType: "java.lang.String",
+            parameters: [
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg0",
+                type: "java.util.Locale"
+              }
+            ],
+            thrownTypes: []
+          },
+          {
+            kind: "METHOD",
+            modifiers: "[public, protected]",
+            simpleName: "toLowerCase",
+            typeParameters: [],
+            returnType: "java.lang.String",
+            parameters: [],
+            thrownTypes: []
+          },
+          {
+            kind: "METHOD",
+            modifiers: "[public, protected]",
+            simpleName: "toUpperCase",
+            typeParameters: [],
+            returnType: "java.lang.String",
+            parameters: [
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg0",
+                type: "java.util.Locale"
+              }
+            ],
+            thrownTypes: []
+          },
+          {
+            kind: "METHOD",
+            modifiers: "[public, protected]",
+            simpleName: "toUpperCase",
+            typeParameters: [],
+            returnType: "java.lang.String",
+            parameters: [],
+            thrownTypes: []
+          },
+          {
+            kind: "METHOD",
+            modifiers: "[public, protected]",
+            simpleName: "trim",
+            typeParameters: [],
+            returnType: "java.lang.String",
+            parameters: [],
+            thrownTypes: []
+          },
+          {
+            kind: "METHOD",
+            modifiers: "[public, protected]",
+            simpleName: "toString",
+            typeParameters: [],
+            returnType: "java.lang.String",
+            parameters: [],
+            thrownTypes: []
+          },
+          {
+            kind: "METHOD",
+            modifiers: "[public, protected]",
+            simpleName: "toCharArray",
+            typeParameters: [],
+            returnType: "char[]",
+            parameters: [],
+            thrownTypes: []
+          },
+          {
+            kind: "METHOD",
+            modifiers: "[public, protected, static, transient]",
+            simpleName: "format",
+            typeParameters: [],
+            returnType: "java.lang.String",
+            parameters: [
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg0",
+                type: "java.lang.String"
+              },
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg1",
+                type: "java.lang.Object[]"
+              }
+            ],
+            thrownTypes: []
+          },
+          {
+            kind: "METHOD",
+            modifiers: "[public, protected, static, transient]",
+            simpleName: "format",
+            typeParameters: [],
+            returnType: "java.lang.String",
+            parameters: [
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg0",
+                type: "java.util.Locale"
+              },
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg1",
+                type: "java.lang.String"
+              },
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg2",
+                type: "java.lang.Object[]"
+              }
+            ],
+            thrownTypes: []
+          },
+          {
+            kind: "METHOD",
+            modifiers: "[public, protected, static]",
+            simpleName: "valueOf",
+            typeParameters: [],
+            returnType: "java.lang.String",
+            parameters: [
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg0",
+                type: "java.lang.Object"
+              }
+            ],
+            thrownTypes: []
+          },
+          {
+            kind: "METHOD",
+            modifiers: "[public, protected, static]",
+            simpleName: "valueOf",
+            typeParameters: [],
+            returnType: "java.lang.String",
+            parameters: [
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg0",
+                type: "char[]"
+              }
+            ],
+            thrownTypes: []
+          },
+          {
+            kind: "METHOD",
+            modifiers: "[public, protected, static]",
+            simpleName: "valueOf",
+            typeParameters: [],
+            returnType: "java.lang.String",
+            parameters: [
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg0",
+                type: "char[]"
+              },
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg1",
+                type: "int"
+              },
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg2",
+                type: "int"
+              }
+            ],
+            thrownTypes: []
+          },
+          {
+            kind: "METHOD",
+            modifiers: "[public, protected, static]",
+            simpleName: "copyValueOf",
+            typeParameters: [],
+            returnType: "java.lang.String",
+            parameters: [
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg0",
+                type: "char[]"
+              },
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg1",
+                type: "int"
+              },
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg2",
+                type: "int"
+              }
+            ],
+            thrownTypes: []
+          },
+          {
+            kind: "METHOD",
+            modifiers: "[public, protected, static]",
+            simpleName: "copyValueOf",
+            typeParameters: [],
+            returnType: "java.lang.String",
+            parameters: [
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg0",
+                type: "char[]"
+              }
+            ],
+            thrownTypes: []
+          },
+          {
+            kind: "METHOD",
+            modifiers: "[public, protected, static]",
+            simpleName: "valueOf",
+            typeParameters: [],
+            returnType: "java.lang.String",
+            parameters: [
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg0",
+                type: "boolean"
+              }
+            ],
+            thrownTypes: []
+          },
+          {
+            kind: "METHOD",
+            modifiers: "[public, protected, static]",
+            simpleName: "valueOf",
+            typeParameters: [],
+            returnType: "java.lang.String",
+            parameters: [
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg0",
+                type: "char"
+              }
+            ],
+            thrownTypes: []
+          },
+          {
+            kind: "METHOD",
+            modifiers: "[public, protected, static]",
+            simpleName: "valueOf",
+            typeParameters: [],
+            returnType: "java.lang.String",
+            parameters: [
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg0",
+                type: "int"
+              }
+            ],
+            thrownTypes: []
+          },
+          {
+            kind: "METHOD",
+            modifiers: "[public, protected, static]",
+            simpleName: "valueOf",
+            typeParameters: [],
+            returnType: "java.lang.String",
+            parameters: [
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg0",
+                type: "long"
+              }
+            ],
+            thrownTypes: []
+          },
+          {
+            kind: "METHOD",
+            modifiers: "[public, protected, static]",
+            simpleName: "valueOf",
+            typeParameters: [],
+            returnType: "java.lang.String",
+            parameters: [
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg0",
+                type: "float"
+              }
+            ],
+            thrownTypes: []
+          },
+          {
+            kind: "METHOD",
+            modifiers: "[public, protected, static]",
+            simpleName: "valueOf",
+            typeParameters: [],
+            returnType: "java.lang.String",
+            parameters: [
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg0",
+                type: "double"
+              }
+            ],
+            thrownTypes: []
+          },
+          {
+            kind: "METHOD",
+            modifiers: "[public, protected, native]",
+            simpleName: "intern",
+            typeParameters: [],
+            returnType: "java.lang.String",
+            parameters: [],
+            thrownTypes: []
+          },
+          {
+            kind: "METHOD",
+            modifiers: "[public, protected, volatile]",
+            simpleName: "compareTo",
+            typeParameters: [],
+            returnType: "int",
+            parameters: [
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg0",
+                type: "java.lang.Object"
+              }
+            ],
+            thrownTypes: []
+          },
+          {
+            kind: "STATIC_INIT",
+            modifiers: "[static]",
+            simpleName: "<clinit>",
+            typeParameters: [],
+            returnType: "void",
+            parameters: [],
+            thrownTypes: []
+          }
+        ]
+      },
+      {
+        kind: "CLASS",
+        modifiers: "[public, protected, synchronized]",
+        qualifiedName: "java.lang.Boolean",
+        simpleName: "Boolean",
+        typeParameters: [],
+        superClass: "java.lang.Object",
+        interfaces: [
+          "java.io.Serializable",
+          "java.lang.Comparable<java.lang.Boolean>"
+        ],
+        enclosedElements: [
+          {
+            kind: "FIELD",
+            modifiers: "[public, protected, static]",
+            simpleName: "TRUE",
+            type: "java.lang.Boolean"
+          },
+          {
+            kind: "FIELD",
+            modifiers: "[public, protected, static]",
+            simpleName: "FALSE",
+            type: "java.lang.Boolean"
+          },
+          {
+            kind: "FIELD",
+            modifiers: "[public, protected, static]",
+            simpleName: "TYPE",
+            type: "java.lang.Class<java.lang.Boolean>"
+          },
+          {
+            kind: "FIELD",
+            modifiers: "[private]",
+            simpleName: "value",
+            type: "boolean"
+          },
+          {
+            kind: "FIELD",
+            modifiers: "[private, static]",
+            simpleName: "serialVersionUID",
+            type: "long"
+          },
+          {
+            kind: "CONSTRUCTOR",
+            modifiers: "[public, protected]",
+            simpleName: "<init>",
+            typeParameters: [],
+            returnType: "void",
+            parameters: [
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg0",
+                type: "boolean"
+              }
+            ],
+            thrownTypes: []
+          },
+          {
+            kind: "CONSTRUCTOR",
+            modifiers: "[public, protected]",
+            simpleName: "<init>",
+            typeParameters: [],
+            returnType: "void",
+            parameters: [
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg0",
+                type: "java.lang.String"
+              }
+            ],
+            thrownTypes: []
+          },
+          {
+            kind: "METHOD",
+            modifiers: "[public, protected, static]",
+            simpleName: "parseBoolean",
+            typeParameters: [],
+            returnType: "boolean",
+            parameters: [
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg0",
+                type: "java.lang.String"
+              }
+            ],
+            thrownTypes: []
+          },
+          {
+            kind: "METHOD",
+            modifiers: "[public, protected]",
+            simpleName: "booleanValue",
+            typeParameters: [],
+            returnType: "boolean",
+            parameters: [],
+            thrownTypes: []
+          },
+          {
+            kind: "METHOD",
+            modifiers: "[public, protected, static]",
+            simpleName: "valueOf",
+            typeParameters: [],
+            returnType: "java.lang.Boolean",
+            parameters: [
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg0",
+                type: "boolean"
+              }
+            ],
+            thrownTypes: []
+          },
+          {
+            kind: "METHOD",
+            modifiers: "[public, protected, static]",
+            simpleName: "valueOf",
+            typeParameters: [],
+            returnType: "java.lang.Boolean",
+            parameters: [
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg0",
+                type: "java.lang.String"
+              }
+            ],
+            thrownTypes: []
+          },
+          {
+            kind: "METHOD",
+            modifiers: "[public, protected, static]",
+            simpleName: "toString",
+            typeParameters: [],
+            returnType: "java.lang.String",
+            parameters: [
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg0",
+                type: "boolean"
+              }
+            ],
+            thrownTypes: []
+          },
+          {
+            kind: "METHOD",
+            modifiers: "[public, protected]",
+            simpleName: "toString",
+            typeParameters: [],
+            returnType: "java.lang.String",
+            parameters: [],
+            thrownTypes: []
+          },
+          {
+            kind: "METHOD",
+            modifiers: "[public, protected]",
+            simpleName: "hashCode",
+            typeParameters: [],
+            returnType: "int",
+            parameters: [],
+            thrownTypes: []
+          },
+          {
+            kind: "METHOD",
+            modifiers: "[public, protected, static]",
+            simpleName: "hashCode",
+            typeParameters: [],
+            returnType: "int",
+            parameters: [
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg0",
+                type: "boolean"
+              }
+            ],
+            thrownTypes: []
+          },
+          {
+            kind: "METHOD",
+            modifiers: "[public, protected]",
+            simpleName: "equals",
+            typeParameters: [],
+            returnType: "boolean",
+            parameters: [
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg0",
+                type: "java.lang.Object"
+              }
+            ],
+            thrownTypes: []
+          },
+          {
+            kind: "METHOD",
+            modifiers: "[public, protected, static]",
+            simpleName: "getBoolean",
+            typeParameters: [],
+            returnType: "boolean",
+            parameters: [
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg0",
+                type: "java.lang.String"
+              }
+            ],
+            thrownTypes: []
+          },
+          {
+            kind: "METHOD",
+            modifiers: "[public, protected]",
+            simpleName: "compareTo",
+            typeParameters: [],
+            returnType: "int",
+            parameters: [
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg0",
+                type: "java.lang.Boolean"
+              }
+            ],
+            thrownTypes: []
+          },
+          {
+            kind: "METHOD",
+            modifiers: "[public, protected, static]",
+            simpleName: "compare",
+            typeParameters: [],
+            returnType: "int",
+            parameters: [
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg0",
+                type: "boolean"
+              },
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg1",
+                type: "boolean"
+              }
+            ],
+            thrownTypes: []
+          },
+          {
+            kind: "METHOD",
+            modifiers: "[public, protected, static]",
+            simpleName: "logicalAnd",
+            typeParameters: [],
+            returnType: "boolean",
+            parameters: [
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg0",
+                type: "boolean"
+              },
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg1",
+                type: "boolean"
+              }
+            ],
+            thrownTypes: []
+          },
+          {
+            kind: "METHOD",
+            modifiers: "[public, protected, static]",
+            simpleName: "logicalOr",
+            typeParameters: [],
+            returnType: "boolean",
+            parameters: [
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg0",
+                type: "boolean"
+              },
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg1",
+                type: "boolean"
+              }
+            ],
+            thrownTypes: []
+          },
+          {
+            kind: "METHOD",
+            modifiers: "[public, protected, static]",
+            simpleName: "logicalXor",
+            typeParameters: [],
+            returnType: "boolean",
+            parameters: [
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg0",
+                type: "boolean"
+              },
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg1",
+                type: "boolean"
+              }
+            ],
+            thrownTypes: []
+          },
+          {
+            kind: "METHOD",
+            modifiers: "[public, protected, volatile]",
+            simpleName: "compareTo",
+            typeParameters: [],
+            returnType: "int",
+            parameters: [
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg0",
+                type: "java.lang.Object"
+              }
+            ],
+            thrownTypes: []
+          },
+          {
+            kind: "STATIC_INIT",
+            modifiers: "[static]",
+            simpleName: "<clinit>",
+            typeParameters: [],
+            returnType: "void",
+            parameters: [],
+            thrownTypes: []
+          }
+        ]
+      },
+      {
+        kind: "CLASS",
+        modifiers: "[public, protected, synchronized]",
+        qualifiedName: "java.lang.Throwable",
+        simpleName: "Throwable",
+        typeParameters: [],
+        superClass: "java.lang.Object",
+        interfaces: [
+          "java.io.Serializable"
+        ],
+        enclosedElements: [
+          {
+            kind: "FIELD",
+            modifiers: "[private, static]",
+            simpleName: "serialVersionUID",
+            type: "long"
+          },
+          {
+            kind: "FIELD",
+            modifiers: "[private, transient]",
+            simpleName: "backtrace",
+            type: "java.lang.Object"
+          },
+          {
+            kind: "FIELD",
+            modifiers: "[private]",
+            simpleName: "detailMessage",
+            type: "java.lang.String"
+          },
+          {
+            kind: "FIELD",
+            modifiers: "[private, static]",
+            simpleName: "UNASSIGNED_STACK",
+            type: "java.lang.StackTraceElement[]"
+          },
+          {
+            kind: "FIELD",
+            modifiers: "[private]",
+            simpleName: "cause",
+            type: "java.lang.Throwable"
+          },
+          {
+            kind: "FIELD",
+            modifiers: "[private]",
+            simpleName: "stackTrace",
+            type: "java.lang.StackTraceElement[]"
+          },
+          {
+            kind: "FIELD",
+            modifiers: "[private, static]",
+            simpleName: "SUPPRESSED_SENTINEL",
+            type: "java.util.List<java.lang.Throwable>"
+          },
+          {
+            kind: "FIELD",
+            modifiers: "[private]",
+            simpleName: "suppressedExceptions",
+            type: "java.util.List<java.lang.Throwable>"
+          },
+          {
+            kind: "FIELD",
+            modifiers: "[private, static]",
+            simpleName: "NULL_CAUSE_MESSAGE",
+            type: "java.lang.String"
+          },
+          {
+            kind: "FIELD",
+            modifiers: "[private, static]",
+            simpleName: "SELF_SUPPRESSION_MESSAGE",
+            type: "java.lang.String"
+          },
+          {
+            kind: "FIELD",
+            modifiers: "[private, static]",
+            simpleName: "CAUSE_CAPTION",
+            type: "java.lang.String"
+          },
+          {
+            kind: "FIELD",
+            modifiers: "[private, static]",
+            simpleName: "SUPPRESSED_CAPTION",
+            type: "java.lang.String"
+          },
+          {
+            kind: "FIELD",
+            modifiers: "[private, static]",
+            simpleName: "EMPTY_THROWABLE_ARRAY",
+            type: "java.lang.Throwable[]"
+          },
+          {
+            kind: "FIELD",
+            modifiers: "[static]",
+            simpleName: "$assertionsDisabled",
+            type: "boolean"
+          },
+          {
+            kind: "CONSTRUCTOR",
+            modifiers: "[public, protected]",
+            simpleName: "<init>",
+            typeParameters: [],
+            returnType: "void",
+            parameters: [],
+            thrownTypes: []
+          },
+          {
+            kind: "CONSTRUCTOR",
+            modifiers: "[public, protected]",
+            simpleName: "<init>",
+            typeParameters: [],
+            returnType: "void",
+            parameters: [
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg0",
+                type: "java.lang.String"
+              }
+            ],
+            thrownTypes: []
+          },
+          {
+            kind: "CONSTRUCTOR",
+            modifiers: "[public, protected]",
+            simpleName: "<init>",
+            typeParameters: [],
+            returnType: "void",
+            parameters: [
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg0",
+                type: "java.lang.String"
+              },
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg1",
+                type: "java.lang.Throwable"
+              }
+            ],
+            thrownTypes: []
+          },
+          {
+            kind: "CONSTRUCTOR",
+            modifiers: "[public, protected]",
+            simpleName: "<init>",
+            typeParameters: [],
+            returnType: "void",
+            parameters: [
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg0",
+                type: "java.lang.Throwable"
+              }
+            ],
+            thrownTypes: []
+          },
+          {
+            kind: "CONSTRUCTOR",
+            modifiers: "[]",
+            simpleName: "<init>",
+            typeParameters: [],
+            returnType: "void",
+            parameters: [
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg0",
+                type: "java.lang.String"
+              },
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg1",
+                type: "java.lang.Throwable"
+              },
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg2",
+                type: "boolean"
+              },
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg3",
+                type: "boolean"
+              }
+            ],
+            thrownTypes: []
+          },
+          {
+            kind: "METHOD",
+            modifiers: "[public, protected]",
+            simpleName: "getMessage",
+            typeParameters: [],
+            returnType: "java.lang.String",
+            parameters: [],
+            thrownTypes: []
+          },
+          {
+            kind: "METHOD",
+            modifiers: "[public, protected]",
+            simpleName: "getLocalizedMessage",
+            typeParameters: [],
+            returnType: "java.lang.String",
+            parameters: [],
+            thrownTypes: []
+          },
+          {
+            kind: "METHOD",
+            modifiers: "[public, protected, synchronized]",
+            simpleName: "getCause",
+            typeParameters: [],
+            returnType: "java.lang.Throwable",
+            parameters: [],
+            thrownTypes: []
+          },
+          {
+            kind: "METHOD",
+            modifiers: "[public, protected, synchronized]",
+            simpleName: "initCause",
+            typeParameters: [],
+            returnType: "java.lang.Throwable",
+            parameters: [
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg0",
+                type: "java.lang.Throwable"
+              }
+            ],
+            thrownTypes: []
+          },
+          {
+            kind: "METHOD",
+            modifiers: "[public, protected]",
+            simpleName: "toString",
+            typeParameters: [],
+            returnType: "java.lang.String",
+            parameters: [],
+            thrownTypes: []
+          },
+          {
+            kind: "METHOD",
+            modifiers: "[public, protected]",
+            simpleName: "printStackTrace",
+            typeParameters: [],
+            returnType: "void",
+            parameters: [],
+            thrownTypes: []
+          },
+          {
+            kind: "METHOD",
+            modifiers: "[public, protected]",
+            simpleName: "printStackTrace",
+            typeParameters: [],
+            returnType: "void",
+            parameters: [
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg0",
+                type: "java.io.PrintStream"
+              }
+            ],
+            thrownTypes: []
+          },
+          {
+            kind: "METHOD",
+            modifiers: "[private]",
+            simpleName: "printStackTrace",
+            typeParameters: [],
+            returnType: "void",
+            parameters: [
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg0",
+                type: "PrintStreamOrWriter"
+              }
+            ],
+            thrownTypes: []
+          },
+          {
+            kind: "METHOD",
+            modifiers: "[private]",
+            simpleName: "printEnclosedStackTrace",
+            typeParameters: [],
+            returnType: "void",
+            parameters: [
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg0",
+                type: "PrintStreamOrWriter"
+              },
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg1",
+                type: "java.lang.StackTraceElement[]"
+              },
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg2",
+                type: "java.lang.String"
+              },
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg3",
+                type: "java.lang.String"
+              },
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg4",
+                type: "java.util.Set<java.lang.Throwable>"
+              }
+            ],
+            thrownTypes: []
+          },
+          {
+            kind: "METHOD",
+            modifiers: "[public, protected]",
+            simpleName: "printStackTrace",
+            typeParameters: [],
+            returnType: "void",
+            parameters: [
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg0",
+                type: "java.io.PrintWriter"
+              }
+            ],
+            thrownTypes: []
+          },
+          {
+            kind: "METHOD",
+            modifiers: "[public, protected, synchronized]",
+            simpleName: "fillInStackTrace",
+            typeParameters: [],
+            returnType: "java.lang.Throwable",
+            parameters: [],
+            thrownTypes: []
+          },
+          {
+            kind: "METHOD",
+            modifiers: "[private, native]",
+            simpleName: "fillInStackTrace",
+            typeParameters: [],
+            returnType: "java.lang.Throwable",
+            parameters: [
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg0",
+                type: "int"
+              }
+            ],
+            thrownTypes: []
+          },
+          {
+            kind: "METHOD",
+            modifiers: "[public, protected]",
+            simpleName: "getStackTrace",
+            typeParameters: [],
+            returnType: "java.lang.StackTraceElement[]",
+            parameters: [],
+            thrownTypes: []
+          },
+          {
+            kind: "METHOD",
+            modifiers: "[private, synchronized]",
+            simpleName: "getOurStackTrace",
+            typeParameters: [],
+            returnType: "java.lang.StackTraceElement[]",
+            parameters: [],
+            thrownTypes: []
+          },
+          {
+            kind: "METHOD",
+            modifiers: "[public, protected]",
+            simpleName: "setStackTrace",
+            typeParameters: [],
+            returnType: "void",
+            parameters: [
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg0",
+                type: "java.lang.StackTraceElement[]"
+              }
+            ],
+            thrownTypes: []
+          },
+          {
+            kind: "METHOD",
+            modifiers: "[native]",
+            simpleName: "getStackTraceDepth",
+            typeParameters: [],
+            returnType: "int",
+            parameters: [],
+            thrownTypes: []
+          },
+          {
+            kind: "METHOD",
+            modifiers: "[native]",
+            simpleName: "getStackTraceElement",
+            typeParameters: [],
+            returnType: "java.lang.StackTraceElement",
+            parameters: [
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg0",
+                type: "int"
+              }
+            ],
+            thrownTypes: []
+          },
+          {
+            kind: "METHOD",
+            modifiers: "[private]",
+            simpleName: "readObject",
+            typeParameters: [],
+            returnType: "void",
+            parameters: [
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg0",
+                type: "java.io.ObjectInputStream"
+              }
+            ],
+            thrownTypes: [
+              "java.io.IOException",
+              "java.lang.ClassNotFoundException"
+            ]
+          },
+          {
+            kind: "METHOD",
+            modifiers: "[private, synchronized]",
+            simpleName: "writeObject",
+            typeParameters: [],
+            returnType: "void",
+            parameters: [
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg0",
+                type: "java.io.ObjectOutputStream"
+              }
+            ],
+            thrownTypes: [
+              "java.io.IOException"
+            ]
+          },
+          {
+            kind: "METHOD",
+            modifiers: "[public, protected, synchronized]",
+            simpleName: "addSuppressed",
+            typeParameters: [],
+            returnType: "void",
+            parameters: [
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg0",
+                type: "java.lang.Throwable"
+              }
+            ],
+            thrownTypes: []
+          },
+          {
+            kind: "METHOD",
+            modifiers: "[public, protected, synchronized]",
+            simpleName: "getSuppressed",
+            typeParameters: [],
+            returnType: "java.lang.Throwable[]",
+            parameters: [],
+            thrownTypes: []
+          },
+          {
+            kind: "STATIC_INIT",
+            modifiers: "[static]",
+            simpleName: "<clinit>",
+            typeParameters: [],
+            returnType: "void",
+            parameters: [],
+            thrownTypes: []
+          }
+        ]
+      },
+      {
+        kind: "CLASS",
+        modifiers: "[public, protected, synchronized]",
+        qualifiedName: "java.lang.Object",
+        simpleName: "Object",
+        typeParameters: [],
+        superClass: "_bottom_",
+        interfaces: [],
+        enclosedElements: [
+          {
+            kind: "CONSTRUCTOR",
+            modifiers: "[public, protected]",
+            simpleName: "<init>",
+            typeParameters: [],
+            returnType: "void",
+            parameters: [],
+            thrownTypes: []
+          },
+          {
+            kind: "METHOD",
+            modifiers: "[private, static, native]",
+            simpleName: "registerNatives",
+            typeParameters: [],
+            returnType: "void",
+            parameters: [],
+            thrownTypes: []
+          },
+          {
+            kind: "METHOD",
+            modifiers: "[public, protected, native]",
+            simpleName: "getClass",
+            typeParameters: [],
+            returnType: "java.lang.Class<?>",
+            parameters: [],
+            thrownTypes: []
+          },
+          {
+            kind: "METHOD",
+            modifiers: "[public, protected, native]",
+            simpleName: "hashCode",
+            typeParameters: [],
+            returnType: "int",
+            parameters: [],
+            thrownTypes: []
+          },
+          {
+            kind: "METHOD",
+            modifiers: "[public, protected]",
+            simpleName: "equals",
+            typeParameters: [],
+            returnType: "boolean",
+            parameters: [
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg0",
+                type: "java.lang.Object"
+              }
+            ],
+            thrownTypes: []
+          },
+          {
+            kind: "METHOD",
+            modifiers: "[native]",
+            simpleName: "clone",
+            typeParameters: [],
+            returnType: "java.lang.Object",
+            parameters: [],
+            thrownTypes: [
+              "java.lang.CloneNotSupportedException"
+            ]
+          },
+          {
+            kind: "METHOD",
+            modifiers: "[public, protected]",
+            simpleName: "toString",
+            typeParameters: [],
+            returnType: "java.lang.String",
+            parameters: [],
+            thrownTypes: []
+          },
+          {
+            kind: "METHOD",
+            modifiers: "[public, protected, native]",
+            simpleName: "notify",
+            typeParameters: [],
+            returnType: "void",
+            parameters: [],
+            thrownTypes: []
+          },
+          {
+            kind: "METHOD",
+            modifiers: "[public, protected, native]",
+            simpleName: "notifyAll",
+            typeParameters: [],
+            returnType: "void",
+            parameters: [],
+            thrownTypes: []
+          },
+          {
+            kind: "METHOD",
+            modifiers: "[public, protected, native]",
+            simpleName: "wait",
+            typeParameters: [],
+            returnType: "void",
+            parameters: [
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg0",
+                type: "long"
+              }
+            ],
+            thrownTypes: [
+              "java.lang.InterruptedException"
+            ]
+          },
+          {
+            kind: "METHOD",
+            modifiers: "[public, protected]",
+            simpleName: "wait",
+            typeParameters: [],
+            returnType: "void",
+            parameters: [
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg0",
+                type: "long"
+              },
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg1",
+                type: "int"
+              }
+            ],
+            thrownTypes: [
+              "java.lang.InterruptedException"
+            ]
+          },
+          {
+            kind: "METHOD",
+            modifiers: "[public, protected]",
+            simpleName: "wait",
+            typeParameters: [],
+            returnType: "void",
+            parameters: [],
+            thrownTypes: [
+              "java.lang.InterruptedException"
+            ]
+          },
+          {
+            kind: "METHOD",
+            modifiers: "[]",
+            simpleName: "finalize",
+            typeParameters: [],
+            returnType: "void",
+            parameters: [],
+            thrownTypes: [
+              "java.lang.Throwable"
+            ]
+          },
+          {
+            kind: "STATIC_INIT",
+            modifiers: "[static]",
+            simpleName: "<clinit>",
+            typeParameters: [],
+            returnType: "void",
+            parameters: [],
+            thrownTypes: []
+          }
+        ]
+      },
+      {
+        kind: "CLASS",
+        modifiers: "[public, protected, abstract, synchronized]",
+        qualifiedName: "java.lang.Enum",
+        simpleName: "Enum",
+        typeParameters: [
+          {
+            kind: "TYPE_PARAMETER",
+            modifiers: "[]",
+            simpleName: "E",
+            bounds: [
+              "java.lang.Enum<E>"
+            ]
+          }
+        ],
+        superClass: "java.lang.Object",
+        interfaces: [
+          "java.lang.Comparable<E>",
+          "java.io.Serializable"
+        ],
+        enclosedElements: [
+          {
+            kind: "FIELD",
+            modifiers: "[private]",
+            simpleName: "name",
+            type: "java.lang.String"
+          },
+          {
+            kind: "FIELD",
+            modifiers: "[private]",
+            simpleName: "ordinal",
+            type: "int"
+          },
+          {
+            kind: "METHOD",
+            modifiers: "[public, protected]",
+            simpleName: "name",
+            typeParameters: [],
+            returnType: "java.lang.String",
+            parameters: [],
+            thrownTypes: []
+          },
+          {
+            kind: "METHOD",
+            modifiers: "[public, protected]",
+            simpleName: "ordinal",
+            typeParameters: [],
+            returnType: "int",
+            parameters: [],
+            thrownTypes: []
+          },
+          {
+            kind: "CONSTRUCTOR",
+            modifiers: "[]",
+            simpleName: "<init>",
+            typeParameters: [],
+            returnType: "void",
+            parameters: [
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg0",
+                type: "java.lang.String"
+              },
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg1",
+                type: "int"
+              }
+            ],
+            thrownTypes: []
+          },
+          {
+            kind: "METHOD",
+            modifiers: "[public, protected]",
+            simpleName: "toString",
+            typeParameters: [],
+            returnType: "java.lang.String",
+            parameters: [],
+            thrownTypes: []
+          },
+          {
+            kind: "METHOD",
+            modifiers: "[public, protected]",
+            simpleName: "equals",
+            typeParameters: [],
+            returnType: "boolean",
+            parameters: [
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg0",
+                type: "java.lang.Object"
+              }
+            ],
+            thrownTypes: []
+          },
+          {
+            kind: "METHOD",
+            modifiers: "[public, protected]",
+            simpleName: "hashCode",
+            typeParameters: [],
+            returnType: "int",
+            parameters: [],
+            thrownTypes: []
+          },
+          {
+            kind: "METHOD",
+            modifiers: "[]",
+            simpleName: "clone",
+            typeParameters: [],
+            returnType: "java.lang.Object",
+            parameters: [],
+            thrownTypes: [
+              "java.lang.CloneNotSupportedException"
+            ]
+          },
+          {
+            kind: "METHOD",
+            modifiers: "[public, protected]",
+            simpleName: "compareTo",
+            typeParameters: [],
+            returnType: "int",
+            parameters: [
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg0",
+                type: "E"
+              }
+            ],
+            thrownTypes: []
+          },
+          {
+            kind: "METHOD",
+            modifiers: "[public, protected]",
+            simpleName: "getDeclaringClass",
+            typeParameters: [],
+            returnType: "java.lang.Class<E>",
+            parameters: [],
+            thrownTypes: []
+          },
+          {
+            kind: "METHOD",
+            modifiers: "[public, protected, static]",
+            simpleName: "valueOf",
+            typeParameters: [
+              {
+                kind: "TYPE_PARAMETER",
+                modifiers: "[]",
+                simpleName: "T",
+                bounds: [
+                  "java.lang.Enum<T>"
+                ]
+              }
+            ],
+            returnType: "T",
+            parameters: [
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg0",
+                type: "java.lang.Class<T>"
+              },
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg1",
+                type: "java.lang.String"
+              }
+            ],
+            thrownTypes: []
+          },
+          {
+            kind: "METHOD",
+            modifiers: "[]",
+            simpleName: "finalize",
+            typeParameters: [],
+            returnType: "void",
+            parameters: [],
+            thrownTypes: []
+          },
+          {
+            kind: "METHOD",
+            modifiers: "[private]",
+            simpleName: "readObject",
+            typeParameters: [],
+            returnType: "void",
+            parameters: [
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg0",
+                type: "java.io.ObjectInputStream"
+              }
+            ],
+            thrownTypes: [
+              "java.io.IOException",
+              "java.lang.ClassNotFoundException"
+            ]
+          },
+          {
+            kind: "METHOD",
+            modifiers: "[private]",
+            simpleName: "readObjectNoData",
+            typeParameters: [],
+            returnType: "void",
+            parameters: [],
+            thrownTypes: [
+              "java.io.ObjectStreamException"
+            ]
+          },
+          {
+            kind: "METHOD",
+            modifiers: "[public, protected, volatile]",
+            simpleName: "compareTo",
+            typeParameters: [],
+            returnType: "int",
+            parameters: [
+              {
+                kind: "PARAMETER",
+                modifiers: "[]",
+                simpleName: "arg0",
+                type: "java.lang.Object"
+              }
+            ],
+            thrownTypes: []
+          }
+        ]
+      }
+    ]
+  }
+]

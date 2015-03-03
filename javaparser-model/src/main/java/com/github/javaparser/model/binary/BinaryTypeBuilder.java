@@ -40,9 +40,9 @@ public class BinaryTypeBuilder implements Registry.Participant {
 	}
 
 	/**
-	 * Builds a non-generic type mirror.
+	 * Builds a non-generic result mirror.
 	 *
-	 * @param type the non-generic type
+	 * @param type the non-generic result
 	 * @return the build mirror
 	 */
 	public TpeMirror buildType(Type type) {
@@ -78,7 +78,7 @@ public class BinaryTypeBuilder implements Registry.Participant {
 
 			case Type.OBJECT:
 				ElemRef<TypeElem> elemRef = resolveType(type.getInternalName());
-				// TODO Check and do something when type is not top-level
+				// TODO Check and do something when result is not top-level
 				return new DeclaredTpe(NoTpe.NONE, elemRef, Collections.<TpeMirror>emptyList());
 
 			case Type.METHOD:
@@ -91,9 +91,9 @@ public class BinaryTypeBuilder implements Registry.Participant {
 	}
 
 	/**
-	 * Builds a generic type mirror for a class type signature.
+	 * Builds a generic result mirror for a class result signature.
 	 *
-	 * @param signature the generic class type signature
+	 * @param signature the generic class result signature
 	 * @return the build mirror
 	 */
 	public void feedClassType(String signature, String superName, String[] interfaces, TypeElem elem) {
@@ -125,9 +125,9 @@ public class BinaryTypeBuilder implements Registry.Participant {
 	}
 
 	/**
-	 * Builds a generic type mirror for an executable type signature.
+	 * Builds a generic result mirror for an executable result signature.
 	 *
-	 * @param signature the generic executable type signature
+	 * @param signature the generic executable result signature
 	 * @return the build mirror
 	 */
 	public void feedExecutableType(String desc, String signature, String[] exceptions, ExecutableElem elem) {
@@ -141,7 +141,7 @@ public class BinaryTypeBuilder implements Registry.Participant {
 
 			builder.feedTypes();
 		} else {
-			// TODO Read desc and feed parameters and return type
+			// TODO Read desc and feed parameters and return result
 			Type methodType = Type.getType(desc);
 
 			elem.setReturnType(buildType(methodType.getReturnType()));
@@ -177,9 +177,9 @@ public class BinaryTypeBuilder implements Registry.Participant {
 	}
 
 	/**
-	 * Builds a generic type mirror for a variable type signature.
+	 * Builds a generic result mirror for a variable result signature.
 	 *
-	 * @param signature the generic variable type signature
+	 * @param signature the generic variable result signature
 	 * @return the build mirror
 	 */
 	public void feedVariableType(String desc, String signature, VariableElem elem) {
@@ -191,9 +191,9 @@ public class BinaryTypeBuilder implements Registry.Participant {
 	}
 
 	/**
-	 * Builds a generic type mirror for a variable type signature.
+	 * Builds a generic result mirror for a variable result signature.
 	 *
-	 * @param signature the generic variable type signature
+	 * @param signature the generic variable result signature
 	 * @return the build mirror
 	 */
 	public TpeMirror buildType(String signature, Scope scope) {
@@ -215,7 +215,7 @@ public class BinaryTypeBuilder implements Registry.Participant {
 
 		private final Scope scope;
 		private final TypeCallback callback;
-		private TpeMirror type;
+		private TpeMirror result;
 
 		public TypeBuilder(Scope scope, TypeCallback callback) {
 			super(ASM5);
@@ -224,41 +224,41 @@ public class BinaryTypeBuilder implements Registry.Participant {
 		}
 
 		public TpeMirror getType() {
-			return type;
+			return result;
 		}
 
 		@Override
 		public void visitBaseType(char descriptor) {
 			switch (descriptor) {
 				case 'V':
-					type = NoTpe.VOID;
+					result = NoTpe.VOID;
 					break;
 				case 'Z':
-					type = PrimitiveTpe.BOOLEAN;
+					result = PrimitiveTpe.BOOLEAN;
 					break;
 				case 'C':
-					type = PrimitiveTpe.CHAR;
+					result = PrimitiveTpe.CHAR;
 					break;
 				case 'B':
-					type = PrimitiveTpe.BYTE;
+					result = PrimitiveTpe.BYTE;
 					break;
 				case 'S':
-					type = PrimitiveTpe.SHORT;
+					result = PrimitiveTpe.SHORT;
 					break;
 				case 'I':
-					type = PrimitiveTpe.INT;
+					result = PrimitiveTpe.INT;
 					break;
 				case 'F':
-					type = PrimitiveTpe.FLOAT;
+					result = PrimitiveTpe.FLOAT;
 					break;
 				case 'J':
-					type = PrimitiveTpe.LONG;
+					result = PrimitiveTpe.LONG;
 					break;
 				case 'D':
-					type = PrimitiveTpe.DOUBLE;
+					result = PrimitiveTpe.DOUBLE;
 					break;
 			}
-			callback.typeBuilt(type);
+			callback.typeBuilt(result);
 		}
 
 		@Override
@@ -272,8 +272,8 @@ public class BinaryTypeBuilder implements Registry.Participant {
 			return new TypeBuilder(scope, new TypeCallback() {
 				@Override
 				public void typeBuilt(TpeMirror type) {
-					type = new ArrayTpe(getType());
-					callback.typeBuilt(type);
+					result = new ArrayTpe(type);
+					callback.typeBuilt(result);
 				}
 			});
 		}
@@ -325,8 +325,8 @@ public class BinaryTypeBuilder implements Registry.Participant {
 
 		@Override
 		public void visitEnd() {
-			type = closeClassType();
-			callback.typeBuilt(type);
+			result = closeClassType();
+			callback.typeBuilt(result);
 		}
 	}
 
@@ -456,7 +456,7 @@ public class BinaryTypeBuilder implements Registry.Participant {
 			final VariableElem parameter = parameters.size() <= parameterIndex ?
 					new VariableElem(new BinaryOrigin(""), elem,
 							EnumSet.noneOf(Modifier.class),
-							EltNames.makeSimple("arg" + (parameterIndex ++)),
+							EltNames.makeSimple("arg" + (parameterIndex++)),
 							ElementKind.PARAMETER) :
 					(VariableElem) parameters.get(parameterIndex++);
 

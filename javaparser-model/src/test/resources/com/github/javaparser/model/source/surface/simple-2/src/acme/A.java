@@ -9,7 +9,8 @@ public class A implements Interface1 {
 	public A() {
 	}
 
-	public static void staticMethodWithArgs(int intArg, String stringArg) {
+	// TODO Check that thrown types correctly extend java.lang.Throwable
+	public static void staticMethodWithArgs(int intArg, String stringArg) throws IllegalArgumentException {
 	}
 }
 

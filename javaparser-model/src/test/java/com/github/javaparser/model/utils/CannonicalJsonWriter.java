@@ -1,6 +1,7 @@
 package com.github.javaparser.model.utils;
 
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -32,7 +33,7 @@ public abstract class CannonicalJsonWriter<T> {
 		} else {
 			beginArray();
 			boolean first = true;
-			for (T object : objects) {
+			for (T object : new ArrayList<T>(objects)) {
 				if (first) first = false;
 				else {
 					out.append(',');

@@ -25,6 +25,7 @@ import com.github.javaparser.bdd.steps.CommentParsingSteps;
 import de.codecentric.jbehave.junit.monitoring.JUnitReportingRunner;
 import org.jbehave.core.configuration.Configuration;
 import org.jbehave.core.configuration.MostUsefulConfiguration;
+import org.jbehave.core.configuration.PropertyBasedConfiguration;
 import org.jbehave.core.failures.FailingUponPendingStep;
 import org.jbehave.core.io.LoadFromClasspath;
 import org.jbehave.core.io.StoryFinder;
@@ -49,14 +50,14 @@ abstract class BasicJBehaveTest extends JUnitStories {
 
     @Override
     public final Configuration configuration() {
-        return new MostUsefulConfiguration()
+        return new PropertyBasedConfiguration()
                 // where to find the stories
                 .useStoryLoader(new LoadFromClasspath(this.getClass()))
                         // Fails if Steps are not implemented
                 .usePendingStepStrategy(new FailingUponPendingStep())
                         // CONSOLE and HTML reporting
-                .useStoryReporterBuilder(new StoryReporterBuilder().withDefaultFormats()
-                        .withFormats(Format.CONSOLE, Format.HTML));
+                /*.useStoryReporterBuilder(new StoryReporterBuilder().withDefaultFormats()
+                        .withFormats(Format.CONSOLE, Format.HTML))*/;
     }
 
     @Override

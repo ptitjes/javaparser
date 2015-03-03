@@ -47,15 +47,17 @@ public class ClassFileReader implements Registry.Participant {
 	 *
 	 * @param scope         the scope this type is defined
 	 * @param enclosing     the enclosing element
-	 * @param qualifiedName
+	 * @param qualifiedName the qualified name of the type element
+	 * @param internalName  the internal name of the type element
 	 * @param inputStream   the class file input stream  @return the read type element
 	 */
 	public TypeElem readClass(Scope scope,
 	                          Elem enclosing,
 	                          EltName qualifiedName,
+	                          String internalName,
 	                          InputStream inputStream) throws IOException {
 		ClassReader reader = new ClassReader(inputStream);
-		TypeElemBuilder builder = new TypeElemBuilder(scope, enclosing, qualifiedName);
+		TypeElemBuilder builder = new TypeElemBuilder(scope, enclosing, qualifiedName, internalName);
 		reader.accept(builder, ClassReader.SKIP_CODE);
 		return builder.getTypeElem();
 	}
@@ -65,13 +67,15 @@ public class ClassFileReader implements Registry.Participant {
 		private final Scope scope;
 		private final Elem enclosing;
 		private final EltName qualifiedName;
+		private final BinaryOrigin origin;
 		private TypeElem elem;
 
-		public TypeElemBuilder(Scope scope, Elem enclosing, EltName qualifiedName) {
+		public TypeElemBuilder(Scope scope, Elem enclosing, EltName qualifiedName, String internalName) {
 			super(ASM5);
 			this.scope = scope;
 			this.enclosing = enclosing;
 			this.qualifiedName = qualifiedName;
+			this.origin = new BinaryOrigin(internalName);
 		}
 
 		public TypeElem getTypeElem() {
@@ -81,7 +85,7 @@ public class ClassFileReader implements Registry.Participant {
 		@Override
 		public void visit(int version, int access, String name, String signature, String superName, String[] interfaces) {
 			ElementKind kind = buildTypeElementKind(access);
-			elem = new TypeElem(new BinaryOrigin(name), scope, enclosing,
+			elem = new TypeElem(origin, scope, enclosing,
 					buildModifiers(access),
 					qualifiedName, qualifiedName.simpleName(),
 					kind,
@@ -126,7 +130,7 @@ public class ClassFileReader implements Registry.Participant {
 
 		@Override
 		public FieldVisitor visitField(int access, String name, String desc, String signature, Object value) {
-			VariableElem variable = new VariableElem(new BinaryOrigin(""),
+			VariableElem variable = new VariableElem(origin,
 					elem,
 					buildModifiers(access),
 					EltNames.makeSimple(name),
@@ -142,7 +146,7 @@ public class ClassFileReader implements Registry.Participant {
 		@Override
 		public MethodVisitor visitMethod(int access, String name,
 		                                 final String desc, final String signature, final String[] exceptions) {
-			final ExecutableElem executable = new ExecutableElem(new BinaryOrigin(""),
+			final ExecutableElem executable = new ExecutableElem(origin,
 					elem,
 					buildModifiers(access),
 					EltNames.makeSimple(name),

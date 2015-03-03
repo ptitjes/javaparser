@@ -148,7 +148,7 @@ public class BinaryTypeBuilder implements Registry.Participant {
 
 			int parameterIndex = 0;
 			for (Type argumentType : methodType.getArgumentTypes()) {
-				VariableElem parameter = new VariableElem(new BinaryOrigin(""), elem,
+				VariableElem parameter = new VariableElem(elem.origin(), elem,
 						EnumSet.noneOf(Modifier.class),
 						EltNames.makeSimple("arg" + (parameterIndex++)),
 						ElementKind.PARAMETER);
@@ -342,7 +342,7 @@ public class BinaryTypeBuilder implements Registry.Participant {
 		@Override
 		public void visitFormalTypeParameter(String name) {
 			TypeParameterElem typeParameterElem =
-					new TypeParameterElem(new BinaryOrigin(""), elem, EltNames.makeSimple(name));
+					new TypeParameterElem(elem.origin(), elem, EltNames.makeSimple(name));
 			typeParameterElem.setType(new TpeVariable(typeParameterElem, typeUtils.objectType()));
 		}
 	}
@@ -454,7 +454,7 @@ public class BinaryTypeBuilder implements Registry.Participant {
 		public SignatureVisitor visitParameterType() {
 			List<? extends VariableElement> parameters = elem.getParameters();
 			final VariableElem parameter = parameters.size() <= parameterIndex ?
-					new VariableElem(new BinaryOrigin(""), elem,
+					new VariableElem(elem.origin(), elem,
 							EnumSet.noneOf(Modifier.class),
 							EltNames.makeSimple("arg" + (parameterIndex++)),
 							ElementKind.PARAMETER) :

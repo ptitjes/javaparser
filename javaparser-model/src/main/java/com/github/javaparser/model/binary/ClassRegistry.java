@@ -126,7 +126,7 @@ public class ClassRegistry implements Registry.Participant {
 
 		ClasspathElement classpathElement = classes.get(qualifiedName);
 		TypeElem elem = classFileReader.readClass(dependencyScope(), enclosing, qualifiedName,
-				classpathElement.getInputStream());
+				internalName, classpathElement.getInputStream());
 		loadedClasses.put(qualifiedName, elem);
 		return elem;
 	}

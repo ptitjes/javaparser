@@ -24,5 +24,5 @@ public interface Interface1 {
 }
 
 public interface Interface2<I extends Interface2<I>> {
-
+	default I truc() {}
 }

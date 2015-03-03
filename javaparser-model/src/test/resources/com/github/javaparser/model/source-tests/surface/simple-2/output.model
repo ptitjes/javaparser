@@ -119,7 +119,17 @@
         ],
         superClass: "_bottom_",
         interfaces: [],
-        enclosedElements: []
+        enclosedElements: [
+          {
+            kind: "METHOD",
+            modifiers: [],
+            simpleName: "truc",
+            typeParameters: [],
+            returnType: "I",
+            parameters: [],
+            thrownTypes: []
+          }
+        ]
       }
     ]
   }

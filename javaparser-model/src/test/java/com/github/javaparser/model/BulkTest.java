@@ -8,7 +8,7 @@ import org.junit.runner.RunWith;
  * @author Didier Villevalois
  */
 @RunWith(BulkTestRunner.class)
-public class BulkTests extends BulkTestClass {
+public class BulkTest extends BulkTestClass {
 
 	@Override
 	public String testResourcesPath() {

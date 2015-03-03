@@ -90,8 +90,8 @@ public class BulkTestRunner extends Runner {
 
 	private void runTest(String directory) throws IOException {
 		Classpath classpath = new Classpath();
+		classpath.addClassFiles(ResourceHelper.getJarResourceSource(ClassLoader.getSystemResource("rt-striped.jar")));
 		classpath.addSourceFiles(resourceHelper.getSource(testResourcesPath + directory + "/src/"));
-		classpath.addClassFiles(ResourceHelper.findJavaRuntimeJar());
 
 		StringWriter reportWriter = new StringWriter();
 		JavaAnalyser javaAnalyser = new JavaAnalyser(

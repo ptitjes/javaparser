@@ -2,6 +2,8 @@ package com.github.javaparser.model.classpath;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URL;
 import java.net.URLDecoder;
 import java.util.Enumeration;
 import java.util.HashSet;
@@ -116,5 +118,9 @@ public class ResourceHelper {
 
 	public ClasspathSource getSource(String path) {
 		return new ResourceSource(this, path);
+	}
+
+	public static ClasspathSource getJarResourceSource(URL url) throws IOException {
+		return new JarFileSource(new File(URLDecoder.decode(url.toString(), "UTF-8").substring(5)));
 	}
 }
